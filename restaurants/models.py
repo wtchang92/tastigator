@@ -5,6 +5,10 @@ from django.utils.text import slugify
 
 # Create your models here.
 
+POLLS_STATUS_CHOICES = (('open', 'Open'),
+                        ('closed', 'Closed'),
+                        )
+
 class Restaurant(models.Model):
     name = models.CharField(max_length = 120)
     description = models.CharField(max_length=400, null=True)
@@ -32,3 +36,4 @@ class Review(models.Model):
     comment = models.CharField(max_length=800, null=True)
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+

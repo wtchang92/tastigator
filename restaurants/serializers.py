@@ -1,9 +1,11 @@
 from rest_framework import serializers
+from foodies.models import Foodie
 from .models import Restaurant, Review
 
 from foodies.serializers import FoodieSerializer
 
-from api_keys import google_api_key
+import googlemaps
+from .api_keys import google_api_key
 """
 Please create a file named api_key.py in the restaurant app folder
 and assign add the following to the file:
@@ -12,7 +14,7 @@ google_api_key = "your api key"
 
 """
 
-class RestaurantSerializer(serializers.ModelSerializer):
+class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
     lat = None
     log = None
     avg_review = serializers.DecimalField(max_digits=4, decimal_places=2, read_only=True)
@@ -61,12 +63,11 @@ class RestaurantSerializer(serializers.ModelSerializer):
 
 class ReviewSerializer(serializers.ModelSerializer):
     foodie = FoodieSerializer('foodie', read_only=True)
-    foodie_pk = serializers.IntegerField(write_only=True)
     restaurant_name = serializers.ReadOnlyField(source="restaurant.name")
     class Meta:
         model = Review
-        fields = ('id','url','foodie','foodie_pk','restaurant_name', 'subject','restaurant','wouldGo','score','comment','added')
-        read_only_fields = ('id','url','added')
+        fields = ('id','url','foodie','restaurant_name', 'subject','restaurant','score','comment','added')
+        read_only_fields = ('id','foodie','url','added')
 
     def create(self, validated_data):
 
@@ -79,3 +80,4 @@ class ReviewSerializer(serializers.ModelSerializer):
         )
         review.save()
         return review
+

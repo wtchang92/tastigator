@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'foodies',
     'restaurants',
+    'polls',
 
     'rest_framework',
 ]
