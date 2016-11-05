@@ -1,0 +1,8 @@
+*.swp
+*.pyc
+node_modules/
+
+# python virtual environment
+env/
+staticfiles/
+restaurants/api_keys.py
