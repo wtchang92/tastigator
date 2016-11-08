@@ -98,5 +98,5 @@ class FoodieSerializer(serializers.HyperlinkedModelSerializer):
     profileimage_set = ProfileImageUploadSerializer(many=True, read_only=True)
     class Meta:
         model = Foodie
-        fields = ('id','url','user','profileimage_set')
+        fields = ('id','url','is_guide','user','profileimage_set')
         read_only_fields = ('id','url')

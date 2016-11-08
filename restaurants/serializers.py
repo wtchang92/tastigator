@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, status
 from foodies.models import Foodie
 from .models import Restaurant, Review
 
@@ -20,7 +20,7 @@ class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
     avg_review = serializers.DecimalField(max_digits=4, decimal_places=2, read_only=True)
     class Meta:
         model = Restaurant
-        fields = ('id','url', 'name', 'description', 'street','city','state','avg_review','lat', 'log'  )
+        fields = ('id','url', 'name', 'description', 'street','city','state','avg_review','lat', 'log', 'status')
         read_only_fields = ('id','url','review_average','avg_review', 'lat', 'log')
 
     def create(self, validated_data):
@@ -40,16 +40,17 @@ class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
 
     def validate(self, data):
         """
-        Check that the start is before the stop.
+        Check entered address can be converted to Lat & Log
         """
         gmaps = googlemaps.Client(key=google_api_key)
         try:
-            address = str(data['street'].encode('ascii','ignore')) +  str(data['city'].encode('ascii','ignore')) +  str(data['state'].encode('ascii','ignore'))
+            # address = str(data['street'].encode('ascii','ignore')) +  str(data['city'].encode('ascii','ignore')) +  str(data['state'].encode('ascii','ignore'))
+            address = (data['street'])+ ' ' +  (data['city']) + ' '+ (data['state'])
         except:
             address = data['street']
         # Geocoding an address
         if not isinstance(address, str):
-            geocode_result = gmaps.geocode(address.encode('ascii','ignore'))
+            geocode_result = gmaps.geocode(address)
         else:
             geocode_result = gmaps.geocode(address)
 
@@ -80,4 +81,10 @@ class ReviewSerializer(serializers.ModelSerializer):
         )
         review.save()
         return review
+
+    def validate(self, data):
+        if data["restaurant"].status != 'visited':
+            raise serializers.ValidationError("restaurant has not been visited")
+        return super(ReviewSerializer, self).validate(data)
+
 

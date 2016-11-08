@@ -9,6 +9,10 @@ POLLS_STATUS_CHOICES = (('open', 'Open'),
                         ('closed', 'Closed'),
                         )
 
+RESTAURANT_STATUSES = (('visited', 'Visited'),
+                        ('newly added', 'Newly Added'),
+                        )
+
 class Restaurant(models.Model):
     name = models.CharField(max_length = 120)
     description = models.CharField(max_length=400, null=True)
@@ -17,6 +21,7 @@ class Restaurant(models.Model):
     state = models.CharField(max_length=120)
     lat = models.DecimalField(max_digits=12,decimal_places=10)
     log = models.DecimalField(max_digits=12,decimal_places=10)
+    status = models.CharField(max_length=120, choices=RESTAURANT_STATUSES, default='newly added')
     added = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 

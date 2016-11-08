@@ -5,7 +5,7 @@ from rest_framework import viewsets, response, permissions
 from .serializers import UserSerializer, FoodieSerializer, ProfileImageUploadSerializer
 
 from rest_framework.permissions import AllowAny
-from .permissions import IsStaffOrTargetUser, IsImageOwnerOrStaffElseReadonly
+from .permissions import IsAnonCreate,ProfileAuthenticatedBasic, ProfileImagePermission
 
 from rest_framework import filters
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -18,12 +18,7 @@ from django.db.models import Avg, Count
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get_permissions(self):
-        # allow non-authenticated user to create via POST
-        return (AllowAny() if self.request.method == 'POST'
-                else IsStaffOrTargetUser()),
+    permission_classes = (IsAnonCreate,)
 
     def list(self, request, *args, **kwargs):
         if request.method == 'GET' and 'username_starts' in request.GET:
@@ -50,22 +45,13 @@ class FoodieViewSet(viewsets.ModelViewSet):
     queryset = Foodie.objects.all()
     serializer_class = FoodieSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get_permissions(self):
-        return (IsStaffOrTargetUser() if self.request.method not in permissions.SAFE_METHODS
-                else permissions.IsAuthenticated()),
-
+    permission_classes = (ProfileAuthenticatedBasic,)
 
 class ProfileImageViewSet(viewsets.ModelViewSet):
     queryset = ProfileImage.objects.all()
     serializer_class = ProfileImageUploadSerializer
     parser_classes = (MultiPartParser, FormParser,)
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get_permissions(self):
-        return (IsImageOwnerOrStaffElseReadonly() if self.request.method not in permissions.SAFE_METHODS
-                else permissions.IsAuthenticated()),
+    permission_classes = (ProfileImagePermission,)
 
     def perform_create(self, serializer):
         print("uploading image")
