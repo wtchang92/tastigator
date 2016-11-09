@@ -186,28 +186,20 @@ var ReviewForm = React.createClass({
   },
   getInitialState: function() {
         return {
-            would_go_checked:false,
             user:[],
             foodie:[],
         };
-  },
-  handleWouldGO: function(){
-    this.setState({
-      would_go_checked: !this.state.complete
-    });
   },
   handleSubmit: function(e) {
     e.preventDefault();
     var subject = ReactDOM.findDOMNode(this.refs.subject).value;
     var score = parseFloat(ReactDOM.findDOMNode(this.refs.score).value);
     var restaurant_id = parseInt(this.props.restaurant_pk);
-    var foodie_id = this.state.user.foodie_id;
-    var wouldGo = ReactDOM.findDOMNode(this.refs.would_go).value;
     var comment = ReactDOM.findDOMNode(this.refs.comment).value;
-    if (!subject || !score || !restaurant_id || !wouldGo || !comment) {
+    if (!subject || !score || !restaurant_id  || !comment) {
       return;
     };
-    this.props.onReviewSubmit({subject: subject, score: score, restaurant:restaurant_id,wouldGo:true, comment:comment, foodie_pk:foodie_id});
+    this.props.onReviewSubmit({subject: subject, score: score, restaurant:restaurant_id, comment:comment});
   },
   render: function() {
     return (
@@ -217,10 +209,6 @@ var ReviewForm = React.createClass({
                            <h1>Post a Review:</h1>
                 </Col>
             </Row>
-            <label>
-                <input type="checkbox" ref="would_go" onChange={this.handleWouldGO} defaultChecked={this.state.would_go_checked}/>
-                    Would Go Again!
-            </label>
 
             <form onSubmit={this.handleSubmit}>
                 <FormGroup>
@@ -266,10 +254,37 @@ var RestaurantProfile = React.createClass({
                 'Authorization': 'Token ' + localStorage.token
           },
           success: function(data) {
-            this.setState({average_score:data.average_score});
+            console.log("updating avg");
+            this.setState({average_score:data.avg_review});
           }.bind(this),
           error: function(xhr, status, err) {
             console.error(this.props.url, status, err.toString());
+          }.bind(this)
+        });
+  },
+  markVisited: function () {
+      var statusValue = {"status":"visited"};
+        
+      $.ajax({
+
+          url: '/api/restaurants/'+this.state.url_param+'/',
+
+          contentType:'application/json; charset=utf-8',
+          dataType: 'json',
+          type: 'PATCH',
+          data: JSON.stringify(statusValue),
+
+          headers: {
+                'Authorization': 'Token ' + localStorage.token
+          },
+          success: function(data) {
+            console.log("changing status");
+            console.log(data);
+            this.setState({data: data});
+            this.setState({status:data.status});
+          }.bind(this),
+          error: function(xhr, status, err) {
+            console.error("status update failed to load restaurant");
           }.bind(this)
         });
   },
@@ -285,7 +300,8 @@ var RestaurantProfile = React.createClass({
             console.log("r profile load success");
             console.log(data);
             this.setState({data: data});
-            this.setState({average_score:data.average_score});
+            this.setState({average_score:data.avg_review});
+            this.setState({status:data.status});
             this.initTripMap(parseFloat(data.lat), parseFloat(data.log));
           }.bind(this),
           error: function(xhr, status, err) {
@@ -298,6 +314,7 @@ var RestaurantProfile = React.createClass({
             url_param: this.props.params.id,
             data:[],
             average_score: [],
+            status:"newly added",
         };
       },
       componentWillMount: function() {
@@ -307,6 +324,18 @@ var RestaurantProfile = React.createClass({
 
 
   render() {
+    if (this.state.status == "visited") {
+      var review_section = <Row >
+            <ReviewBox restaurantPk={this.state.url_param} handleAverageScore={this.updateAverage}/>
+        </Row>; 
+      var visit_button = null;
+    } else {
+      var review_section = <Row className='text-align-center'>
+            <h3>Reviews disabled - Please visit the restaurant first</h3>
+        </Row>; 
+        var visit_button = null;
+        var visit_button = <Button value="mark_visited" onClick={this.markVisited}>mark visited</Button>;
+    }
     return (
       <div>
         <div className='component'>
@@ -314,7 +343,7 @@ var RestaurantProfile = React.createClass({
               <Col xs={8} md={6} xsOffset={2} mdOffset={3}>
                    <h1>{this.state.data.name}</h1>
                    
-                   <h4>Status: {this.state.data.status}</h4>
+                   <h4>Status: {this.state.data.status}</h4> {visit_button}
               </Col>
         </Row>
 
@@ -338,7 +367,7 @@ var RestaurantProfile = React.createClass({
             </Col>
         </Row>
         <Row>
-            <ReviewBox restaurantPk={this.state.url_param} handleAverageScore={this.updateAverage}/>
+            {review_section}
         </Row>
         </div>
     </div>

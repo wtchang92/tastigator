@@ -19,7 +19,9 @@ var Restaurant = React.createClass({
                 <Col xs={12} md={12}>
                         <a><h2 className="restaurantName" onClick={this.MoveToProfile} value={this.props.url}>
                           {this.props.name}
-                        </h2></a>
+                        </h2>
+                        </a>
+                        <h4>Status: {this.props.status}</h4>
                         <p>Review average: {this.props.avg_score}/10<br/>
                         {this.props.children}</p>
                 </Col>
@@ -39,7 +41,7 @@ var RestaurantPage= React.createClass({
       updateSort: function(event) {
         console.log("sort update");
         if (event.target.value == "score") {
-            this.setState({sort: "score"}, function() {
+            this.setState({sort: "avg_review"}, function() {
                 console.log(this.state.sort);
                 this.loadRestaurantsFromServer();
             })
@@ -50,6 +52,21 @@ var RestaurantPage= React.createClass({
                 this.loadRestaurantsFromServer();
             })
         }
+      },
+      updateFilter: function(event) {
+          console.log("sort filter");
+          if (event.target.value == "newly added") {
+            this.setState({filter: "newly%20added"}, function() {
+                console.log(this.state.filter);
+                this.loadRestaurantsFromServer();
+            })
+          }
+          else if (event.target.value == "visited") {
+              this.setState({filter: "visited"}, function() {
+                  console.log(this.state.filter);
+                  this.loadRestaurantsFromServer();
+              })
+          }
       },
       loadUserFromServer: function() {
         $.ajax({
@@ -63,19 +80,19 @@ var RestaurantPage= React.createClass({
                         console.log("loading user");
                         console.log(user_res);
                         console.log("loading user loaded");
-                        this.setState({can_edit:true});
+                        if (user_res.is_guide) {
+                          this.setState({can_edit:true});
+                        }
                     }.bind(this)
         })
       },
       loadRestaurantsFromServer: function() {
-        var restaurants_url = "/api/restaurants/";
-        if (this.state.sort == "score") {
-            console.log("sort by score");
-            restaurants_url = restaurants_url + "?ordering=avg_review"
+        var restaurants_url = "/api/restaurants/?";
+        if (this.state.sort) {
+            restaurants_url = restaurants_url + "ordering="+String(this.state.sort)+"&";
         }
-        else if (this.state.sort == "added") {
-            console.log("sort by added");
-            restaurants_url = restaurants_url + "?ordering=added"
+        if (this.state.filter) {
+            restaurants_url = restaurants_url + "status="+String(this.state.filter);
         }
         $.ajax({
           method: 'GET',
@@ -95,7 +112,8 @@ var RestaurantPage= React.createClass({
       },
       getInitialState: function() {
         return {data: [],
-            sort:[],
+            sort:null,
+            filter:null,
             order:[],
             can_edit:false
         };
@@ -118,6 +136,9 @@ var RestaurantPage= React.createClass({
                         <br className={this.state.can_edit ? ''  : 'hidden'} />
                         <br className={this.state.can_edit ? ''  : 'hidden'} />
                         <Row>
+                               <span>Filter by: <Button value="newly added" onClick={this.updateFilter}>Newly Added</Button> <Button value="visited" onClick={this.updateFilter}>Visited</Button></span> 
+                               <br/>
+                               <br/>
                                <span>Sort by: <Button value="score" onClick={this.updateSort}>Score</Button> <Button value="added" onClick={this.updateSort}>Date</Button></span>
                                <RestaurantList data={this.state.data} />
                         </Row>
@@ -140,7 +161,7 @@ var RestaurantList = React.createClass({
   render: function() {
     var restaurantNodes = this.props.data.map(function(restaurant) {
       return (
-        <Restaurant name={restaurant.name} avg_score={restaurant.avg_review} key={restaurant.id} url={restaurant.id} handleMoveToProfile={this.goToRestaurantProfile} >
+        <Restaurant name={restaurant.name} status={restaurant.status} avg_score={restaurant.avg_review} key={restaurant.id} url={restaurant.id} handleMoveToProfile={this.goToRestaurantProfile} >
           {restaurant.description}
         </Restaurant>
       );

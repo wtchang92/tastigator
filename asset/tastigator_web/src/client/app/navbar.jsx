@@ -42,7 +42,7 @@ var Navigation = React.createClass({
         this.context.router.push('/app/circles/');
     },
     goToFoodieProfile: function() {
-        var foodie_key = this.state.user.foodie_id;
+        var foodie_key = this.props.user.foodie_id;
         this.context.router.replace('/app/foodie/'+foodie_key);
     },
     goAddPoll: function() {
@@ -79,26 +79,13 @@ var Navigation = React.createClass({
         auth.logout()
         this.context.router.replace('/app/login/')
     },
-
-    getInitialState: function() {
-        return {'user':[]}
-    },
     componentDidMount: function() {
-        this.loadUserData()
+        console.log(this.props.user);
     },
-    loadUserData: function() {
-        $.ajax({
-            method: 'GET',
-            url: '/api/users/i/',
-            datatype: 'json',
-            headers: {
-                'Authorization': 'Token ' + localStorage.token
-            },
-            success: function(res) {
-                this.setState({user: res})
-            }.bind(this)
-        })
+    getInitialState: function() {
+        return {'user':this.props.user}
     },
+
 
     render: function() {
       
@@ -117,7 +104,7 @@ var Navigation = React.createClass({
                             <NavItem eventKey={3} onClick={this.goRestaurantListing}>Restaurants</NavItem>
                           </Nav>
                           <Nav pullRight>
-                            <NavItem eventKey={1} onClick={this.goToFoodieProfile}>{this.state.user.username}</NavItem>
+                            <NavItem eventKey={1} onClick={this.goToFoodieProfile}>{this.props.user.username}</NavItem>
                             <NavItem eventKey={2} href="#" onClick={this.logoutHandler}>Log out</NavItem>
                           </Nav>
                         </Navbar.Collapse>
