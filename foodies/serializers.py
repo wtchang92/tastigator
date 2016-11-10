@@ -10,12 +10,13 @@ class UserSerializer(serializers.ModelSerializer):
     new_pass = serializers.CharField(allow_blank=True, write_only=True)
     new_confirm_pass = serializers.CharField(allow_blank=True, write_only=True)
     foodie_id = serializers.URLField(source='foodie.id', allow_blank=True, read_only=True)
+    is_guide = serializers.BooleanField(source='foodie.is_guide', read_only=True )
 
     class Meta:
         model = User
-        fields = ('id', 'username', 'password', 'email','is_staff','confirm_pass','foodie_id', 'new_pass', 'new_confirm_pass')
+        fields = ('id', 'username', 'password', 'email','is_staff','confirm_pass','foodie_id', 'new_pass', 'new_confirm_pass','is_guide')
         write_only_fields = ('password','confirm_pass', 'new_pass', 'new_confirm_pass')
-        read_only_fields = ('id','is_staff','foodie')
+        read_only_fields = ('id','is_staff','foodie','is_guide')
 
     def create(self, validated_data):
         user = User.objects.filter(username=validated_data['username'])
@@ -55,7 +56,7 @@ class UserSerializer(serializers.ModelSerializer):
                     print("email 1")
                     raise serializers.ValidationError("Email exist")
 
-        if validated_data.viewkeys() >= {'password','new_pass','new_confirm_pass'}:
+        if validated_data.keys() >= {'password','new_pass','new_confirm_pass'}:
             if validated_data["password"] or validated_data["new_pass"] or validated_data["new_confirm_pass"]:
                 if (validated_data["password"] and validated_data["new_pass"] and validated_data["new_confirm_pass"]):
                     if instance.check_password(validated_data["password"]):
@@ -65,7 +66,7 @@ class UserSerializer(serializers.ModelSerializer):
                             raise serializers.ValidationError("new password and new confirmation password do not match")
                     else:
                         raise serializers.ValidationError("Current password incorrect")
-        elif validated_data.viewkeys() & {'password','new_pass','new_confirm_pass'}:
+        elif validated_data.keys() & {'password','new_pass','new_confirm_pass'}:
             raise serializers.ValidationError("Missing required password field(s)")
 
         for attr, value in validated_data.items():
@@ -82,21 +83,18 @@ class ProfileImageUploadSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('added','updated','owner', 'url', 'datafile')
     def create(self, validated_data):
-        try:
-            request = self.context.get("request")
-            if request and hasattr(request, "user"):
-                user = request.user
-                if ProfileImage.objects.filter(owner=user.foodie.id) > 0:
-                    print("deleting image object")
-                    ProfileImage.objects.filter(owner=user.foodie.id).delete()
-        except:
-            pass
+        request = self.context.get("request")
+        if request and hasattr(request, "user"):
+            user = request.user
+            if ProfileImage.objects.filter(owner=user.foodie.id).count() > 0:
+                print("deleting image object")
+                ProfileImage.objects.filter(owner=user.foodie.id).delete()
         return ProfileImage.objects.create(**validated_data)
 
 class FoodieSerializer(serializers.HyperlinkedModelSerializer):
     user = UserSerializer('user', read_only=True)
-    profileimage_set = ProfileImageUploadSerializer(many=True, read_only=True)
+    profileimage = ProfileImageUploadSerializer('profileimage', read_only=True)
     class Meta:
         model = Foodie
-        fields = ('id','url','is_guide','user','profileimage_set')
+        fields = ('id','url','is_guide','user','profileimage')
         read_only_fields = ('id','url')

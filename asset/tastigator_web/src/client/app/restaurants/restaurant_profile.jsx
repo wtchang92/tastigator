@@ -9,6 +9,7 @@ var Button = ReactBootstrap.Button;
 var FormGroup = ReactBootstrap.FormGroup;
 var FormControl = ReactBootstrap.FormControl;
 var ReactDOM = require('react-dom');
+var FontAwesome = require('react-fontawesome');
 
 
 
@@ -52,7 +53,7 @@ var Feedback = React.createClass({
         <h5 >
           Feedback: {this.props.children}
         </h5>
-        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added_on}</span><br/>
+        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added}</span><br/>
         
       </div>
     );
@@ -154,7 +155,7 @@ var Review = React.createClass({
         <h2 className="ReviewAuthor">
           {this.props.subject}
         </h2> {my_review_symbol}
-        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added_on}</span><br/>
+        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added}</span><br/>
         <span>score: {this.props.score}/10</span>
         <span><p>{this.props.children}</p></span>
         <FeedbackList feedbacks={this.state.feedbacks}/>
@@ -515,7 +516,7 @@ var RestaurantProfile = React.createClass({
               </Col>
         </Row>
         <Row className='text-align-center'>
-        Thumb Downs: {this.state.thumb_downs}<br/>
+        <FontAwesome name='thumbs-o-down'/>: {this.state.thumb_downs}<br/>
         <Button value="thumb_down" onClick={this.thumb_down}>Thumb Down</Button>
         </Row>
         <Row className='text-align-center'>

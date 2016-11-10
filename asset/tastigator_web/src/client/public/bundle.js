@@ -69,15 +69,15 @@
 	
 	var _restaurant_profile2 = _interopRequireDefault(_restaurant_profile);
 	
-	var _add_restaurant = __webpack_require__(/*! ./restaurants/add_restaurant.jsx */ 484);
+	var _add_restaurant = __webpack_require__(/*! ./restaurants/add_restaurant.jsx */ 485);
 	
 	var _add_restaurant2 = _interopRequireDefault(_add_restaurant);
 	
-	var _foodie_profile = __webpack_require__(/*! ./foodies/foodie_profile.jsx */ 485);
+	var _foodie_profile = __webpack_require__(/*! ./foodies/foodie_profile.jsx */ 486);
 	
 	var _foodie_profile2 = _interopRequireDefault(_foodie_profile);
 	
-	var _edit_foodie_profile = __webpack_require__(/*! ./foodies/edit_foodie_profile.jsx */ 486);
+	var _edit_foodie_profile = __webpack_require__(/*! ./foodies/edit_foodie_profile.jsx */ 487);
 	
 	var _edit_foodie_profile2 = _interopRequireDefault(_edit_foodie_profile);
 	
@@ -47111,6 +47111,7 @@
 	var Input = ReactBootstrap.Input;
 	var Button = ReactBootstrap.Button;
 	var Router = __webpack_require__(/*! react-router */ 428);
+	var FontAwesome = __webpack_require__(/*! react-fontawesome */ 484);
 	
 	var Restaurant = React.createClass({
 	  displayName: 'Restaurant',
@@ -47146,7 +47147,8 @@
 	          React.createElement(
 	            'span',
 	            null,
-	            'Thumb downs: ',
+	            React.createElement(FontAwesome, { name: 'thumbs-o-down' }),
+	            ': ',
 	            this.props.thumb_downs
 	          ),
 	          React.createElement('br', null),
@@ -47182,22 +47184,27 @@
 	  },
 	  updateSort: function updateSort(event) {
 	    console.log("sort update");
+	    console.log(event.target.value);
 	    if (event.target.value == "score") {
-	      this.setState({ sort: "avg_review" }, function () {
+	      console.log("sort1");
+	      this.setState({ sort: "ordering=avg_review" }, function () {
 	        console.log(this.state.sort);
 	        this.loadRestaurantsFromServer();
 	      });
 	    } else if (event.target.value == "added") {
-	      this.setState({ sort: "added" }, function () {
+	      console.log("sort2");
+	      this.setState({ sort: "ordering=added" }, function () {
 	        console.log(this.state.sort);
 	        this.loadRestaurantsFromServer();
 	      });
 	    } else if (event.target.value == "thumb") {
-	      this.setState({ sort: "thumb" }, function () {
+	      console.log("sort3");
+	      this.setState({ sort: "thumb_downs_order=asc" }, function () {
 	        console.log(this.state.sort);
 	        this.loadRestaurantsFromServer();
 	      });
 	    }
+	    console.log("sort4");
 	  },
 	  updateFilter: function updateFilter(event) {
 	    console.log("sort filter");
@@ -47233,11 +47240,12 @@
 	  },
 	  loadRestaurantsFromServer: function loadRestaurantsFromServer() {
 	    var restaurants_url = "/api/restaurants/?";
+	
 	    if (this.state.sort) {
-	      restaurants_url = restaurants_url + "ordering=" + String(this.state.sort) + "&";
+	      restaurants_url = restaurants_url + String(this.state.sort) + "&";
 	    }
 	    if (this.state.filter) {
-	      restaurants_url = restaurants_url + "status=" + String(this.state.filter);
+	      restaurants_url = restaurants_url + "status=" + String(this.state.filter) + "&";
 	    }
 	    $.ajax({
 	      method: 'GET',
@@ -47334,12 +47342,7 @@
 	                { value: 'added', onClick: this.updateSort },
 	                'Date'
 	              ),
-	              ' ',
-	              React.createElement(
-	                Button,
-	                { value: 'thumb', onClick: this.updateSort },
-	                'Thumb downs'
-	              )
+	              ' '
 	            ),
 	            React.createElement(RestaurantList, { data: this.state.data })
 	          )
@@ -47399,6 +47402,7 @@
 	var FormGroup = ReactBootstrap.FormGroup;
 	var FormControl = ReactBootstrap.FormControl;
 	var ReactDOM = __webpack_require__(/*! react-dom */ 150);
+	var FontAwesome = __webpack_require__(/*! react-fontawesome */ 484);
 	
 	var ControlLabel = ReactBootstrap.ControlLabel;
 	var Checkbox = ReactBootstrap.Checkbox;
@@ -47462,7 +47466,7 @@
 	          )
 	        ),
 	        ' on ',
-	        this.props.added_on
+	        this.props.added
 	      ),
 	      React.createElement('br', null)
 	    );
@@ -47610,7 +47614,7 @@
 	          )
 	        ),
 	        ' on ',
-	        this.props.added_on
+	        this.props.added
 	      ),
 	      React.createElement('br', null),
 	      React.createElement(
@@ -48077,7 +48081,8 @@
 	        React.createElement(
 	          Row,
 	          { className: 'text-align-center' },
-	          'Thumb Downs: ',
+	          React.createElement(FontAwesome, { name: 'thumbs-o-down' }),
+	          ': ',
 	          this.state.thumb_downs,
 	          React.createElement('br', null),
 	          React.createElement(
@@ -48135,6 +48140,123 @@
 
 /***/ },
 /* 484 */
+/*!******************************************!*\
+  !*** ./~/react-fontawesome/lib/index.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	/**
+	 * A React component for the font-awesome icon library.
+	 *
+	 *
+	 * @param {Boolean} [border=false] Whether or not to show a border radius
+	 * @param {String} [className] An extra set of CSS classes to add to the component
+	 * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
+	 * @param {Boolean} [fixedWidth=false] Make buttons fixed width
+	 * @param {String} [flip=false] Flip the icon's orientation.
+	 * @param {Boolean} [inverse=false]Inverse the icon's color
+	 * @param {String} name Name of the icon to use
+	 * @param {Boolean} [pulse=false] Rotate icon with 8 steps (rather than smoothly)
+	 * @param {Number} [rotate] The degress to rotate the icon by
+	 * @param {String} [size] The icon scaling size
+	 * @param {Boolean} [spin=false] Spin the icon
+	 * @param {String} [stack] Stack an icon on top of another
+	 * @param {String} [tag=span] The HTML tag to use as a string (eg 'i' or 'em')
+	 * @module FontAwesome
+	 * @type {ReactClass}
+	 */
+	exports.default = _react2.default.createClass({
+	
+	  displayName: 'FontAwesome',
+	
+	  propTypes: {
+	    border: _react2.default.PropTypes.bool,
+	    className: _react2.default.PropTypes.string,
+	    cssModule: _react2.default.PropTypes.object,
+	    fixedWidth: _react2.default.PropTypes.bool,
+	    flip: _react2.default.PropTypes.oneOf(['horizontal', 'vertical']),
+	    inverse: _react2.default.PropTypes.bool,
+	    name: _react2.default.PropTypes.string.isRequired,
+	    pulse: _react2.default.PropTypes.bool,
+	    rotate: _react2.default.PropTypes.oneOf([90, 180, 270]),
+	    size: _react2.default.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x']),
+	    spin: _react2.default.PropTypes.bool,
+	    stack: _react2.default.PropTypes.oneOf(['1x', '2x']),
+	    tag: _react2.default.PropTypes.string
+	  },
+	
+	  render: function render() {
+	    var _props = this.props;
+	    var border = _props.border;
+	    var cssModule = _props.cssModule;
+	    var className = _props.className;
+	    var fixedWidth = _props.fixedWidth;
+	    var flip = _props.flip;
+	    var inverse = _props.inverse;
+	    var name = _props.name;
+	    var pulse = _props.pulse;
+	    var rotate = _props.rotate;
+	    var size = _props.size;
+	    var spin = _props.spin;
+	    var stack = _props.stack;
+	    var _props$tag = _props.tag;
+	    var tag = _props$tag === undefined ? 'span' : _props$tag;
+	
+	    var props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag']);
+	
+	    var classNames = [];
+	
+	    if (cssModule) {
+	      classNames.push(cssModule['fa']);
+	      classNames.push(cssModule['fa-' + name]);
+	      size && classNames.push(cssModule['fa-' + size]);
+	      spin && classNames.push(cssModule['fa-spin']);
+	      pulse && classNames.push(cssModule['fa-pulse']);
+	      border && classNames.push(cssModule['fa-border']);
+	      fixedWidth && classNames.push(cssModule['fa-fw']);
+	      inverse && classNames.push(cssModule['fa-inverse']);
+	      flip && classNames.push(cssModule['fa-flip-' + flip]);
+	      rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
+	      stack && classNames.push(cssModule['fa-stack-' + stack]);
+	    } else {
+	      classNames.push('fa');
+	      classNames.push('fa-' + name);
+	      size && classNames.push('fa-' + size);
+	      spin && classNames.push('fa-spin');
+	      pulse && classNames.push('fa-pulse');
+	      border && classNames.push('fa-border');
+	      fixedWidth && classNames.push('fa-fw');
+	      inverse && classNames.push('fa-inverse');
+	      flip && classNames.push('fa-flip-' + flip);
+	      rotate && classNames.push('fa-rotate-' + rotate);
+	      stack && classNames.push('fa-stack-' + stack);
+	    }
+	
+	    // Add any custom class names at the end.
+	    className && classNames.push(className);
+	    return _react2.default.createElement(tag, _extends({}, props, { className: classNames.join(' ') }));
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 485 */
 /*!*******************************************************!*\
   !*** ./src/client/app/restaurants/add_restaurant.jsx ***!
   \*******************************************************/
@@ -48291,7 +48413,7 @@
 	exports.default = RestaurantForm;
 
 /***/ },
-/* 485 */
+/* 486 */
 /*!***************************************************!*\
   !*** ./src/client/app/foodies/foodie_profile.jsx ***!
   \***************************************************/
@@ -48640,7 +48762,7 @@
 	exports.default = FoodieProfile;
 
 /***/ },
-/* 486 */
+/* 487 */
 /*!********************************************************!*\
   !*** ./src/client/app/foodies/edit_foodie_profile.jsx ***!
   \********************************************************/

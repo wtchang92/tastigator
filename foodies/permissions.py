@@ -8,21 +8,26 @@ EDIT_METHODS = ["PUT","PATCH"]
 
 class IsAnonCreate(permissions.BasePermission):
     def has_permission(self, request, view):
+        print("z")
         if request.method == "POST" and not request.user.is_authenticated():
             return True
-        elif not request.user.is_authenticated() and request.method != "POST":
-            return False
-        elif request.method in permissions.SAFE_METHODS:
+        elif request.method == "GET" and request.user.is_authenticated():
+            return True
+        elif request.method in EDIT_METHODS and request.user.is_authenticated():
+            print("z1")
             return True
         return False
-
     def has_object_permission(self, request, view, obj):
-        if not request.user.is_authenticated():
-            return False
-        if request.method in permissions.SAFE_METHODS:
+        print("t")
+        if request.method == "POST" and not request.user.is_authenticated():
             return True
-
-        return obj.username == request.user.username
+        elif request.method in permissions.SAFE_METHODS and request.user.is_authenticated():
+            return True
+        elif request.method in EDIT_METHODS and obj == request.user and request.user.is_authenticated():
+            print("t1")
+            return True
+        print("t2")
+        return False
 
 class ProfileAuthenticatedBasic(permissions.BasePermission):
     def has_permission(self, request, view):

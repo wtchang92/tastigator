@@ -6,6 +6,7 @@ var Col = ReactBootstrap.Col;
 var Input = ReactBootstrap.Input;
 var Button = ReactBootstrap.Button;
 var Router = require('react-router');
+var FontAwesome = require('react-fontawesome');
 
 
 var Restaurant = React.createClass({
@@ -22,7 +23,7 @@ var Restaurant = React.createClass({
                         </h2>
                         </a>
                         <h4>Status: {this.props.status}</h4>
-                        <span>Thumb downs: {this.props.thumb_downs}</span><br/>
+                        <span><FontAwesome name='thumbs-o-down'/>: {this.props.thumb_downs}</span><br/>
                         <span>added: {this.props.added}</span>
                         <p>Review average: {this.props.avg_score}/10<br/>
                         {this.props.children}</p>
@@ -42,24 +43,29 @@ var RestaurantPage= React.createClass({
       },
       updateSort: function(event) {
         console.log("sort update");
+        console.log(event.target.value);
         if (event.target.value == "score") {
-            this.setState({sort: "avg_review"}, function() {
+          console.log("sort1");
+            this.setState({sort: "ordering=avg_review"}, function() {
                 console.log(this.state.sort);
                 this.loadRestaurantsFromServer();
             })
         }
         else if (event.target.value == "added") {
-            this.setState({sort: "added"}, function() {
+          console.log("sort2");
+            this.setState({sort: "ordering=added"}, function() {
                 console.log(this.state.sort);
                 this.loadRestaurantsFromServer();
             })
         }
         else if (event.target.value == "thumb") {
-            this.setState({sort: "thumb"}, function() {
+          console.log("sort3");
+            this.setState({sort: "thumb_downs_order=asc"}, function() {
                 console.log(this.state.sort);
                 this.loadRestaurantsFromServer();
             })
         }
+        console.log("sort4");
 
       },
       updateFilter: function(event) {
@@ -97,11 +103,12 @@ var RestaurantPage= React.createClass({
       },
       loadRestaurantsFromServer: function() {
         var restaurants_url = "/api/restaurants/?";
+
         if (this.state.sort) {
-            restaurants_url = restaurants_url + "ordering="+String(this.state.sort)+"&";
+            restaurants_url = restaurants_url + String(this.state.sort)+"&";
         }
         if (this.state.filter) {
-            restaurants_url = restaurants_url + "status="+String(this.state.filter);
+            restaurants_url = restaurants_url + "status="+String(this.state.filter)+"&";
         }
         $.ajax({
           method: 'GET',
@@ -148,7 +155,7 @@ var RestaurantPage= React.createClass({
                                <span>Filter by: <Button value="newly added" onClick={this.updateFilter}>Newly Added</Button> <Button value="visited" onClick={this.updateFilter}>Visited</Button></span> 
                                <br/>
                                <br/>
-                               <span>Sort by: <Button value="score" onClick={this.updateSort}>Score</Button> <Button value="added" onClick={this.updateSort}>Date</Button> <Button value="thumb" onClick={this.updateSort}>Thumb downs</Button></span>
+                               <span>Sort by: <Button value="score" onClick={this.updateSort}>Score</Button> <Button value="added" onClick={this.updateSort}>Date</Button> </span>
                                <RestaurantList data={this.state.data} />
                         </Row>
                     </Col>

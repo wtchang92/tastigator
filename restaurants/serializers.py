@@ -1,6 +1,6 @@
 from rest_framework import serializers, status
 from foodies.models import Foodie
-from .models import Restaurant, Review
+from .models import Restaurant, Review, Thumb, Feedback
 
 from foodies.serializers import FoodieSerializer
 
@@ -18,12 +18,32 @@ class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
     lat = None
     log = None
     avg_review = serializers.DecimalField(max_digits=4, decimal_places=2, read_only=True)
+    thumb_downs = serializers.ReadOnlyField()
     class Meta:
         model = Restaurant
-        fields = ('id','url', 'name', 'description', 'street','city','state','avg_review','lat', 'log', 'status')
-        read_only_fields = ('id','url','review_average','avg_review', 'lat', 'log')
+        fields = ('id','url','added', 'name', 'description', 'street','city','state','avg_review','lat', 'log', 'status','thumb_downs')
+        read_only_fields = ('id','url','added','review_average','avg_review', 'lat', 'log','thumb_downs')
 
     def create(self, validated_data):
+        gmaps = googlemaps.Client(key=google_api_key)
+        try:
+            # address = str(data['street'].encode('ascii','ignore')) +  str(data['city'].encode('ascii','ignore')) +  str(data['state'].encode('ascii','ignore'))
+            address = (validated_data['street'])+ ' ' +  (validated_data['city']) + ' '+ (validated_data['state'])
+        except:
+            address = validated_data['street']
+        # Geocoding an address
+        if not isinstance(address, str):
+            geocode_result = gmaps.geocode(address)
+        else:
+            geocode_result = gmaps.geocode(address)
+
+        if not geocode_result:
+            raise serializers.ValidationError("invalid address & location not found")
+        else:
+            result = geocode_result[0]
+            self.log = result['geometry']['location']['lng']
+            self.lat = result['geometry']['location']['lat']
+
         restaurant = Restaurant.objects.create(
             name=validated_data['name'],
             description=validated_data['description'],
@@ -38,29 +58,6 @@ class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
 
         return restaurant
 
-    def validate(self, data):
-        """
-        Check entered address can be converted to Lat & Log
-        """
-        gmaps = googlemaps.Client(key=google_api_key)
-        try:
-            # address = str(data['street'].encode('ascii','ignore')) +  str(data['city'].encode('ascii','ignore')) +  str(data['state'].encode('ascii','ignore'))
-            address = (data['street'])+ ' ' +  (data['city']) + ' '+ (data['state'])
-        except:
-            address = data['street']
-        # Geocoding an address
-        if not isinstance(address, str):
-            geocode_result = gmaps.geocode(address)
-        else:
-            geocode_result = gmaps.geocode(address)
-
-        if not geocode_result:
-            raise serializers.ValidationError("invalid address & location not found")
-        else:
-            result = geocode_result[0]
-            self.log = result['geometry']['location']['lng']
-            self.lat = result['geometry']['location']['lat']
-        return data
 
 class ReviewSerializer(serializers.ModelSerializer):
     foodie = FoodieSerializer('foodie', read_only=True)
@@ -88,3 +85,27 @@ class ReviewSerializer(serializers.ModelSerializer):
         return super(ReviewSerializer, self).validate(data)
 
 
+class ThumbSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Thumb
+        fields = ('id','url', 'restaurant', 'up_or_down','foodie')
+        read_only_fields = ('id','url','foodie',)
+
+    def create(self, validated_data):
+        existing_check = Thumb.objects.filter(foodie=self.context['request'].user.foodie,
+                                restaurant=validated_data['restaurant']).count()
+        if existing_check != 0:
+            raise serializers.ValidationError("User has already thumbed for the restaurant.")
+        validated_data['foodie'] = self.context['request'].user.foodie
+        return super(ThumbSerializer, self).create(validated_data)
+
+class FeedbackSerializer(serializers.ModelSerializer):
+    foodie_name = serializers.ReadOnlyField(source="foodie.user.username")
+    class Meta:
+        model = Feedback
+        fields = ('id','url','added', 'review','foodie','message','foodie_name')
+        read_only_fields = ('id','url','added','foodie')
+
+    def create(self, validated_data):
+        validated_data['foodie'] = self.context['request'].user.foodie
+        return super(FeedbackSerializer, self).create(validated_data)

@@ -8,7 +8,7 @@ from django.contrib import admin
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
 from foodies.views import UserViewSet,FoodieViewSet, ProfileImageViewSet
-from restaurants.views import RestaurantViewSet,ReviewViewSet
+from restaurants.views import RestaurantViewSet,ReviewViewSet, ThumbViewSet, FeedbackViewSet
 from polls.views import PollViewSet, VoteViewSet
 
 router = DefaultRouter()
@@ -21,6 +21,8 @@ router.register(r'profile_images', ProfileImageViewSet)
 #restaurants api
 router.register(r'restaurants', RestaurantViewSet)
 router.register(r'reviews', ReviewViewSet)
+router.register(r'thumbs', ThumbViewSet)
+router.register(r'feedbacks', FeedbackViewSet)
 
 #polls api
 router.register(r'polls', PollViewSet)
