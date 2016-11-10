@@ -11,13 +11,34 @@ var FormControl = ReactBootstrap.FormControl;
 var ReactDOM = require('react-dom');
 
 
+
 var ControlLabel = ReactBootstrap.ControlLabel;
 var Checkbox = ReactBootstrap.Checkbox;
 
 
 
+var FeedbackList = React.createClass({
+  render: function() {
+    var feedNodes = this.props.feedbacks.map(function(feedback) {
+      return (
+        <Feedback  key={feedback.id}
+         foodie_pk={feedback.foodie} 
+         foodie_name={feedback.foodie_name} added_on={feedback.added}>
+          {feedback.message}
+        </Feedback>
+      );
+    }, this);
+    return (
+      <Row>
+        <Col xs={8} md={6} xsOffset={2} mdOffset={3}>
+                   {feedNodes}
+        </Col>
+      </Row>
+    );
+  }
+});
 
-var Review = React.createClass({
+var Feedback = React.createClass({
   goToFoodieProfile: function() {
         var foodie_key = String(this.props.foodie_pk);
         this.context.router.push('/app/foodie/'+foodie_key);
@@ -27,19 +48,139 @@ var Review = React.createClass({
   },
   render: function() {
     return (
-      <div className="Review">
-        <h2 className="ReviewAuthor">
-          {this.props.subject}
-        </h2>
+      <div className="Feedback">
+        <h5 >
+          Feedback: {this.props.children}
+        </h5>
         <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added_on}</span><br/>
-        <span>score: {this.props.score}/10</span>
-        <span><p>{this.props.children}</p></span>
+        
       </div>
     );
   }
 });
 
+var FeedbackForm = React.createClass({
+    handleSubmit: function(e) {
+      e.preventDefault();
+      var message = ReactDOM.findDOMNode(this.refs.message).value;
+      if (!message) {
+        return;
+      };
+      this.props.onFeedbackSubmit({review: parseInt(this.props.review_id), message: message});
+    },
+
+    render: function() {
+        return (
+            <div>
+                <Row className="text-align-center">
+                    <Col xs={8} sm={8} md={6} xsOffset={2} smOffset={2} mdOffset={3}>
+                        <h3>Post a review feedback:</h3>
+                        <form onSubmit={this.handleSubmit}>
+                          <FormGroup>
+                              <ControlLabel>Message</ControlLabel>
+                              <FormControl type="textarea" placeholder="Message" ref="message" />
+        
+                          </FormGroup>
+                          <Button type="submit">Post</Button>
+                        </form>
+                    </Col>
+                </Row>
+            </div>
+        );
+    }
+});
+
+var Review = React.createClass({
+  goToFoodieProfile: function() {
+        var foodie_key = String(this.props.foodie_pk);
+        this.context.router.push('/app/foodie/'+foodie_key);
+  },
+  contextTypes: {
+        router: React.PropTypes.object.isRequired
+  },
+  getInitialState: function() {
+    return {
+        feedbacks:[],
+    };
+  },
+  handleFeedbackSubmit: function(Feedback) {
+    var Feedbacks = this.state.feedbacks;
+    $.ajax({
+      method: 'POST',
+      url: '/api/feedbacks/',
+      dataType: 'json',
+      data: Feedback,
+      headers: {
+            'Authorization': 'Token ' + localStorage.token
+      },
+      success: function(data) {
+        var newFeedbacks = Feedbacks.concat([data]);
+        this.setState({feedbacks: newFeedbacks});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        this.setState({feedbacks: Feedbacks});
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+  loadFeedbacks: function() {
+      console.log("loading feedbacks");
+      console.log(this.props.review_id);
+      $.ajax({
+        method: 'GET',
+            url: '/api/feedbacks/'+"?review="+this.props.review_id,
+            datatype: 'json',
+            headers: {
+                'Authorization': 'Token ' + localStorage.token
+            },
+            success: function(data) {
+                console.log(data);
+                this.setState({feedbacks: data});
+              }.bind(this),
+        error: function(xhr, status, err) {
+          console.error(this.props.url, status, err.toString());
+        }.bind(this)
+      });       
+  },
+  componentDidMount: function() {
+    this.loadFeedbacks();
+  },
+  render: function() {
+    if (this.props.user_foodie_id == this.props.foodie_pk) {
+      var my_review_symbol = <h4>My Review</h4>
+    }
+    return (
+      <div className="Review">
+        <h2 className="ReviewAuthor">
+          {this.props.subject}
+        </h2> {my_review_symbol}
+        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added_on}</span><br/>
+        <span>score: {this.props.score}/10</span>
+        <span><p>{this.props.children}</p></span>
+        <FeedbackList feedbacks={this.state.feedbacks}/>
+        <FeedbackForm review_id={this.props.review_id} onFeedbackSubmit={this.handleFeedbackSubmit}/>
+      </div>
+    );
+  }
+});
+
+
+
 var ReviewBox = React.createClass({
+  loadUserData: function() {
+        $.ajax({
+            method: 'GET',
+            url: '/api/users/i/',
+            datatype: 'json',
+            headers: {
+                'Authorization': 'Token ' + localStorage.token
+            },
+            success: function(res) {
+                this.setState({user: res});
+
+            }.bind(this)
+        })
+  },
   loadReviewsFromServer: function() {
     var reviews_url = "/api/reviews/";
     if (this.state.sort == "score") {
@@ -106,10 +247,12 @@ var ReviewBox = React.createClass({
         limit: 5,
         offset:0,
         sort:[],
+        user:[],
 
     };
   },
   componentDidMount: function() {
+    this.loadUserData();
     this.loadReviewsFromServer();
   },
   render: function() {
@@ -123,7 +266,7 @@ var ReviewBox = React.createClass({
         <Col xs={8} md={6} xsOffset={2} mdOffset={3}>
                        <span>Sort by: <Button value="score" onClick={this.updateSort}>Score</Button> <Button value="added" onClick={this.updateSort}>Date</Button></span>
         </Col>
-        <ReviewList data={this.state.data} />
+        <ReviewList user_foodie_id={this.state.user.foodie_id} data={this.state.data} />
         <Row className="text-align-center">
              <Col xs={8} md={6} xsOffset={2} mdOffset={3}>
                 <ReviewForm restaurant_pk={this.props.restaurantPk} onReviewSubmit={this.handleReviewSubmit} />
@@ -138,7 +281,9 @@ var ReviewList = React.createClass({
   render: function() {
     var reviewNodes = this.props.data.map(function(review) {
       return (
-        <Review subject={review.subject} key={review.id} url={review.url} score={review.score} foodie_pk={review.foodie.id} foodie_name={review.foodie.user.username} added_on={review.added}>
+        <Review review_id={review.id} user_foodie_id={this.props.user_foodie_id} subject={review.subject} 
+        key={review.id} url={review.url} score={review.score} foodie_pk={review.foodie.id} 
+        foodie_name={review.foodie.user.username} added_on={review.added}>
           {review.comment}
         </Review>
       );
@@ -262,6 +407,27 @@ var RestaurantProfile = React.createClass({
           }.bind(this)
         });
   },
+  thumb_down: function() {
+      var thumb_data = {"restaurant":parseInt(this.state.url_param),"up_or_down":"down"};
+      $.ajax({
+      url: '/api/thumbs/',
+      dataType: 'json',
+      type: 'POST',
+      data: thumb_data,
+      headers: {
+                'Authorization': 'Token ' + localStorage.token
+      },
+      success: function(data) {
+            console.log("thumb submitted");
+            let thumb_down = this.state.thumb_downs + 1;
+            this.setState({thumb_downs:thumb_down});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.log("already voted")
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
   markVisited: function () {
       var statusValue = {"status":"visited"};
         
@@ -303,6 +469,7 @@ var RestaurantProfile = React.createClass({
             this.setState({average_score:data.avg_review});
             this.setState({status:data.status});
             this.initTripMap(parseFloat(data.lat), parseFloat(data.log));
+            this.setState({thumb_downs:data.thumb_downs});
           }.bind(this),
           error: function(xhr, status, err) {
             console.error("failed to load restaurant");
@@ -314,6 +481,7 @@ var RestaurantProfile = React.createClass({
             url_param: this.props.params.id,
             data:[],
             average_score: [],
+            thumb_downs: [],
             status:"newly added",
         };
       },
@@ -346,7 +514,10 @@ var RestaurantProfile = React.createClass({
                    <h4>Status: {this.state.data.status}</h4> {visit_button}
               </Col>
         </Row>
-
+        <Row className='text-align-center'>
+        Thumb Downs: {this.state.thumb_downs}<br/>
+        <Button value="thumb_down" onClick={this.thumb_down}>Thumb Down</Button>
+        </Row>
         <Row className='text-align-center'>
               <Col xs={8} md={6} xsOffset={2} mdOffset={3}>
                 <span>
@@ -354,7 +525,7 @@ var RestaurantProfile = React.createClass({
                 </span>
                 <br/>
                 <span>
-                    {this.state.data.description}
+                    Description: {this.state.data.description}
                 </span>
               </Col>
         </Row>

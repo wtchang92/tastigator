@@ -22,6 +22,8 @@ var Restaurant = React.createClass({
                         </h2>
                         </a>
                         <h4>Status: {this.props.status}</h4>
+                        <span>Thumb downs: {this.props.thumb_downs}</span><br/>
+                        <span>added: {this.props.added}</span>
                         <p>Review average: {this.props.avg_score}/10<br/>
                         {this.props.children}</p>
                 </Col>
@@ -52,6 +54,13 @@ var RestaurantPage= React.createClass({
                 this.loadRestaurantsFromServer();
             })
         }
+        else if (event.target.value == "thumb") {
+            this.setState({sort: "thumb"}, function() {
+                console.log(this.state.sort);
+                this.loadRestaurantsFromServer();
+            })
+        }
+
       },
       updateFilter: function(event) {
           console.log("sort filter");
@@ -139,7 +148,7 @@ var RestaurantPage= React.createClass({
                                <span>Filter by: <Button value="newly added" onClick={this.updateFilter}>Newly Added</Button> <Button value="visited" onClick={this.updateFilter}>Visited</Button></span> 
                                <br/>
                                <br/>
-                               <span>Sort by: <Button value="score" onClick={this.updateSort}>Score</Button> <Button value="added" onClick={this.updateSort}>Date</Button></span>
+                               <span>Sort by: <Button value="score" onClick={this.updateSort}>Score</Button> <Button value="added" onClick={this.updateSort}>Date</Button> <Button value="thumb" onClick={this.updateSort}>Thumb downs</Button></span>
                                <RestaurantList data={this.state.data} />
                         </Row>
                     </Col>
@@ -161,7 +170,7 @@ var RestaurantList = React.createClass({
   render: function() {
     var restaurantNodes = this.props.data.map(function(restaurant) {
       return (
-        <Restaurant name={restaurant.name} status={restaurant.status} avg_score={restaurant.avg_review} key={restaurant.id} url={restaurant.id} handleMoveToProfile={this.goToRestaurantProfile} >
+        <Restaurant name={restaurant.name} added={restaurant.added} thumb_downs={restaurant.thumb_downs} status={restaurant.status} avg_score={restaurant.avg_review} key={restaurant.id} url={restaurant.id} handleMoveToProfile={this.goToRestaurantProfile} >
           {restaurant.description}
         </Restaurant>
       );
