@@ -18,6 +18,13 @@ The project was built deadline of 7 days from the starting date. The main focus 
 
 A list of third party python libraries I used are listed in the requirements.txt file. The most intesively used libraries are django rest frameworks and django swagger. Django rest frameworks was used as the basis for the backend development. And django swagger is used for documentation. For front end, I used reactjs along with webpack as the automation tool. 
 
+## Live implementation
+A live build of this application has been deployed to heroku, a free to use hosting serivce, at 
+client - https://tastigator.herokuapp.com/app
+API doc - https://tastigator.herokuapp.com/docs
+
+Please email me send me a message if you would like to be granted a "guide" status.
+
 ## Installation
 
 To install this project, please follow these steps - 
