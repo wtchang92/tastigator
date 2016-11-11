@@ -5,6 +5,7 @@ django-registration-redux==1.4
 django-rest-swagger==2.1.0
 djangorestframework==3.5.2
 googlemaps==2.4.4
+gunicorn==19.6.0
 itypes==1.1.0
 Markdown==2.6.7
 openapi-codec==1.1.7
