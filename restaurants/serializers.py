@@ -5,7 +5,7 @@ from .models import Restaurant, Review, Thumb, Feedback
 from foodies.serializers import FoodieSerializer
 
 import googlemaps
-# from .api_keys import google_api_key
+from .api_keys import google_api_key
 """
 Please create a file named api_key.py in the restaurant app folder
 and assign add the following to the file:
