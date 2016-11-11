@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08cb3505-6093-4250-8121-06b80d1aeeda" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastigator/wsgi.py" afterPath="$PROJECT_DIR$/tastigator/wsgi.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastigator/settings.py" afterPath="$PROJECT_DIR$/tastigator/settings.py" />
     </list>
     <ignored path="tastigator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -23,20 +23,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.0740743">
-              <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.9276527">
+              <caret line="200" column="77" selection-start-line="174" selection-start-column="3" selection-end-line="200" selection-end-column="77" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tastigator/wsgi.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39291218">
+            <state vertical-scroll-proportion="-9.444445">
               <caret line="17" column="0" selection-start-line="17" selection-start-column="1" selection-end-line="22" selection-end-column="45" />
               <folding>
                 <element signature="e#227#236#0" expanded="true" />
@@ -185,11 +185,11 @@
         <option value="$PROJECT_DIR$/restaurants/permissions.py" />
         <option value="$PROJECT_DIR$/polls/permissions.py" />
         <option value="$PROJECT_DIR$/asset/tastigator_web/src/client/app/AlertContainer.jsx" />
-        <option value="$PROJECT_DIR$/tastigator/settings.py" />
         <option value="$PROJECT_DIR$/requirements.txt" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/Procfile" />
         <option value="$PROJECT_DIR$/tastigator/wsgi.py" />
+        <option value="$PROJECT_DIR$/tastigator/settings.py" />
       </list>
     </option>
   </component>
@@ -864,14 +864,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.0740743">
-          <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.7777777">
@@ -898,11 +890,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/tastigator/wsgi.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39291218">
+        <state vertical-scroll-proportion="-9.444445">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="1" selection-end-line="22" selection-end-column="45" />
           <folding>
             <element signature="e#227#236#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9276527">
+          <caret line="200" column="77" selection-start-line="174" selection-start-column="3" selection-end-line="200" selection-end-column="77" />
+          <folding />
         </state>
       </provider>
     </entry>
