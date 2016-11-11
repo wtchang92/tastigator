@@ -32,11 +32,11 @@ Prequisite - Please use Python version 3.5.2 and have a google api key for geoco
 5. (Optional) Delete the existing db.sqlite3 file.
 6. Run: python manage.py createsuperuser and follow the prompt
 7. Run: python manage.py runserver
-8. From here on, you may access the following (please note 127.0.0.1:8000 may be different for you):
-	App (The client application) - 127.0.0.1:8000/app
-	API docs (stylized API guide: please login to view all the routes and note that it is permission driven)- 127.0.0.1:8000/docs
-	DRF Browseable API (default DRF api browseable API)- 127.0.0.1:8000/api
-	Admin page (Use this for administrative tasks, such as granting "guide" permission) - 127.0.0.1:8000/admin (access it with the super user account)
+8. From here on, you may access the following (please note 127.0.0.1:8000 may be different for you):<br />
+	App (The client application) - 127.0.0.1:8000/app<br />
+	API docs (stylized API guide: please login to view all the routes and note that it is permission driven)- 127.0.0.1:8000/docs<br />
+	DRF Browseable API (default DRF api browseable API)- 127.0.0.1:8000/api<br />
+	Admin page (Use this for administrative tasks, such as granting "guide" permission) - 127.0.0.1:8000/admin (access it with the super user account)<br />
 
 Use cases - 
 	Since only a user who is a "guide" can create restaurant, this user status can be granted by a staff/superuser. To do so, please login as a staff or a super user using the admin page. And under the foodies section, choose the user you want to grant "guide" status and check in the checkbox for "Is guide" then hit save. Once the user has been granted as a "guide", the user can create restaurants, as you can see in 127.0.0.1:8000/app/restaurants.
