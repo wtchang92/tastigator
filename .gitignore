@@ -3,7 +3,7 @@
 node_modules/
 
 # python virtual environment
-env/
+venv/
 staticfiles/
 restaurants/api_keys.py
 profile_images/
