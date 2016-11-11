@@ -11,12 +11,20 @@ from rest_framework.pagination import LimitOffsetPagination
 
 from django.db.models import Avg, Count
 
+import django_filters
+
+class RestaurantFilter(filters.FilterSet):
+    added_gte = django_filters.DateTimeFilter(name="added", lookup_expr='gte')
+    status=django_filters.CharFilter(name="status")
+    class Meta:
+        model = Restaurant
+        fields = ['status','added','added_gte']
 
 class RestaurantViewSet(viewsets.ModelViewSet):
-    queryset = Restaurant.objects.all()
+    queryset = Restaurant.objects.annotate(avg_review=Avg('review__score')).order_by('-added')
     serializer_class = RestaurantSerializer
     filter_backends = (filters.DjangoFilterBackend,filters.OrderingFilter,)
-    filter_fields = ('status',)
+    filter_class = RestaurantFilter
     pagination_class = LimitOffsetPagination
     ordering_fields = ('added', 'avg_review',)
     permission_classes = (permissions.IsAuthenticated,)
@@ -24,23 +32,6 @@ class RestaurantViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         return (Is_Guide_User() if self.request.method not in permissions.SAFE_METHODS
                 else permissions.IsAuthenticated()),
-
-    def get_queryset(self):
-        return Restaurant.objects.annotate(
-            avg_review=Avg('review__score'))
-
-    def list(self, request, *args, **kwargs):
-        if request.method == 'GET' and 'thumb_downs_order' in request.GET:
-            print("ordering thumb downs")
-            thumb_downs_order = request.GET.get('thumb_downs_order')
-            if thumb_downs_order is not None:
-                if thumb_downs_order == 'asc':
-                    queryset = Restaurant.objects.annotate(thumbs=Count('thumb')).order_by('thumbs')
-                elif thumb_downs_order == 'desc':
-                    queryset = Restaurant.objects.annotate(thumbs=Count('thumb')).order_by('-thumbs')
-                serializer = RestaurantSerializer(queryset, many=True, context={'request': request})
-                return response.Response(serializer.data)
-        return super(RestaurantViewSet, self).list(request)
 
 
 class ReviewViewSet(viewsets.ModelViewSet):

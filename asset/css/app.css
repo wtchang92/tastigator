@@ -26,3 +26,44 @@
 .foodieProfileimage {
 	    padding-bottom: 20px;
 }
+
+.poll {
+	margin: 20px;
+}
+
+.app_container {
+	background-color: white;
+	margin-left: 25px;
+	margin-right: 25px;
+	padding-bottom: 15px;
+}
+
+.app_label {
+	background-color: white;
+	margin-left: 10px;
+	margin-right: 10px;
+
+}
+body {
+	background-color: #e8eaed;	
+}
+
+.widget-container {
+	margin-bottom: 15px;
+	margin-left: 25px;
+	margin-right: 25px;
+
+}
+
+.widget {
+	background-color: white;
+	padding-bottom: 20px;
+}
+
+.kpi {
+	font-size: 2.4em;
+}
+
+.content {
+
+}

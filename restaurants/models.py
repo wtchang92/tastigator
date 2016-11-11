@@ -1,6 +1,7 @@
 from django.db import models
 from foodies.models import Foodie
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Avg
 
 from django.utils.text import slugify
 
@@ -41,6 +42,17 @@ class Restaurant(models.Model):
     def thumb_downs(self):
         thumbs = Thumb.objects.filter(restaurant=self, up_or_down='down').count()
         return thumbs
+
+    @property
+    def score_average(self):
+        query_set = Review.objects.filter(restaurant=self)
+        average = None
+        if query_set.count() > 0:
+            sum = 0
+            for review in query_set:
+                sum += review.score
+            average = sum / query_set.count()
+        return average
 
 
 class Review(models.Model):

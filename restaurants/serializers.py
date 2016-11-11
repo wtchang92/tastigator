@@ -19,10 +19,11 @@ class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
     log = None
     avg_review = serializers.DecimalField(max_digits=4, decimal_places=2, read_only=True)
     thumb_downs = serializers.ReadOnlyField()
+    score_average = serializers.ReadOnlyField()
     class Meta:
         model = Restaurant
-        fields = ('id','url','added', 'name', 'description', 'street','city','state','avg_review','lat', 'log', 'status','thumb_downs')
-        read_only_fields = ('id','url','added','review_average','avg_review', 'lat', 'log','thumb_downs')
+        fields = ('id','url','added', 'name', 'description', 'street','city','state','avg_review','lat', 'log', 'status','thumb_downs','score_average')
+        read_only_fields = ('id','url','added','review_average','avg_review', 'lat', 'log','thumb_downs','score_average')
 
     def create(self, validated_data):
         gmaps = googlemaps.Client(key=google_api_key)
@@ -100,10 +101,10 @@ class ThumbSerializer(serializers.ModelSerializer):
         return super(ThumbSerializer, self).create(validated_data)
 
 class FeedbackSerializer(serializers.ModelSerializer):
-    foodie_name = serializers.ReadOnlyField(source="foodie.user.username")
+    restaurant_name = serializers.ReadOnlyField(source="restaurant.name")
     class Meta:
         model = Feedback
-        fields = ('id','url','added', 'review','foodie','message','foodie_name')
+        fields = ('id','url','added', 'review','foodie','message')
         read_only_fields = ('id','url','added','foodie')
 
     def create(self, validated_data):

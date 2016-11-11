@@ -133,6 +133,7 @@ var EditProfile = React.createClass({
               return (
 
                   <div className='component'>
+                  <div className='app_container'>
                     <Row className='sign-up-label text-align-center'>
                         <Col xs={8} md={6} xsOffset={2} mdOffset={3}>
                             <h1>Edit Profile</h1>
@@ -196,6 +197,7 @@ var EditProfile = React.createClass({
                           </form>
                         </Col>
                     </Row>
+                  </div>
                   </div>
 
               )

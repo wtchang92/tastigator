@@ -30,12 +30,21 @@ class PollSerializer(serializers.ModelSerializer):
         poll = Poll.objects.create(
             creator=self.context['request'].user.foodie,
             title = validated_data['title'],
-            description = validated_data['description'],
+            description = validated_data['description']
         )
         poll.save()
         for choice_id in validated_data['restaurant_choices']:
-            poll.restaurants.add(Restaurant.objects.get(id=choice_id))
+            if Restaurant.objects.filter(id=choice_id).count() == 1:
+                poll.restaurants.add(Restaurant.objects.get(id=choice_id))
+            else:
+                raise serializers.ValidationError("Restaurant choice is not valid")
         return poll
+
+    def validate(self, attr):
+        if len(attr['restaurant_choices']) <= 0:
+            raise serializers.ValidationError("Must enter at least 1 choice")
+        return attr
+
 
 class VoteSerializer(serializers.ModelSerializer):
     foodie = FoodieSerializer('foodie', read_only=True)

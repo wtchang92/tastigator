@@ -5,7 +5,7 @@ from rest_framework import viewsets, response, permissions
 from .serializers import UserSerializer, FoodieSerializer, ProfileImageUploadSerializer
 
 from rest_framework.permissions import AllowAny
-from .permissions import IsAnonCreate,ProfileAuthenticatedBasic, ProfileImagePermission
+from .permissions import IsAnonCreate, ProfileImagePermission, OnlyStaffCanEdit
 
 from rest_framework import filters
 from rest_framework.parsers import MultiPartParser, FormParser
@@ -45,7 +45,7 @@ class FoodieViewSet(viewsets.ModelViewSet):
     queryset = Foodie.objects.all()
     serializer_class = FoodieSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    permission_classes = (ProfileAuthenticatedBasic,)
+    permission_classes = (OnlyStaffCanEdit,)
 
 class ProfileImageViewSet(viewsets.ModelViewSet):
     queryset = ProfileImage.objects.all()

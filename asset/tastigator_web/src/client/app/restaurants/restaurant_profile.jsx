@@ -10,6 +10,8 @@ var FormGroup = ReactBootstrap.FormGroup;
 var FormControl = ReactBootstrap.FormControl;
 var ReactDOM = require('react-dom');
 var FontAwesome = require('react-fontawesome');
+var Row = ReactBootstrap.Row;
+var Col = ReactBootstrap.Col;
 
 
 
@@ -53,7 +55,7 @@ var Feedback = React.createClass({
         <h5 >
           Feedback: {this.props.children}
         </h5>
-        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added}</span><br/>
+        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added_on}</span><br/>
         
       </div>
     );
@@ -155,7 +157,7 @@ var Review = React.createClass({
         <h2 className="ReviewAuthor">
           {this.props.subject}
         </h2> {my_review_symbol}
-        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added}</span><br/>
+        <span><em>By: <a onClick={this.goToFoodieProfile}>{this.props.foodie_name}</a></em> on {this.props.added_on}</span><br/>
         <span>score: {this.props.score}/10</span>
         <span><p>{this.props.children}</p></span>
         <FeedbackList feedbacks={this.state.feedbacks}/>
@@ -508,6 +510,7 @@ var RestaurantProfile = React.createClass({
     return (
       <div>
         <div className='component'>
+        <div className='app_container'>
         <Row className='text-align-center'>
               <Col xs={8} md={6} xsOffset={2} mdOffset={3}>
                    <h1>{this.state.data.name}</h1>
@@ -541,6 +544,7 @@ var RestaurantProfile = React.createClass({
         <Row>
             {review_section}
         </Row>
+        </div>
         </div>
     </div>
 

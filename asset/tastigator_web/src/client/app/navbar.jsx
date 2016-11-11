@@ -38,9 +38,6 @@ var Navigation = React.createClass({
     goPollListing: function() {
         this.context.router.push('/app/polls/');
     },
-    goCircleListing: function() {
-        this.context.router.push('/app/circles/');
-    },
     goToFoodieProfile: function() {
         var foodie_key = this.props.user.foodie_id;
         this.context.router.replace('/app/foodie/'+foodie_key);
@@ -99,7 +96,7 @@ var Navigation = React.createClass({
                         </Navbar.Header>
                         <Navbar.Collapse>
                           <Nav>
-                            <NavItem eventKey={1} onClick={this.goPollListing}>Dashboard</NavItem>
+                            <NavItem eventKey={1} onClick={this.returnHome}>Dashboard</NavItem>
                             <NavItem eventKey={2} onClick={this.goPollListing}>Polls</NavItem>
                             <NavItem eventKey={3} onClick={this.goRestaurantListing}>Restaurants</NavItem>
                           </Nav>

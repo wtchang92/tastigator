@@ -13,6 +13,9 @@ import Restaurant from './restaurants/restaurant_profile.jsx';
 import RestaurantAdd from './restaurants/add_restaurant.jsx'
 import Foodie from './foodies/foodie_profile.jsx';
 import FoodieEdit from './foodies/edit_foodie_profile.jsx';
+import PollPage from './polls/pollListing.jsx';
+import AddPoll from './polls/add_poll.jsx';
+import Poll from './polls/poll.jsx';
 
 function requireAuth(nextState, replace) {
     if (!auth.loggedIn()) {
@@ -34,6 +37,9 @@ ReactDOM.render(
                     <Router.Route path='restaurants' component={Restaurants}/>
                     <Router.Route path='add_restaurant' component={RestaurantAdd}/>
                     <Router.Route path="restaurant/:id" component={Restaurant}/>
+                    <Router.Route path="polls" component={PollPage}/>
+                    <Router.Route path="poll/:id" component={Poll}/>
+                    <Router.Route path='add_poll' component={AddPoll} />
             </Router.Route>
             <Router.Route path='/app/login/' component={authenticationPage} />
         </Router.Router>,

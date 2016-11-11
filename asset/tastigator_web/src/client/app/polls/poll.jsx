@@ -60,7 +60,7 @@ var PollPage= React.createClass({
             })
       },
       loadPollsFromServer: function() {
-        var Polls_url = "/api/polls/";
+        var Polls_url = "/api/polls/"+this.state.url_param+"/";
         $.ajax({
           method: 'GET',
           url: Polls_url,
@@ -69,18 +69,22 @@ var PollPage= React.createClass({
                 'Authorization': 'Token ' + localStorage.token
           },
           success: function(data) {
-            this.setState({data: data}, function() {
+            console.log("poll retrieved");
+            console.log(data);
+            var dataset=[data.poll];
+            this.setState({data: dataset}, function() {
                 console.log(this.state.data);
             });
           }.bind(this),
           error: function(xhr, status, err) {
             console.log("polls page mounted - loading failed");
+            console.log(xhr);
             console.error(this.props.url, status, err.toString());
           }.bind(this)
         });
       },
       getInitialState: function() {
-        return {data: [],user:[],
+        return {data: [],user:[], url_param: this.props.params.id,
         };
       },
       componentDidMount: function() {
@@ -283,14 +287,11 @@ var Poll = React.createClass({
   goToRestaurantProfile: function(restaurantKey) {
         this.context.router.push('/app/restaurant/'+String(restaurantKey));
   },
-  goToPoll: function() {
-        this.context.router.push('/app/poll/'+String(this.props.poll_id));
-  },
   render: function() {
     return (
       <div className="poll app_container">
       <Row>
-      <a onClick={this.goToPoll}><h2>{this.props.title}</h2></a>
+      <h2>{this.props.title}</h2>
       <span>Created by: {this.props.creator.username}</span><br/>
       <span>Added on: {this.props.added}</span>
       <p>Description: {this.props.children}</p>

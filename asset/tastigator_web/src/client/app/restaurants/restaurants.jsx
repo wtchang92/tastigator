@@ -58,15 +58,6 @@ var RestaurantPage= React.createClass({
                 this.loadRestaurantsFromServer();
             })
         }
-        else if (event.target.value == "thumb") {
-          console.log("sort3");
-            this.setState({sort: "thumb_downs_order=asc"}, function() {
-                console.log(this.state.sort);
-                this.loadRestaurantsFromServer();
-            })
-        }
-        console.log("sort4");
-
       },
       updateFilter: function(event) {
           console.log("sort filter");
@@ -141,6 +132,7 @@ var RestaurantPage= React.createClass({
     render: function() {
         return (
             <div className="component">
+              <div className="app_container">
                 <Row className="text-align-center">
                     <Col xs={12} md={12}>
                         <Row>
@@ -160,6 +152,7 @@ var RestaurantPage= React.createClass({
                         </Row>
                     </Col>
                 </Row>
+                </div>
             </div>
 
 

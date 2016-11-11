@@ -85,6 +85,7 @@ var FoodieProfile = React.createClass({
   render: function() {
     return (
           <div className='component'>
+            <div className='app_container'>
               <div className="Profile">
                 <Row className="text-align-center">
                     <Col xs={8} md={6} xsOffset={2} mdOffset={3}>
@@ -103,6 +104,7 @@ var FoodieProfile = React.createClass({
                     </Col>
                 </Row>
                 <ReviewBox foodie_pk={this.state.foodie_pk} />
+                </div>
               </div>
           </div>
     );

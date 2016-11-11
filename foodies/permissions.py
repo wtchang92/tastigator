@@ -14,7 +14,6 @@ class IsAnonCreate(permissions.BasePermission):
         elif request.method == "GET" and request.user.is_authenticated():
             return True
         elif request.method in EDIT_METHODS and request.user.is_authenticated():
-            print("z1")
             return True
         return False
     def has_object_permission(self, request, view, obj):
@@ -62,3 +61,12 @@ class IsStaff(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         # allow logged in user to view own details, allows staff to view all records
         return request.user.is_staff
+
+class OnlyStaffCanEdit(permissions.BasePermission):
+    def has_permission(self, request, view):
+        # allow user to list all users if logged in user is staff
+        if request.method == "GET" and request.user.is_authenticated():
+            return True
+        elif request.method in EDIT_METHODS and request.user.is_authenticated() and request.user.is_staff:
+            return True
+        return False

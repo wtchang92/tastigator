@@ -9,50 +9,71 @@ from .permissions import IsOwnerOrStaffElseReadonly_Vote, IsPollOwnerOrStaffElse
 from rest_framework import filters
 
 from django.db.models import Count
+from rest_framework.exceptions import APIException
+from rest_framework import status
+import django_filters
+import datetime
+
+class PollFilter(filters.FilterSet):
+    added_gte = django_filters.DateTimeFilter(name="added", lookup_expr='gte')
+    class Meta:
+        model = Poll
+        fields = ['added','added_gte']
 
 
 class PollViewSet(viewsets.ModelViewSet):
-    queryset = Poll.objects.all()
+    queryset = Poll.objects.all().order_by('-added')
     serializer_class = PollSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     # filter_fields = ('circle',)
+    filter_class = PollFilter
     permission_classes = (permissions.IsAuthenticated,)
     def get_permissions(self):
         return (IsPollOwnerOrStaffElseReadonly_Vote() if self.request.method not in permissions.SAFE_METHODS
                 else permissions.IsAuthenticated()),
 
     def retrieve(self, request, pk=None):
-         poll = Poll.objects.get(id=pk)
-         custom_data = {
-             'poll': PollSerializer(poll,context={'request':request}).data
-         }
-         selections=[]
-         for restaurant in poll.restaurants.all():
-             selections.append(restaurant)
-         selection_vote_counts = {}
-         if len(selection_vote_counts) > 0:
-             for selection in selections:
-                selection_vote_counts[str(selection.name)] = poll.vote_set.filter(choice=selection.id).aggregate(Count('id')).values()[0]
-         custom_data.update({
-             'vote_counts' : selection_vote_counts
-         })
-         try:
-             vote = Vote.objects.filter(foodie=request.user.foodie, poll=poll)
-             selected_restaurant = vote[0].choice.id
+         query = Poll.objects.filter(id=pk)
+         print(query.count())
+         print("retrieving poll")
+         if query.count() ==1:
+             print("yes retrieving poll")
+             poll = Poll.objects.get(id=pk)
+             custom_data = {
+                 'poll': PollSerializer(poll,context={'request':request}).data
+             }
+             selections=[]
+             for restaurant in poll.restaurants.all():
+                 selections.append(restaurant)
+             selection_vote_counts = {}
+             if len(selections) > 0:
+                 for selection in selections:
+                    selection_vote_counts[str(selection.name)] = list(poll.vote_set.filter(choice=selection.id).aggregate(Count('id')).values())[0]
              custom_data.update({
-             'user_selection' : [selected_restaurant]
+                 'vote_counts' : selection_vote_counts
              })
-         except:
-             custom_data.update({
-             'user_selection' : []
-             })
-         return response.Response(custom_data)
+             try:
+                 vote = Vote.objects.filter(foodie=request.user.foodie, poll=poll)
+                 selected_restaurant = vote[0].choice.id
+                 custom_data.update({
+                 'user_selection' : [selected_restaurant]
+                 })
+             except:
+                 custom_data.update({
+                 'user_selection' : []
+                 })
+             return response.Response(custom_data)
+         else:
+             raise APIException("Poll not found")
+             # print("no retrieving poll")
+             # return response.Response(status.HTTP_404_NOT_FOUND)
+
 
 class VoteViewSet(viewsets.ModelViewSet):
     queryset = Vote.objects.all()
     serializer_class = VoteSerializer
     filter_backends = (filters.DjangoFilterBackend,)
-    filter_fields = ('foodie','poll','choice')
+    filter_fields = ('foodie','poll','choice',)
     permission_classes = (permissions.IsAuthenticated,)
 
     def get_permissions(self):
