@@ -29,10 +29,12 @@ Prequisite - Please use Python version 3.5.2 and have a google api key for geoco
 3. Run: pip install -r requirements.txt
 4. Create a file named, "api_keys.py", in restaurant app folder at restaurants/. Placed the following snippet in this file and save
 	google_api_key = "Your google api key" #please make sure it's enabled
-5. (Optional) Delete the existing db.sqlite3 file.
-6. Run: python manage.py createsuperuser and follow the prompt
-7. Run: python manage.py runserver
-8. From here on, you may access the following (please note 127.0.0.1:8000 may be different for you):<br />
+5. (Optional) Delete the existing db.sqlite3 file. If you decide to keep the file, please skip steps 6 & 7
+6. Run: python manage.py makemigrations
+7. Run: python manage.py migrate
+8. Run: python manage.py createsuperuser and follow the prompt
+9. Run: python manage.py runserver
+10. From here on, you may access the following (please note 127.0.0.1:8000 may be different for you):<br />
 	App (The client application) - 127.0.0.1:8000/app<br />
 	API docs (stylized API guide: please login to view all the routes and note that it is permission driven)- 127.0.0.1:8000/docs<br />
 	DRF Browseable API (default DRF api browseable API)- 127.0.0.1:8000/api<br />
