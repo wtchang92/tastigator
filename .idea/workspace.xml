@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="08cb3505-6093-4250-8121-06b80d1aeeda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/AlertContainer.jsx" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tastigator/custom_storages.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/add_poll.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/add_poll.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/add_restaurant.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/add_restaurant.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/authentication/authentication.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/authentication/authentication.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js.map" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/package.json" afterPath="$PROJECT_DIR$/asset/tastigator_web/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastigator/settings.py" afterPath="$PROJECT_DIR$/tastigator/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="08cb3505-6093-4250-8121-06b80d1aeeda" name="Default" comment="" />
     <ignored path="tastigator.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
