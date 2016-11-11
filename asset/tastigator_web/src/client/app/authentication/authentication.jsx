@@ -50,6 +50,7 @@ var loginHeader = React.createClass({
                 this.context.router.replace('/app/');
             }.bind(this),
               error: function(xhr, status, err) {
+                alert("login failed");
                 console.error("login failed");
               }.bind(this)
         })
@@ -90,6 +91,7 @@ var loginHeader = React.createClass({
                 }.bind(this),
                   error: function(xhr, status, err) {
                     console.log("testing sign up 4");
+                    alert(xhr.responseText);
                     console.log("registration failed");
                   }.bind(this)
             })

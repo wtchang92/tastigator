@@ -61,35 +61,35 @@
 	
 	var _dashboard2 = _interopRequireDefault(_dashboard);
 	
-	var _restaurants = __webpack_require__(/*! ./restaurants/restaurants.jsx */ 483);
+	var _restaurants = __webpack_require__(/*! ./restaurants/restaurants.jsx */ 485);
 	
 	var _restaurants2 = _interopRequireDefault(_restaurants);
 	
-	var _restaurant_profile = __webpack_require__(/*! ./restaurants/restaurant_profile.jsx */ 485);
+	var _restaurant_profile = __webpack_require__(/*! ./restaurants/restaurant_profile.jsx */ 486);
 	
 	var _restaurant_profile2 = _interopRequireDefault(_restaurant_profile);
 	
-	var _add_restaurant = __webpack_require__(/*! ./restaurants/add_restaurant.jsx */ 486);
+	var _add_restaurant = __webpack_require__(/*! ./restaurants/add_restaurant.jsx */ 487);
 	
 	var _add_restaurant2 = _interopRequireDefault(_add_restaurant);
 	
-	var _foodie_profile = __webpack_require__(/*! ./foodies/foodie_profile.jsx */ 487);
+	var _foodie_profile = __webpack_require__(/*! ./foodies/foodie_profile.jsx */ 496);
 	
 	var _foodie_profile2 = _interopRequireDefault(_foodie_profile);
 	
-	var _edit_foodie_profile = __webpack_require__(/*! ./foodies/edit_foodie_profile.jsx */ 488);
+	var _edit_foodie_profile = __webpack_require__(/*! ./foodies/edit_foodie_profile.jsx */ 497);
 	
 	var _edit_foodie_profile2 = _interopRequireDefault(_edit_foodie_profile);
 	
-	var _pollListing = __webpack_require__(/*! ./polls/pollListing.jsx */ 489);
+	var _pollListing = __webpack_require__(/*! ./polls/pollListing.jsx */ 498);
 	
 	var _pollListing2 = _interopRequireDefault(_pollListing);
 	
-	var _add_poll = __webpack_require__(/*! ./polls/add_poll.jsx */ 720);
+	var _add_poll = __webpack_require__(/*! ./polls/add_poll.jsx */ 729);
 	
 	var _add_poll2 = _interopRequireDefault(_add_poll);
 	
-	var _poll = __webpack_require__(/*! ./polls/poll.jsx */ 721);
+	var _poll = __webpack_require__(/*! ./polls/poll.jsx */ 730);
 	
 	var _poll2 = _interopRequireDefault(_poll);
 	
@@ -194,6 +194,7 @@
 	                this.context.router.replace('/app/');
 	            }.bind(this),
 	            error: function (xhr, status, err) {
+	                alert("login failed");
 	                console.error("login failed");
 	            }.bind(this)
 	        });
@@ -233,6 +234,7 @@
 	                }.bind(this),
 	                error: function (xhr, status, err) {
 	                    console.log("testing sign up 4");
+	                    alert(xhr.responseText);
 	                    console.log("registration failed");
 	                }.bind(this)
 	            });
@@ -47033,11 +47035,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _poll_modal = __webpack_require__(/*! ./polls/poll_modal.jsx */ 722);
+	var _poll_modal = __webpack_require__(/*! ./polls/poll_modal.jsx */ 482);
 	
 	var _poll_modal2 = _interopRequireDefault(_poll_modal);
 	
-	var _restaurant_modal = __webpack_require__(/*! ./restaurants/restaurant_modal.jsx */ 723);
+	var _restaurant_modal = __webpack_require__(/*! ./restaurants/restaurant_modal.jsx */ 483);
 	
 	var _restaurant_modal2 = _interopRequireDefault(_restaurant_modal);
 	
@@ -47226,8 +47228,543 @@
 	exports.default = Dashboard;
 
 /***/ },
-/* 482 */,
+/* 482 */
+/*!*********************************************!*\
+  !*** ./src/client/app/polls/poll_modal.jsx ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(/*! react */ 2);
+	var ReactBootstrap = __webpack_require__(/*! react-bootstrap */ 36);
+	var Grid = ReactBootstrap.Grid;
+	var Row = ReactBootstrap.Row;
+	var Col = ReactBootstrap.Col;
+	var Input = ReactBootstrap.Input;
+	var Button = ReactBootstrap.Button;
+	var Navbar = ReactBootstrap.Navbar;
+	var Nav = ReactBootstrap.Nav;
+	var NavItem = ReactBootstrap.NavItem;
+	var NavDropdown = ReactBootstrap.NavDropdown;
+	var MenuItem = ReactBootstrap.MenuItem;
+	var Modal = ReactBootstrap.Modal;
+	var Tooltip = ReactBootstrap.Tooltip;
+	var Popover = ReactBootstrap.Popover;
+	var OverlayTrigger = ReactBootstrap.OverlayTrigger;
+	
+	var PollPage = React.createClass({
+	  displayName: 'PollPage',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	  goAddPoll: function goAddPoll() {
+	    this.context.router.push('/app/add_poll/');
+	  },
+	  componentDidMount: function componentDidMount() {
+	    console.log("loading recent polls");
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'component' },
+	        React.createElement(
+	          Row,
+	          null,
+	          React.createElement(
+	            Col,
+	            { xs: 12, md: 12 },
+	            React.createElement(PollList, { data: this.props.polls })
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var Poll = React.createClass({
+	  displayName: 'Poll',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	  goToPoll: function goToPoll() {
+	    this.context.router.push('/app/poll/' + String(this.props.poll_id));
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'recent_poll' },
+	      React.createElement(
+	        Row,
+	        null,
+	        React.createElement(
+	          'a',
+	          { onClick: this.goToPoll },
+	          React.createElement(
+	            'h2',
+	            null,
+	            this.props.title
+	          )
+	        ),
+	        React.createElement(
+	          'span',
+	          null,
+	          'Created by: ',
+	          this.props.creator.username
+	        ),
+	        React.createElement('br', null),
+	        React.createElement(
+	          'span',
+	          null,
+	          'Added on: ',
+	          this.props.added
+	        ),
+	        React.createElement(
+	          'p',
+	          null,
+	          'Description: ',
+	          this.props.children
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var PollList = React.createClass({
+	  displayName: 'PollList',
+	
+	  render: function render() {
+	    var PollNodes = this.props.data.map(function (poll) {
+	      return React.createElement(
+	        Poll,
+	        { poll_id: poll.id, creator: poll.creator.user, title: poll.title, added: poll.added },
+	        poll.description
+	      );
+	    }, this);
+	    return React.createElement(
+	      'div',
+	      { className: 'PollList' },
+	      PollNodes
+	    );
+	  }
+	});
+	
+	var PollsModal = React.createClass({
+	  displayName: 'PollsModal',
+	  getInitialState: function getInitialState() {
+	    return { showModal: false };
+	  },
+	  close: function close() {
+	    this.setState({ showModal: false });
+	  },
+	  open: function open() {
+	    this.setState({ showModal: true });
+	  },
+	  render: function render() {
+	    var popover = React.createElement(
+	      Popover,
+	      { id: 'modal-popover', title: 'popover' },
+	      'very popover. such engagement'
+	    );
+	    var tooltip = React.createElement(
+	      Tooltip,
+	      { id: 'modal-tooltip' },
+	      'wow.'
+	    );
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        Button,
+	        {
+	
+	          onClick: this.open
+	        },
+	        'Recent Polls'
+	      ),
+	      React.createElement(
+	        Modal,
+	        { show: this.state.showModal, onHide: this.close },
+	        React.createElement(
+	          Modal.Header,
+	          { closeButton: true },
+	          React.createElement(
+	            Modal.Title,
+	            null,
+	            'Recent Polls'
+	          )
+	        ),
+	        React.createElement(
+	          Modal.Body,
+	          null,
+	          React.createElement(PollPage, { polls: this.props.polls, close: this.close })
+	        ),
+	        React.createElement(
+	          Modal.Footer,
+	          null,
+	          React.createElement(
+	            Button,
+	            { onClick: this.close },
+	            'Close'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = PollsModal;
+
+/***/ },
 /* 483 */
+/*!*********************************************************!*\
+  !*** ./src/client/app/restaurants/restaurant_modal.jsx ***!
+  \*********************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var React = __webpack_require__(/*! react */ 2);
+	var ReactBootstrap = __webpack_require__(/*! react-bootstrap */ 36);
+	var Grid = ReactBootstrap.Grid;
+	var Row = ReactBootstrap.Row;
+	var Col = ReactBootstrap.Col;
+	var Input = ReactBootstrap.Input;
+	var Button = ReactBootstrap.Button;
+	var Navbar = ReactBootstrap.Navbar;
+	var Nav = ReactBootstrap.Nav;
+	var NavItem = ReactBootstrap.NavItem;
+	var NavDropdown = ReactBootstrap.NavDropdown;
+	var MenuItem = ReactBootstrap.MenuItem;
+	var Modal = ReactBootstrap.Modal;
+	var Tooltip = ReactBootstrap.Tooltip;
+	var Popover = ReactBootstrap.Popover;
+	var OverlayTrigger = ReactBootstrap.OverlayTrigger;
+	var FontAwesome = __webpack_require__(/*! react-fontawesome */ 484);
+	var Router = __webpack_require__(/*! react-router */ 428);
+	
+	var Restaurant = React.createClass({
+	  displayName: 'Restaurant',
+	
+	  MoveToProfile: function MoveToProfile(event) {
+	    this.props.handleMoveToProfile(String(this.props.url));
+	  },
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'restaurant' },
+	      React.createElement(
+	        Row,
+	        { className: 'text-align-center' },
+	        React.createElement(
+	          Col,
+	          { xs: 12, md: 12 },
+	          React.createElement(
+	            'a',
+	            null,
+	            React.createElement(
+	              'h2',
+	              { className: 'restaurantName', onClick: this.MoveToProfile, value: this.props.url },
+	              this.props.name
+	            )
+	          ),
+	          React.createElement(
+	            'h4',
+	            null,
+	            'Status: ',
+	            this.props.status
+	          ),
+	          React.createElement(
+	            'span',
+	            null,
+	            React.createElement(FontAwesome, { name: 'thumbs-o-down' }),
+	            ': ',
+	            this.props.thumb_downs
+	          ),
+	          React.createElement('br', null),
+	          React.createElement(
+	            'span',
+	            null,
+	            'added: ',
+	            this.props.added
+	          ),
+	          React.createElement(
+	            'p',
+	            null,
+	            'Review average: ',
+	            this.props.avg_score,
+	            '/10',
+	            React.createElement('br', null),
+	            this.props.children
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var RestaurantPage = React.createClass({
+	  displayName: 'RestaurantPage',
+	
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	  goAddRestaurant: function goAddRestaurant() {
+	    this.context.router.push('/app/add_restaurant/');
+	  },
+	  getInitialState: function getInitialState() {
+	    return { data: []
+	    };
+	  },
+	
+	  render: function render() {
+	    return React.createElement(
+	      'div',
+	      { className: 'component' },
+	      React.createElement(
+	        Row,
+	        { className: 'text-align-center' },
+	        React.createElement(
+	          Col,
+	          { xs: 12, md: 12 },
+	          React.createElement(
+	            Row,
+	            null,
+	            React.createElement(
+	              'h1',
+	              null,
+	              'Restaurants'
+	            ),
+	            React.createElement('br', null)
+	          ),
+	          React.createElement(
+	            Row,
+	            null,
+	            React.createElement(RestaurantList, { data: this.props.restaurants })
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	var RestaurantList = React.createClass({
+	  displayName: 'RestaurantList',
+	
+	  goToRestaurantProfile: function goToRestaurantProfile(restaurantKey) {
+	    this.context.router.push('/app/restaurant/' + String(restaurantKey));
+	  },
+	  contextTypes: {
+	    router: React.PropTypes.object.isRequired
+	  },
+	  render: function render() {
+	    var restaurantNodes = this.props.data.map(function (restaurant) {
+	      return React.createElement(
+	        Restaurant,
+	        { name: restaurant.name, added: restaurant.added, thumb_downs: restaurant.thumb_downs, status: restaurant.status, avg_score: restaurant.avg_review, key: restaurant.id, url: restaurant.id, handleMoveToProfile: this.goToRestaurantProfile },
+	        restaurant.description
+	      );
+	    }, this);
+	    return React.createElement(
+	      'div',
+	      { className: 'restaurantList' },
+	      restaurantNodes
+	    );
+	  }
+	});
+	
+	var RestaurantsModal = React.createClass({
+	  displayName: 'RestaurantsModal',
+	  getInitialState: function getInitialState() {
+	    return { showModal: false };
+	  },
+	  close: function close() {
+	    this.setState({ showModal: false });
+	  },
+	  open: function open() {
+	    this.setState({ showModal: true });
+	  },
+	  render: function render() {
+	    var popover = React.createElement(
+	      Popover,
+	      { id: 'modal-popover', title: 'popover' },
+	      'very popover. such engagement'
+	    );
+	    var tooltip = React.createElement(
+	      Tooltip,
+	      { id: 'modal-tooltip' },
+	      'wow.'
+	    );
+	
+	    return React.createElement(
+	      'div',
+	      null,
+	      React.createElement(
+	        Button,
+	        {
+	
+	          onClick: this.open
+	        },
+	        'Recent Restaurants'
+	      ),
+	      React.createElement(
+	        Modal,
+	        { show: this.state.showModal, onHide: this.close },
+	        React.createElement(
+	          Modal.Header,
+	          { closeButton: true },
+	          React.createElement(
+	            Modal.Title,
+	            null,
+	            'Recent Polls'
+	          )
+	        ),
+	        React.createElement(
+	          Modal.Body,
+	          null,
+	          React.createElement(RestaurantPage, { restaurants: this.props.restaurants, close: this.close })
+	        ),
+	        React.createElement(
+	          Modal.Footer,
+	          null,
+	          React.createElement(
+	            Button,
+	            { onClick: this.close },
+	            'Close'
+	          )
+	        )
+	      )
+	    );
+	  }
+	});
+	
+	module.exports = RestaurantsModal;
+
+/***/ },
+/* 484 */
+/*!******************************************!*\
+  !*** ./~/react-fontawesome/lib/index.js ***!
+  \******************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _react = __webpack_require__(/*! react */ 2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
+	
+	/**
+	 * A React component for the font-awesome icon library.
+	 *
+	 *
+	 * @param {Boolean} [border=false] Whether or not to show a border radius
+	 * @param {String} [className] An extra set of CSS classes to add to the component
+	 * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
+	 * @param {Boolean} [fixedWidth=false] Make buttons fixed width
+	 * @param {String} [flip=false] Flip the icon's orientation.
+	 * @param {Boolean} [inverse=false]Inverse the icon's color
+	 * @param {String} name Name of the icon to use
+	 * @param {Boolean} [pulse=false] Rotate icon with 8 steps (rather than smoothly)
+	 * @param {Number} [rotate] The degress to rotate the icon by
+	 * @param {String} [size] The icon scaling size
+	 * @param {Boolean} [spin=false] Spin the icon
+	 * @param {String} [stack] Stack an icon on top of another
+	 * @param {String} [tag=span] The HTML tag to use as a string (eg 'i' or 'em')
+	 * @module FontAwesome
+	 * @type {ReactClass}
+	 */
+	exports.default = _react2.default.createClass({
+	
+	  displayName: 'FontAwesome',
+	
+	  propTypes: {
+	    border: _react2.default.PropTypes.bool,
+	    className: _react2.default.PropTypes.string,
+	    cssModule: _react2.default.PropTypes.object,
+	    fixedWidth: _react2.default.PropTypes.bool,
+	    flip: _react2.default.PropTypes.oneOf(['horizontal', 'vertical']),
+	    inverse: _react2.default.PropTypes.bool,
+	    name: _react2.default.PropTypes.string.isRequired,
+	    pulse: _react2.default.PropTypes.bool,
+	    rotate: _react2.default.PropTypes.oneOf([90, 180, 270]),
+	    size: _react2.default.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x']),
+	    spin: _react2.default.PropTypes.bool,
+	    stack: _react2.default.PropTypes.oneOf(['1x', '2x']),
+	    tag: _react2.default.PropTypes.string
+	  },
+	
+	  render: function render() {
+	    var _props = this.props;
+	    var border = _props.border;
+	    var cssModule = _props.cssModule;
+	    var className = _props.className;
+	    var fixedWidth = _props.fixedWidth;
+	    var flip = _props.flip;
+	    var inverse = _props.inverse;
+	    var name = _props.name;
+	    var pulse = _props.pulse;
+	    var rotate = _props.rotate;
+	    var size = _props.size;
+	    var spin = _props.spin;
+	    var stack = _props.stack;
+	    var _props$tag = _props.tag;
+	    var tag = _props$tag === undefined ? 'span' : _props$tag;
+	
+	    var props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag']);
+	
+	    var classNames = [];
+	
+	    if (cssModule) {
+	      classNames.push(cssModule['fa']);
+	      classNames.push(cssModule['fa-' + name]);
+	      size && classNames.push(cssModule['fa-' + size]);
+	      spin && classNames.push(cssModule['fa-spin']);
+	      pulse && classNames.push(cssModule['fa-pulse']);
+	      border && classNames.push(cssModule['fa-border']);
+	      fixedWidth && classNames.push(cssModule['fa-fw']);
+	      inverse && classNames.push(cssModule['fa-inverse']);
+	      flip && classNames.push(cssModule['fa-flip-' + flip]);
+	      rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
+	      stack && classNames.push(cssModule['fa-stack-' + stack]);
+	    } else {
+	      classNames.push('fa');
+	      classNames.push('fa-' + name);
+	      size && classNames.push('fa-' + size);
+	      spin && classNames.push('fa-spin');
+	      pulse && classNames.push('fa-pulse');
+	      border && classNames.push('fa-border');
+	      fixedWidth && classNames.push('fa-fw');
+	      inverse && classNames.push('fa-inverse');
+	      flip && classNames.push('fa-flip-' + flip);
+	      rotate && classNames.push('fa-rotate-' + rotate);
+	      stack && classNames.push('fa-stack-' + stack);
+	    }
+	
+	    // Add any custom class names at the end.
+	    className && classNames.push(className);
+	    return _react2.default.createElement(tag, _extends({}, props, { className: classNames.join(' ') }));
+	  }
+	});
+	module.exports = exports['default'];
+
+/***/ },
+/* 485 */
 /*!****************************************************!*\
   !*** ./src/client/app/restaurants/restaurants.jsx ***!
   \****************************************************/
@@ -47512,124 +48049,7 @@
 	exports.default = RestaurantPage;
 
 /***/ },
-/* 484 */
-/*!******************************************!*\
-  !*** ./~/react-fontawesome/lib/index.js ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _react = __webpack_require__(/*! react */ 2);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _objectWithoutProperties(obj, keys) { var target = {}; for (var i in obj) { if (keys.indexOf(i) >= 0) continue; if (!Object.prototype.hasOwnProperty.call(obj, i)) continue; target[i] = obj[i]; } return target; }
-	
-	/**
-	 * A React component for the font-awesome icon library.
-	 *
-	 *
-	 * @param {Boolean} [border=false] Whether or not to show a border radius
-	 * @param {String} [className] An extra set of CSS classes to add to the component
-	 * @param {Object} [cssModule] Option to pass FontAwesome CSS as a module
-	 * @param {Boolean} [fixedWidth=false] Make buttons fixed width
-	 * @param {String} [flip=false] Flip the icon's orientation.
-	 * @param {Boolean} [inverse=false]Inverse the icon's color
-	 * @param {String} name Name of the icon to use
-	 * @param {Boolean} [pulse=false] Rotate icon with 8 steps (rather than smoothly)
-	 * @param {Number} [rotate] The degress to rotate the icon by
-	 * @param {String} [size] The icon scaling size
-	 * @param {Boolean} [spin=false] Spin the icon
-	 * @param {String} [stack] Stack an icon on top of another
-	 * @param {String} [tag=span] The HTML tag to use as a string (eg 'i' or 'em')
-	 * @module FontAwesome
-	 * @type {ReactClass}
-	 */
-	exports.default = _react2.default.createClass({
-	
-	  displayName: 'FontAwesome',
-	
-	  propTypes: {
-	    border: _react2.default.PropTypes.bool,
-	    className: _react2.default.PropTypes.string,
-	    cssModule: _react2.default.PropTypes.object,
-	    fixedWidth: _react2.default.PropTypes.bool,
-	    flip: _react2.default.PropTypes.oneOf(['horizontal', 'vertical']),
-	    inverse: _react2.default.PropTypes.bool,
-	    name: _react2.default.PropTypes.string.isRequired,
-	    pulse: _react2.default.PropTypes.bool,
-	    rotate: _react2.default.PropTypes.oneOf([90, 180, 270]),
-	    size: _react2.default.PropTypes.oneOf(['lg', '2x', '3x', '4x', '5x']),
-	    spin: _react2.default.PropTypes.bool,
-	    stack: _react2.default.PropTypes.oneOf(['1x', '2x']),
-	    tag: _react2.default.PropTypes.string
-	  },
-	
-	  render: function render() {
-	    var _props = this.props;
-	    var border = _props.border;
-	    var cssModule = _props.cssModule;
-	    var className = _props.className;
-	    var fixedWidth = _props.fixedWidth;
-	    var flip = _props.flip;
-	    var inverse = _props.inverse;
-	    var name = _props.name;
-	    var pulse = _props.pulse;
-	    var rotate = _props.rotate;
-	    var size = _props.size;
-	    var spin = _props.spin;
-	    var stack = _props.stack;
-	    var _props$tag = _props.tag;
-	    var tag = _props$tag === undefined ? 'span' : _props$tag;
-	
-	    var props = _objectWithoutProperties(_props, ['border', 'cssModule', 'className', 'fixedWidth', 'flip', 'inverse', 'name', 'pulse', 'rotate', 'size', 'spin', 'stack', 'tag']);
-	
-	    var classNames = [];
-	
-	    if (cssModule) {
-	      classNames.push(cssModule['fa']);
-	      classNames.push(cssModule['fa-' + name]);
-	      size && classNames.push(cssModule['fa-' + size]);
-	      spin && classNames.push(cssModule['fa-spin']);
-	      pulse && classNames.push(cssModule['fa-pulse']);
-	      border && classNames.push(cssModule['fa-border']);
-	      fixedWidth && classNames.push(cssModule['fa-fw']);
-	      inverse && classNames.push(cssModule['fa-inverse']);
-	      flip && classNames.push(cssModule['fa-flip-' + flip]);
-	      rotate && classNames.push(cssModule['fa-rotate-' + rotate]);
-	      stack && classNames.push(cssModule['fa-stack-' + stack]);
-	    } else {
-	      classNames.push('fa');
-	      classNames.push('fa-' + name);
-	      size && classNames.push('fa-' + size);
-	      spin && classNames.push('fa-spin');
-	      pulse && classNames.push('fa-pulse');
-	      border && classNames.push('fa-border');
-	      fixedWidth && classNames.push('fa-fw');
-	      inverse && classNames.push('fa-inverse');
-	      flip && classNames.push('fa-flip-' + flip);
-	      rotate && classNames.push('fa-rotate-' + rotate);
-	      stack && classNames.push('fa-stack-' + stack);
-	    }
-	
-	    // Add any custom class names at the end.
-	    className && classNames.push(className);
-	    return _react2.default.createElement(tag, _extends({}, props, { className: classNames.join(' ') }));
-	  }
-	});
-	module.exports = exports['default'];
-
-/***/ },
-/* 485 */
+/* 486 */
 /*!***********************************************************!*\
   !*** ./src/client/app/restaurants/restaurant_profile.jsx ***!
   \***********************************************************/
@@ -48394,7 +48814,7 @@
 	exports.default = RestaurantProfile;
 
 /***/ },
-/* 486 */
+/* 487 */
 /*!*******************************************************!*\
   !*** ./src/client/app/restaurants/add_restaurant.jsx ***!
   \*******************************************************/
@@ -48405,6 +48825,13 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _reactAlert = __webpack_require__(/*! react-alert */ 488);
+	
+	var _reactAlert2 = _interopRequireDefault(_reactAlert);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	var React = __webpack_require__(/*! react */ 2);
 	var ReactBootstrap = __webpack_require__(/*! react-bootstrap */ 36);
 	var Grid = ReactBootstrap.Grid;
@@ -48414,6 +48841,8 @@
 	var Button = ReactBootstrap.Button;
 	var FormGroup = ReactBootstrap.FormGroup;
 	var FormControl = ReactBootstrap.FormControl;
+	
+	var AlertError = _reactAlert2.default.error;
 	
 	var RestaurantForm = React.createClass({
 	  displayName: 'RestaurantForm',
@@ -48435,8 +48864,7 @@
 	        this.context.router.replace('/app/restaurant/' + String(data.id));
 	      }.bind(this),
 	      error: function (xhr, status, err) {
-	        this.setState({ data: comments });
-	        console.error(this.props.url, status, err.toString());
+	        alert(String(xhr.responseText));
 	      }.bind(this)
 	    });
 	  },
@@ -48466,6 +48894,7 @@
 	    var city = this.state.city.trim();
 	    var state = this.state.state.trim();
 	    if (!name || !description || !street || !city || !state) {
+	      alert('Missing required fields');
 	      return;
 	    }
 	    this.handleRestaurantSubmit({ name: name, description: description, street: street, city: city, state: state });
@@ -48551,7 +48980,2150 @@
 	exports.default = RestaurantForm;
 
 /***/ },
-/* 487 */
+/* 488 */
+/*!*************************************!*\
+  !*** ./~/react-alert/dist/alert.js ***!
+  \*************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	(function webpackUniversalModuleDefinition(root, factory) {
+		if(true)
+			module.exports = factory(__webpack_require__(/*! react */ 2), __webpack_require__(/*! react-addons-css-transition-group */ 489), __webpack_require__(/*! react-dom */ 150));
+		else if(typeof define === 'function' && define.amd)
+			define(["react", "react-addons-css-transition-group", "react-dom"], factory);
+		else if(typeof exports === 'object')
+			exports["react-alert"] = factory(require("react"), require("react-addons-css-transition-group"), require("react-dom"));
+		else
+			root["react-alert"] = factory(root["react"], root["react-addons-css-transition-group"], root["react-dom"]);
+	})(this, function(__WEBPACK_EXTERNAL_MODULE_11__, __WEBPACK_EXTERNAL_MODULE_14__, __WEBPACK_EXTERNAL_MODULE_16__) {
+	return /******/ (function(modules) { // webpackBootstrap
+	/******/ 	// The module cache
+	/******/ 	var installedModules = {};
+	
+	/******/ 	// The require function
+	/******/ 	function __webpack_require__(moduleId) {
+	
+	/******/ 		// Check if module is in cache
+	/******/ 		if(installedModules[moduleId])
+	/******/ 			return installedModules[moduleId].exports;
+	
+	/******/ 		// Create a new module (and put it into the cache)
+	/******/ 		var module = installedModules[moduleId] = {
+	/******/ 			exports: {},
+	/******/ 			id: moduleId,
+	/******/ 			loaded: false
+	/******/ 		};
+	
+	/******/ 		// Execute the module function
+	/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+	
+	/******/ 		// Flag the module as loaded
+	/******/ 		module.loaded = true;
+	
+	/******/ 		// Return the exports of the module
+	/******/ 		return module.exports;
+	/******/ 	}
+	
+	
+	/******/ 	// expose the modules object (__webpack_modules__)
+	/******/ 	__webpack_require__.m = modules;
+	
+	/******/ 	// expose the module cache
+	/******/ 	__webpack_require__.c = installedModules;
+	
+	/******/ 	// __webpack_public_path__
+	/******/ 	__webpack_require__.p = "/dist";
+	
+	/******/ 	// Load entry module and return exports
+	/******/ 	return __webpack_require__(0);
+	/******/ })
+	/************************************************************************/
+	/******/ ([
+	/* 0 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		module.exports = __webpack_require__(1);
+	
+	
+	/***/ },
+	/* 1 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		//load styles
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		__webpack_require__(2);
+	
+		//load js
+	
+		var _react = __webpack_require__(11);
+	
+		var _react2 = _interopRequireDefault(_react);
+	
+		var _devComponentsAlertContainer = __webpack_require__(12);
+	
+		var _devComponentsAlertContainer2 = _interopRequireDefault(_devComponentsAlertContainer);
+	
+		exports['default'] = _devComponentsAlertContainer2['default'];
+		module.exports = exports['default'];
+	
+	/***/ },
+	/* 2 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+		// load the styles
+		var content = __webpack_require__(3);
+		if(typeof content === 'string') content = [[module.id, content, '']];
+		// add the styles to the DOM
+		var update = __webpack_require__(10)(content, {});
+		if(content.locals) module.exports = content.locals;
+		// Hot Module Replacement
+		if(false) {
+			// When the styles change, update the <style> tags
+			if(!content.locals) {
+				module.hot.accept("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./../../../node_modules/stylus-loader/index.js!./alert.styl", function() {
+					var newContent = require("!!./../../../node_modules/css-loader/index.js!./../../../node_modules/postcss-loader/index.js!./../../../node_modules/stylus-loader/index.js!./alert.styl");
+					if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+					update(newContent);
+				});
+			}
+			// When the module is disposed, remove the <style> tags
+			module.hot.dispose(function() { update(); });
+		}
+	
+	/***/ },
+	/* 3 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		exports = module.exports = __webpack_require__(4)();
+		exports.push([module.id, ".react-alerts {\n  position: fixed;\n  right: 0;\n  bottom: 0;\n  margin: 14px;\n  z-index: 999999;\n}\n.react-alerts .alert {\n  width: 300px;\n  min-height: 50px;\n  margin: 10px 0 0 0;\n  display: -webkit-box;\n  display: -webkit-flex;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n  -webkit-align-items: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n  -webkit-justify-content: space-between;\n      -ms-flex-pack: justify;\n          justify-content: space-between;\n  border-radius: 2px;\n  background-color: #333;\n  font-size: 11px;\n  box-shadow: 0 8px 12px 0 rgba(0,0,0,0.3);\n  color: #fff;\n}\n.react-alerts .alert .content {\n  -webkit-box-flex: 1;\n  -webkit-flex: 1;\n      -ms-flex: 1;\n          flex: 1;\n  text-align: center;\n}\n.react-alerts .alert .icon {\n  width: 32px;\n  height: 32px;\n}\n.react-alerts .alert .icon div {\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .icon .info-icon {\n  background-image: url("+__webpack_require__(5)+");\n}\n.react-alerts .alert .icon .error-icon {\n  background-image: url("+__webpack_require__(6)+");\n}\n.react-alerts .alert .icon .success-icon {\n  background-image: url("+__webpack_require__(7)+");\n}\n.react-alerts .alert .message {\n  -webkit-box-flex: 3;\n  -webkit-flex: 3;\n      -ms-flex: 3;\n          flex: 3;\n  text-transform: uppercase;\n  padding: 8px 10px;\n}\n.react-alerts .alert .close {\n  height: 50px;\n  background-color: #444;\n  border-radius: 0 2px 2px 0;\n  line-height: 50px;\n  cursor: pointer;\n}\n.react-alerts .alert .close .close-light {\n  background-image: url("+__webpack_require__(8)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close .close-dark {\n  background-image: url("+__webpack_require__(9)+");\n  width: 100%;\n  height: 100%;\n  background-position: 50%;\n  background-repeat: no-repeat;\n}\n.react-alerts .alert .close:hover {\n  opacity: 0.5;\n}\n.react-alerts .alert.hidden {\n  display: none;\n}\n.react-alerts .scale-enter {\n  -webkit-transform: scale(0);\n          transform: scale(0);\n}\n.react-alerts .scale-enter.scale-enter-active {\n  -webkit-transform: scale(1);\n          transform: scale(1);\n  -webkit-transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n          transition: all 250ms cubic-bezier(0, 0, 0.5, 1.5);\n}\n.react-alerts .scale-leave {\n  -webkit-transform: scale(1);\n          transform: scale(1);\n}\n.react-alerts .scale-leave.scale-leave-active {\n  -webkit-transform: scale(0);\n          transform: scale(0);\n  -webkit-transition: all 250ms ease-in-out;\n          transition: all 250ms ease-in-out;\n}\n.react-alerts .fade-enter {\n  opacity: 0.1;\n}\n.react-alerts .fade-enter.fade-enter-active {\n  opacity: 1;\n  -webkit-transition: all 250ms ease-out;\n          transition: all 250ms ease-out;\n}\n.react-alerts .fade-leave {\n  opacity: 1;\n}\n.react-alerts .fade-leave.fade-leave-active {\n  opacity: 0.1;\n  -webkit-transition: all 250ms ease-in;\n          transition: all 250ms ease-in;\n}\n", ""]);
+	
+	/***/ },
+	/* 4 */
+	/***/ function(module, exports) {
+	
+		/*
+			MIT License http://www.opensource.org/licenses/mit-license.php
+			Author Tobias Koppers @sokra
+		*/
+		// css base code, injected by the css-loader
+		module.exports = function() {
+			var list = [];
+	
+			// return the list of modules as css string
+			list.toString = function toString() {
+				var result = [];
+				for(var i = 0; i < this.length; i++) {
+					var item = this[i];
+					if(item[2]) {
+						result.push("@media " + item[2] + "{" + item[1] + "}");
+					} else {
+						result.push(item[1]);
+					}
+				}
+				return result.join("");
+			};
+	
+			// import a list of modules into the list
+			list.i = function(modules, mediaQuery) {
+				if(typeof modules === "string")
+					modules = [[null, modules, ""]];
+				var alreadyImportedModules = {};
+				for(var i = 0; i < this.length; i++) {
+					var id = this[i][0];
+					if(typeof id === "number")
+						alreadyImportedModules[id] = true;
+				}
+				for(i = 0; i < modules.length; i++) {
+					var item = modules[i];
+					// skip already imported module
+					// this implementation is not 100% perfect for weird media query combinations
+					//  when a module is imported multiple times with different media queries.
+					//  I hope this will never occur (Hey this way we have smaller bundles)
+					if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+						if(mediaQuery && !item[2]) {
+							item[2] = mediaQuery;
+						} else if(mediaQuery) {
+							item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+						}
+						list.push(item);
+					}
+				}
+			};
+			return list;
+		};
+	
+	
+	/***/ },
+	/* 5 */
+	/***/ function(module, exports) {
+	
+		module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA4tJREFUeNrEV71v1DAUf3Z8Hz2KSKduqAMTElD+gavowFYJ2oUBQbsyslcVYu+/UNqJgRYKGxKceisLH2sFFQsdKjVtae+aS2Kec3bOcZzcNUJg6cmOY/v3e8/P79kA/7mQshP5O5jGqiU/75A5+PzPCGjgruzyypKgFyXsv4bbnEMLxUUBKaLdEv/KWEAIH8VSCDDNHPioaW4WLwhhtno/sQQvRUCa2O0FcEQIuDjgCo66h+3HyRhtBslu5DqP4A0OORIfSFqM9mxbRDQ/4BJ8DRdfBEMFBcgLdFJEkjr77wWSWCokEL0dWEMHVyJG20gQCwmTSNw3l3Z8luvpJrDqi2RfDjhRJPigj6t9thBnNkVMcPEdRel+3UJEB+cD7UWb0jQJ0+eY2ZExuwSPFDAlULnkAGUEWJVCFHKIAg69bgTheRgvFoNKcDFXkbAVZiiSCy6k0mBQG3cGs91mHEio1wZWE2Qc6Hg9CJGUo4HzDMJA6cwW5IFXxxlUG0569M33/bpd70c1h0Bjogpnh35sGQXOJZzNCtQWkpO9ljVlNAuedxRxxdplBmEk/YZnjjApDMW6p/LE9M6FwqvwDadC+woYjms6PLWFzNQJEATq9MIJy0ESmWPMi5MRSTmixr5MYVViPbI2AiUhRkjbdnAyLB17fwO851v18obeB9Dp2mafj0HGWsTxk0fQLMF5lMkFcm2eRyDecjw+O7pDiEXOT0M7gWa3L6b2CB74USYhqbULLXBwDNtJLJcS4mLd3+Fo+47GOjsKRMROrSHKSQe2hxK4ugR7yHRDZTIqpXMcQOfEIPH1bl9kCTEnHB/4aEY+SE4qI3LYmHwIe4bF03cGJT/XYGrShV09FIu2iG6CTR3zAatgUsL4L0CDXj8Z+WdhHH4FYZELVFvU+4dwDZX7oec7G4GEyOkrWMGr1LJJIuL2yKasRSSgIKAyI857PrYAz7TwYiVgBiPa3YIPuGBTB7YRUHtMNVBV47h2fR5mbeB5cSAZ9G0PFvDri25KRwpaBxwl6lv+U2PF3O/7MF8U7EhBX2yNT6swcWMKNnHRJjfuCtYrGUmuZDu7v2Dh+hM4NBUblUBq7c4mrKB2y6NcSvFtoO95LnjR08xKwnsJtxo1WEWQmZx5O6ddeOo+sD5MeJm3oY0IdLZgBq2xiNvySD1EeiGsj80nkY7n+FXpx2nZV/TQTPtHgAEAjorM5YZ2xYoAAAAASUVORK5CYII="
+	
+	/***/ },
+	/* 6 */
+	/***/ function(module, exports) {
+	
+		module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/ZJREFUeNqkV7tOlEEUPmf+XVgRFAgBRUgwsTEhoTDYUdnb0iGJFa/AW3ALiWKijaHlCXwASCy0IJFCsxExSlhdLqLsHOd++f/5lyXMZnZmz1zOd+6zCNdrWDJPNUrNC4eOnzyeEMM70Sc6vo0sTXwmH8Hfh1PPhxcW3lzGXM5Z4u75qzIn99GtmmWvvq2tzRsBZWeBsJHQ7Dr698wh6rLVqtWN/dXVZwFzTIDAKwOgnNpt46R7SL7R1bXxdWVlLgcgAsGuyjzsXHxzNdoufler0Zme7u6X9eXlMk10BoBydnfqN1Jz7k0Bik6q29Zbq70QIOYSINqbgHIqj7qSnvxogFzsfgR+0jRnPBAJ4svS0tO8E1auEmJgVN3OHHjyC8633gIiqgU5oPoIZsSnxLBlQFASAA8gRvEdMrTqt8yDuQMniB4EqVu5dz6yY6XjEKNQYjIMyUhvje+YgOZN5i6mfqdaJZVaU8y5ZUY27Py6Dz8yognpCZ0qyQlctHTRBFx4JkKBuWXC+24DHx4D6B+Kshk/+gn8ex2g2RBnhCbEHSwAoSXDgptVUsXESR8xJ2iNPQAaGUuqkg0Mqd46qAOv7+nLjO2t+hk65s4J82GIXLG0DhkwvzvhmGeDgwUAlpbdGYds9L7mQWgKAeYFdwpmqQKRdzreVQMa1fWpZ3oaRhYX1eiyXY7G7om93d06BNE7JdMqoUALyTDELAJB2uam3ZyZUWP/7Kyj2blcO93e1gxHxoHqn7QWMJIwjNZ0Ko6iQH719Lq1w/V1+Le/7xhb5pIm15wt5RkCk4K0AzKtjiizs7IXTgSzr99r6OxMMWodHTmanEuaXHMXqTM+BIw58vFIrKPi27qIqLXJScgGBrwDirmkRe38j7Y/Utsy01k1/N2IHC5Ue2iO0DHp9LjwCGDFUlMAkHssGgs2fhSc0No89Am7BuZMdEe61qU1gJhziMMDpVLrhKc7O87m1icszapfnQmfPyW1gCUIZHGr2NXxC3zvg/IFybCxuRk5XESTe8ReeYahL8fh3SkAlA8FzJmBnZ0A330P1GyU+4pYk3vk3vAspv80JIuRCAum1hRyFbvktxsQXIQY9g0A3up3TkrNI0ABQMY6M3mfodeklpYVhK20+7vjvNfeQPqRwY8bSlraD1SJep/dz7D4FKZL3gMqSTAmUyA6LTD1yCBTyTSdAUbpDAGCdOuZM/BpWGmCxfmtVAPWenK/resKHcr0jDpVY1FrETNXgBKB2MYE5J5T5EGQfaAYIIQUiYEB6BiIZ26eh5fnAUF4LYbPPhdg4Au6Z8rREDLT1dzYnZUwl3eau0v/Xnfy1xsvOUclI5T4IPwXYADEPSh6Pez/6gAAAABJRU5ErkJggg=="
+	
+	/***/ },
+	/* 7 */
+	/***/ function(module, exports) {
+	
+		module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA9tJREFUeNqkV8tOVDEY/lsOZy4wRG4OGwmSITGyMNFEVxNXJq7kDZCERzBxTeJGYetKIdGFK1c+gYlIFBeSaCRqiMExRhQZolydy6m9nml72pkBmnTa0+n5v++/tgfByRryzF2NuObJl54/GWG/tI80F0eca9f78nAt1z99q3DpcStwNscO0VNHBmfPcQfoCIKFuU9vpqSCrGNNWUNpDCdtFrhSsDOVmp/7uHxTA0cOEggfC9BLJDIM3JlOz8+uvp60CBgk8PG1pT2KZCfxmEZmWIXZzMN7H175LNEmAQXojW1pfrmH0JFo+1Nd2QeUxKSDRAsXNAWWWqtRthdbP6Fc+Zcgwkjcfb90ww7C4CgpxpsGFgcegZhMuX4Idz6/ozAaDqZzTHWt1i7Qp2eSBHETYIIsPxpRrkV6Yy3S5kTKV3KQbUkFzsegvaBTfiYmEDe/jP7YshpRjk+E9h7LBt7SaoNHJJkFdtcLHdJEsv8QcoZv4K3vHvBCOgvjuR7o6wzjFyrUbaX9XVjZ3obdWlXEOlExj7SeLMeBX3sTnMEVewdgOJNNMA6piQvdPTCc7YblrU1Y29kRgUekC5TbhRWIHoQ4ob1KLV1zulY81e8Et4kUB/MwlElLQM0CovCq6Ig7dp6KxKx6hWxXS3C9FQeHGrVGGRsh3fLEXwmjyCRDrTDe1dMSdDiTg/vjV2Fm7DJ0BwF1Sc60AptgZB/HvlKs5zSBvjCEc929MJEfhYEw7QS/PXoRsh0B/T/D1/rDlETAmgUa9nURQO40FHsn8md5nxm7wgFd4Pv1Gsx+ecvXGWkOaqQnsgsBafs0fFn+wUcGxAAZsAu8dLATp2YMbhYgpFshaAecCVvaFgSmz5yPSShCNjhr5WrFqgFHigGzlfb3+MhILHxbjYF94Kx9Ze/E6Yd8l1ODgBEcOvOVP9vCpBYJHzgjXK5UhLURanppDry3bUTi9Nmt12G5/BuKA6djEgx8q3qYAGd3gcWtX8LcNjbGpDUBtUkVDixIrO3t0jpfoyQGaZ53wsrfzaSr6J5FWoorKv3sc4D4DyNi2IhvlkETSTIdGDaodk+/l2hlzNE8D6EvJXJ94+CA+7xcq4hLFpbvxgcQ0msCaWYBYpzdSgBbYzGAReau0ZNvbZ8k3ca1xhq4RgK1joGGFZCMAW4FcbnhwlVhQlZ+q1KLwJF22jOxLw3uIDRjQJEg0HCH63ajp5xd/5H/szHwfkDGAtUqiwPtlqSXWX2vyxr+j1RHIcL4Ef1dt2tBQyAW7sAiMHnHmv+RF3xdyvZ+Xrfz6Y1avEc8Y0Jz1f4LMACdsAzFV135ZQAAAABJRU5ErkJggg=="
+	
+	/***/ },
+	/* 8 */
+	/***/ function(module, exports) {
+	
+		module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAAYAAAAGAB4TKWmAAAAaElEQVRIx2NgGAUjFugwMDDsY2BgECVCrShUrQ4pFuxjYGD4z8DAcJmAJaJQNf+heogGyBpxWUKMGrItodhwfAZRzXBcllDVcGyWkGQ4E7VcMGiDiKaRTNNkSvOMRvOiguaF3SgYRgAA1bo+/as5g9sAAAAASUVORK5CYII="
+	
+	/***/ },
+	/* 9 */
+	/***/ function(module, exports) {
+	
+		module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAABIAAAASABGyWs+AAAACXZwQWcAAAAYAAAAGAB4TKWmAAAAaElEQVRIx2NgGAUjE/z//1/n////+/7//y9KhFpRqFodUizY9x8CLuOzBGr4ZajafaRYgKwRqyXEqCHbEooNx2cQ1QzHYwn1DMdhCUmGM1HFBYM2iGgayTRNpjTPaPQoKmhb2I2C4QUA0wmHwjkeewQAAAAASUVORK5CYII="
+	
+	/***/ },
+	/* 10 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		/*
+			MIT License http://www.opensource.org/licenses/mit-license.php
+			Author Tobias Koppers @sokra
+		*/
+		var stylesInDom = {},
+			memoize = function(fn) {
+				var memo;
+				return function () {
+					if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+					return memo;
+				};
+			},
+			isOldIE = memoize(function() {
+				return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+			}),
+			getHeadElement = memoize(function () {
+				return document.head || document.getElementsByTagName("head")[0];
+			}),
+			singletonElement = null,
+			singletonCounter = 0;
+	
+		module.exports = function(list, options) {
+			if(false) {
+				if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+			}
+	
+			options = options || {};
+			// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+			// tags it will allow on a page
+			if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+	
+			var styles = listToStyles(list);
+			addStylesToDom(styles, options);
+	
+			return function update(newList) {
+				var mayRemove = [];
+				for(var i = 0; i < styles.length; i++) {
+					var item = styles[i];
+					var domStyle = stylesInDom[item.id];
+					domStyle.refs--;
+					mayRemove.push(domStyle);
+				}
+				if(newList) {
+					var newStyles = listToStyles(newList);
+					addStylesToDom(newStyles, options);
+				}
+				for(var i = 0; i < mayRemove.length; i++) {
+					var domStyle = mayRemove[i];
+					if(domStyle.refs === 0) {
+						for(var j = 0; j < domStyle.parts.length; j++)
+							domStyle.parts[j]();
+						delete stylesInDom[domStyle.id];
+					}
+				}
+			};
+		}
+	
+		function addStylesToDom(styles, options) {
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				if(domStyle) {
+					domStyle.refs++;
+					for(var j = 0; j < domStyle.parts.length; j++) {
+						domStyle.parts[j](item.parts[j]);
+					}
+					for(; j < item.parts.length; j++) {
+						domStyle.parts.push(addStyle(item.parts[j], options));
+					}
+				} else {
+					var parts = [];
+					for(var j = 0; j < item.parts.length; j++) {
+						parts.push(addStyle(item.parts[j], options));
+					}
+					stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+				}
+			}
+		}
+	
+		function listToStyles(list) {
+			var styles = [];
+			var newStyles = {};
+			for(var i = 0; i < list.length; i++) {
+				var item = list[i];
+				var id = item[0];
+				var css = item[1];
+				var media = item[2];
+				var sourceMap = item[3];
+				var part = {css: css, media: media, sourceMap: sourceMap};
+				if(!newStyles[id])
+					styles.push(newStyles[id] = {id: id, parts: [part]});
+				else
+					newStyles[id].parts.push(part);
+			}
+			return styles;
+		}
+	
+		function createStyleElement() {
+			var styleElement = document.createElement("style");
+			var head = getHeadElement();
+			styleElement.type = "text/css";
+			head.appendChild(styleElement);
+			return styleElement;
+		}
+	
+		function createLinkElement() {
+			var linkElement = document.createElement("link");
+			var head = getHeadElement();
+			linkElement.rel = "stylesheet";
+			head.appendChild(linkElement);
+			return linkElement;
+		}
+	
+		function addStyle(obj, options) {
+			var styleElement, update, remove;
+	
+			if (options.singleton) {
+				var styleIndex = singletonCounter++;
+				styleElement = singletonElement || (singletonElement = createStyleElement());
+				update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+				remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+			} else if(obj.sourceMap &&
+				typeof URL === "function" &&
+				typeof URL.createObjectURL === "function" &&
+				typeof URL.revokeObjectURL === "function" &&
+				typeof Blob === "function" &&
+				typeof btoa === "function") {
+				styleElement = createLinkElement();
+				update = updateLink.bind(null, styleElement);
+				remove = function() {
+					styleElement.parentNode.removeChild(styleElement);
+					if(styleElement.href)
+						URL.revokeObjectURL(styleElement.href);
+				};
+			} else {
+				styleElement = createStyleElement();
+				update = applyToTag.bind(null, styleElement);
+				remove = function() {
+					styleElement.parentNode.removeChild(styleElement);
+				};
+			}
+	
+			update(obj);
+	
+			return function updateStyle(newObj) {
+				if(newObj) {
+					if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+						return;
+					update(obj = newObj);
+				} else {
+					remove();
+				}
+			};
+		}
+	
+		var replaceText = (function () {
+			var textStore = [];
+	
+			return function (index, replacement) {
+				textStore[index] = replacement;
+				return textStore.filter(Boolean).join('\n');
+			};
+		})();
+	
+		function applyToSingletonTag(styleElement, index, remove, obj) {
+			var css = remove ? "" : obj.css;
+	
+			if (styleElement.styleSheet) {
+				styleElement.styleSheet.cssText = replaceText(index, css);
+			} else {
+				var cssNode = document.createTextNode(css);
+				var childNodes = styleElement.childNodes;
+				if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+				if (childNodes.length) {
+					styleElement.insertBefore(cssNode, childNodes[index]);
+				} else {
+					styleElement.appendChild(cssNode);
+				}
+			}
+		}
+	
+		function applyToTag(styleElement, obj) {
+			var css = obj.css;
+			var media = obj.media;
+			var sourceMap = obj.sourceMap;
+	
+			if(media) {
+				styleElement.setAttribute("media", media)
+			}
+	
+			if(styleElement.styleSheet) {
+				styleElement.styleSheet.cssText = css;
+			} else {
+				while(styleElement.firstChild) {
+					styleElement.removeChild(styleElement.firstChild);
+				}
+				styleElement.appendChild(document.createTextNode(css));
+			}
+		}
+	
+		function updateLink(linkElement, obj) {
+			var css = obj.css;
+			var media = obj.media;
+			var sourceMap = obj.sourceMap;
+	
+			if(sourceMap) {
+				// http://stackoverflow.com/a/26603875
+				css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+			}
+	
+			var blob = new Blob([css], { type: "text/css" });
+	
+			var oldSrc = linkElement.href;
+	
+			linkElement.href = URL.createObjectURL(blob);
+	
+			if(oldSrc)
+				URL.revokeObjectURL(oldSrc);
+		}
+	
+	
+	/***/ },
+	/* 11 */
+	/***/ function(module, exports) {
+	
+		module.exports = __WEBPACK_EXTERNAL_MODULE_11__;
+	
+	/***/ },
+	/* 12 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+		var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+		var _get = function get(_x5, _x6, _x7) { var _again = true; _function: while (_again) { var object = _x5, property = _x6, receiver = _x7; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x5 = parent; _x6 = property; _x7 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+		function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+		var _react = __webpack_require__(11);
+	
+		var _react2 = _interopRequireDefault(_react);
+	
+		var _events = __webpack_require__(13);
+	
+		var _events2 = _interopRequireDefault(_events);
+	
+		var _reactAddonsCssTransitionGroup = __webpack_require__(14);
+	
+		var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
+	
+		var _AlertMessage = __webpack_require__(15);
+	
+		var _AlertMessage2 = _interopRequireDefault(_AlertMessage);
+	
+		var AlertContainer = (function (_React$Component) {
+		  _inherits(AlertContainer, _React$Component);
+	
+		  function AlertContainer(props) {
+		    _classCallCheck(this, AlertContainer);
+	
+		    _get(Object.getPrototypeOf(AlertContainer.prototype), 'constructor', this).call(this, props);
+		    global.reactAlertEvents = new _events2['default']();
+		    this.state = {
+		      alerts: []
+		    };
+		    this.style = this._setStyle();
+		    this.theme = this._setTheme();
+		    this._eventListners();
+		  }
+	
+		  /**
+		   * Show the alert in the page with success type
+		   * @param  {string} message 
+		   * @param  {Object} options 
+		   * @return {void}         
+		   */
+	
+		  _createClass(AlertContainer, [{
+		    key: 'success',
+		    value: function success(message) {
+		      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	
+		      options.type = 'success';
+		      this.show(message, options);
+		    }
+	
+		    /**
+		     * Show the alert in the page with error type
+		     * @param  {string} message 
+		     * @param  {Object} options 
+		     * @return {void}
+		     */
+		  }, {
+		    key: 'error',
+		    value: function error(message) {
+		      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	
+		      options.type = 'error';
+		      this.show(message, options);
+		    }
+	
+		    /**
+		     * Show the alert in the page with info type 
+		     * @param  {string} message
+		     * @param  {Object} options
+		     * @return {void}
+		     */
+		  }, {
+		    key: 'info',
+		    value: function info(message) {
+		      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	
+		      options.type = 'info';
+		      this.show(message, options);
+		    }
+	
+		    /**
+		     * Show the alert in the page
+		     * @param  {string} message
+		     * @param  {Object} options
+		     * @return {void}
+		     */
+		  }, {
+		    key: 'show',
+		    value: function show(message) {
+		      var options = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
+	
+		      var alert = {};
+		      alert.message = message;
+		      alert = Object.assign(alert, options);
+		      this.setState({ alerts: this._addAlert(alert) });
+		    }
+	
+		    /**
+		     * Remove all tasks from the page
+		     * @return {void}
+		     */
+		  }, {
+		    key: 'removeAll',
+		    value: function removeAll() {
+		      this.setState({ alerts: [] });
+		    }
+	
+		    /**
+		     * Add an alert
+		     * @param {Object} alert
+		     */
+		  }, {
+		    key: '_addAlert',
+		    value: function _addAlert(alert) {
+		      alert.uniqueKey = this._genUniqueKey();
+		      alert.style = this.theme;
+		      if (!alert.hasOwnProperty('time')) {
+		        alert.time = this.props.time;
+		      };
+		      alert.closeIconClass = 'close-' + this.props.theme;
+		      this.state.alerts.push(alert);
+		      return this.state.alerts;
+		    }
+	
+		    /**
+		     * Generate a key
+		     * @return {string}
+		     */
+		  }, {
+		    key: '_genUniqueKey',
+		    value: function _genUniqueKey() {
+		      return new Date().getTime().toString() + Math.random().toString(36).substr(2, 5);
+		    }
+	
+		    /**
+		     * Remove an AlertMessage from the container
+		     * @param  {AlertMessage} alert
+		     * @return {void}
+		     */
+		  }, {
+		    key: '_removeAlert',
+		    value: function _removeAlert(alert) {
+		      return this.state.alerts.filter(function (a) {
+		        return a.uniqueKey != alert.props.uniqueKey;
+		      });
+		    }
+	
+		    /**
+		     * Listen to alert events
+		     * @return {void}
+		     */
+		  }, {
+		    key: '_eventListners',
+		    value: function _eventListners() {
+		      var _this = this;
+	
+		      reactAlertEvents.on('ALERT.REMOVE', function (alert) {
+		        _this.setState({ alerts: _this._removeAlert(alert) });
+		      });
+		    }
+	
+		    /**
+		     * Set the alert position on the page
+		     */
+		  }, {
+		    key: '_setStyle',
+		    value: function _setStyle() {
+		      var position = {};
+		      switch (this.props.position) {
+		        case 'top left':
+		          position = {
+		            top: 0,
+		            right: 'auto',
+		            bottom: 'auto',
+		            left: 0
+		          };
+		          break;
+		        case 'top right':
+		          position = {
+		            top: 0,
+		            right: 0,
+		            bottom: 'auto',
+		            left: 'auto'
+		          };
+		          break;
+		        case 'bottom left':
+		          position = {
+		            top: 'auto',
+		            right: 'auto',
+		            bottom: 0,
+		            left: 0
+		          };
+		          break;
+		        default:
+		          position = {
+		            top: 'auto',
+		            right: 0,
+		            bottom: 0,
+		            left: 'auto'
+		          };
+		          break;
+		      }
+	
+		      return {
+		        margin: this.props.offset + 'px',
+		        top: position.top,
+		        right: position.right,
+		        bottom: position.bottom,
+		        left: position.left
+		      };
+		    }
+	
+		    /**
+		     * Set the style of the alert based on the chosen theme
+		     */
+		  }, {
+		    key: '_setTheme',
+		    value: function _setTheme() {
+		      var theme = {};
+		      switch (this.props.theme) {
+		        case 'light':
+		          theme = {
+		            alert: {
+		              backgroundColor: '#fff',
+		              color: '#333'
+		            },
+		            closeButton: {
+		              bg: '#f3f3f3'
+		            }
+		          };
+		          break;
+		        default:
+		          theme = {
+		            alert: {
+		              backgroundColor: '#333',
+		              color: '#fff'
+		            },
+		            closeButton: {
+		              bg: '#444'
+		            }
+		          };
+		          break;
+		      }
+	
+		      return theme;
+		    }
+		  }, {
+		    key: 'componentDidUpdate',
+		    value: function componentDidUpdate() {
+		      this.style = this._setStyle();
+		      this.theme = this._setTheme();
+		    }
+		  }, {
+		    key: 'render',
+		    value: function render() {
+		      return _react2['default'].createElement(
+		        'div',
+		        { style: this.style, className: 'react-alerts' },
+		        _react2['default'].createElement(
+		          _reactAddonsCssTransitionGroup2['default'],
+		          {
+		            transitionName: this.props.transition,
+		            transitionEnterTimeout: 250,
+		            transitionLeaveTimeout: 250 },
+		          this.state.alerts.map(function (alert, index) {
+		            return _react2['default'].createElement(_AlertMessage2['default'], _extends({ key: alert.uniqueKey }, alert));
+		          })
+		        )
+		      );
+		    }
+		  }]);
+	
+		  return AlertContainer;
+		})(_react2['default'].Component);
+	
+		AlertContainer.defaultProps = {
+		  offset: 14,
+		  position: 'bottom left',
+		  theme: 'dark',
+		  time: 5000,
+		  transition: 'scale'
+		};
+	
+		AlertContainer.propTypes = {
+		  offset: _react2['default'].PropTypes.number,
+		  position: _react2['default'].PropTypes.oneOf(['bottom left', 'bottom right', 'top right', 'top left']),
+		  theme: _react2['default'].PropTypes.oneOf(['dark', 'light']),
+		  time: _react2['default'].PropTypes.number,
+		  transition: _react2['default'].PropTypes.oneOf(['scale', 'fade'])
+		};
+	
+		exports['default'] = AlertContainer;
+		module.exports = exports['default'];
+		/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+	
+	/***/ },
+	/* 13 */
+	/***/ function(module, exports) {
+	
+		// Copyright Joyent, Inc. and other Node contributors.
+		//
+		// Permission is hereby granted, free of charge, to any person obtaining a
+		// copy of this software and associated documentation files (the
+		// "Software"), to deal in the Software without restriction, including
+		// without limitation the rights to use, copy, modify, merge, publish,
+		// distribute, sublicense, and/or sell copies of the Software, and to permit
+		// persons to whom the Software is furnished to do so, subject to the
+		// following conditions:
+		//
+		// The above copyright notice and this permission notice shall be included
+		// in all copies or substantial portions of the Software.
+		//
+		// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS
+		// OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+		// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN
+		// NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+		// DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+		// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
+		// USE OR OTHER DEALINGS IN THE SOFTWARE.
+	
+		function EventEmitter() {
+		  this._events = this._events || {};
+		  this._maxListeners = this._maxListeners || undefined;
+		}
+		module.exports = EventEmitter;
+	
+		// Backwards-compat with node 0.10.x
+		EventEmitter.EventEmitter = EventEmitter;
+	
+		EventEmitter.prototype._events = undefined;
+		EventEmitter.prototype._maxListeners = undefined;
+	
+		// By default EventEmitters will print a warning if more than 10 listeners are
+		// added to it. This is a useful default which helps finding memory leaks.
+		EventEmitter.defaultMaxListeners = 10;
+	
+		// Obviously not all Emitters should be limited to 10. This function allows
+		// that to be increased. Set to zero for unlimited.
+		EventEmitter.prototype.setMaxListeners = function(n) {
+		  if (!isNumber(n) || n < 0 || isNaN(n))
+		    throw TypeError('n must be a positive number');
+		  this._maxListeners = n;
+		  return this;
+		};
+	
+		EventEmitter.prototype.emit = function(type) {
+		  var er, handler, len, args, i, listeners;
+	
+		  if (!this._events)
+		    this._events = {};
+	
+		  // If there is no 'error' event listener then throw.
+		  if (type === 'error') {
+		    if (!this._events.error ||
+		        (isObject(this._events.error) && !this._events.error.length)) {
+		      er = arguments[1];
+		      if (er instanceof Error) {
+		        throw er; // Unhandled 'error' event
+		      }
+		      throw TypeError('Uncaught, unspecified "error" event.');
+		    }
+		  }
+	
+		  handler = this._events[type];
+	
+		  if (isUndefined(handler))
+		    return false;
+	
+		  if (isFunction(handler)) {
+		    switch (arguments.length) {
+		      // fast cases
+		      case 1:
+		        handler.call(this);
+		        break;
+		      case 2:
+		        handler.call(this, arguments[1]);
+		        break;
+		      case 3:
+		        handler.call(this, arguments[1], arguments[2]);
+		        break;
+		      // slower
+		      default:
+		        args = Array.prototype.slice.call(arguments, 1);
+		        handler.apply(this, args);
+		    }
+		  } else if (isObject(handler)) {
+		    args = Array.prototype.slice.call(arguments, 1);
+		    listeners = handler.slice();
+		    len = listeners.length;
+		    for (i = 0; i < len; i++)
+		      listeners[i].apply(this, args);
+		  }
+	
+		  return true;
+		};
+	
+		EventEmitter.prototype.addListener = function(type, listener) {
+		  var m;
+	
+		  if (!isFunction(listener))
+		    throw TypeError('listener must be a function');
+	
+		  if (!this._events)
+		    this._events = {};
+	
+		  // To avoid recursion in the case that type === "newListener"! Before
+		  // adding it to the listeners, first emit "newListener".
+		  if (this._events.newListener)
+		    this.emit('newListener', type,
+		              isFunction(listener.listener) ?
+		              listener.listener : listener);
+	
+		  if (!this._events[type])
+		    // Optimize the case of one listener. Don't need the extra array object.
+		    this._events[type] = listener;
+		  else if (isObject(this._events[type]))
+		    // If we've already got an array, just append.
+		    this._events[type].push(listener);
+		  else
+		    // Adding the second element, need to change to array.
+		    this._events[type] = [this._events[type], listener];
+	
+		  // Check for listener leak
+		  if (isObject(this._events[type]) && !this._events[type].warned) {
+		    if (!isUndefined(this._maxListeners)) {
+		      m = this._maxListeners;
+		    } else {
+		      m = EventEmitter.defaultMaxListeners;
+		    }
+	
+		    if (m && m > 0 && this._events[type].length > m) {
+		      this._events[type].warned = true;
+		      console.error('(node) warning: possible EventEmitter memory ' +
+		                    'leak detected. %d listeners added. ' +
+		                    'Use emitter.setMaxListeners() to increase limit.',
+		                    this._events[type].length);
+		      if (typeof console.trace === 'function') {
+		        // not supported in IE 10
+		        console.trace();
+		      }
+		    }
+		  }
+	
+		  return this;
+		};
+	
+		EventEmitter.prototype.on = EventEmitter.prototype.addListener;
+	
+		EventEmitter.prototype.once = function(type, listener) {
+		  if (!isFunction(listener))
+		    throw TypeError('listener must be a function');
+	
+		  var fired = false;
+	
+		  function g() {
+		    this.removeListener(type, g);
+	
+		    if (!fired) {
+		      fired = true;
+		      listener.apply(this, arguments);
+		    }
+		  }
+	
+		  g.listener = listener;
+		  this.on(type, g);
+	
+		  return this;
+		};
+	
+		// emits a 'removeListener' event iff the listener was removed
+		EventEmitter.prototype.removeListener = function(type, listener) {
+		  var list, position, length, i;
+	
+		  if (!isFunction(listener))
+		    throw TypeError('listener must be a function');
+	
+		  if (!this._events || !this._events[type])
+		    return this;
+	
+		  list = this._events[type];
+		  length = list.length;
+		  position = -1;
+	
+		  if (list === listener ||
+		      (isFunction(list.listener) && list.listener === listener)) {
+		    delete this._events[type];
+		    if (this._events.removeListener)
+		      this.emit('removeListener', type, listener);
+	
+		  } else if (isObject(list)) {
+		    for (i = length; i-- > 0;) {
+		      if (list[i] === listener ||
+		          (list[i].listener && list[i].listener === listener)) {
+		        position = i;
+		        break;
+		      }
+		    }
+	
+		    if (position < 0)
+		      return this;
+	
+		    if (list.length === 1) {
+		      list.length = 0;
+		      delete this._events[type];
+		    } else {
+		      list.splice(position, 1);
+		    }
+	
+		    if (this._events.removeListener)
+		      this.emit('removeListener', type, listener);
+		  }
+	
+		  return this;
+		};
+	
+		EventEmitter.prototype.removeAllListeners = function(type) {
+		  var key, listeners;
+	
+		  if (!this._events)
+		    return this;
+	
+		  // not listening for removeListener, no need to emit
+		  if (!this._events.removeListener) {
+		    if (arguments.length === 0)
+		      this._events = {};
+		    else if (this._events[type])
+		      delete this._events[type];
+		    return this;
+		  }
+	
+		  // emit removeListener for all listeners on all events
+		  if (arguments.length === 0) {
+		    for (key in this._events) {
+		      if (key === 'removeListener') continue;
+		      this.removeAllListeners(key);
+		    }
+		    this.removeAllListeners('removeListener');
+		    this._events = {};
+		    return this;
+		  }
+	
+		  listeners = this._events[type];
+	
+		  if (isFunction(listeners)) {
+		    this.removeListener(type, listeners);
+		  } else if (listeners) {
+		    // LIFO order
+		    while (listeners.length)
+		      this.removeListener(type, listeners[listeners.length - 1]);
+		  }
+		  delete this._events[type];
+	
+		  return this;
+		};
+	
+		EventEmitter.prototype.listeners = function(type) {
+		  var ret;
+		  if (!this._events || !this._events[type])
+		    ret = [];
+		  else if (isFunction(this._events[type]))
+		    ret = [this._events[type]];
+		  else
+		    ret = this._events[type].slice();
+		  return ret;
+		};
+	
+		EventEmitter.prototype.listenerCount = function(type) {
+		  if (this._events) {
+		    var evlistener = this._events[type];
+	
+		    if (isFunction(evlistener))
+		      return 1;
+		    else if (evlistener)
+		      return evlistener.length;
+		  }
+		  return 0;
+		};
+	
+		EventEmitter.listenerCount = function(emitter, type) {
+		  return emitter.listenerCount(type);
+		};
+	
+		function isFunction(arg) {
+		  return typeof arg === 'function';
+		}
+	
+		function isNumber(arg) {
+		  return typeof arg === 'number';
+		}
+	
+		function isObject(arg) {
+		  return typeof arg === 'object' && arg !== null;
+		}
+	
+		function isUndefined(arg) {
+		  return arg === void 0;
+		}
+	
+	
+	/***/ },
+	/* 14 */
+	/***/ function(module, exports) {
+	
+		module.exports = __WEBPACK_EXTERNAL_MODULE_14__;
+	
+	/***/ },
+	/* 15 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		'use strict';
+	
+		Object.defineProperty(exports, '__esModule', {
+		  value: true
+		});
+	
+		var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
+	
+		var _get = function get(_x, _x2, _x3) { var _again = true; _function: while (_again) { var object = _x, property = _x2, receiver = _x3; _again = false; if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { _x = parent; _x2 = property; _x3 = receiver; _again = true; desc = parent = undefined; continue _function; } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } } };
+	
+		function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+		function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError('Cannot call a class as a function'); } }
+	
+		function _inherits(subClass, superClass) { if (typeof superClass !== 'function' && superClass !== null) { throw new TypeError('Super expression must either be null or a function, not ' + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+		var _react = __webpack_require__(11);
+	
+		var _react2 = _interopRequireDefault(_react);
+	
+		var _reactDom = __webpack_require__(16);
+	
+		var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+		var _classnames = __webpack_require__(17);
+	
+		var _classnames2 = _interopRequireDefault(_classnames);
+	
+		var AlertMessage = (function (_React$Component) {
+		  _inherits(AlertMessage, _React$Component);
+	
+		  function AlertMessage(props) {
+		    _classCallCheck(this, AlertMessage);
+	
+		    _get(Object.getPrototypeOf(AlertMessage.prototype), 'constructor', this).call(this, props);
+		    this.state = {
+		      closeButtonStyle: {}
+		    };
+		  }
+	
+		  /**
+		   * Handle the close button click
+		   * @return {void} 
+		   */
+	
+		  _createClass(AlertMessage, [{
+		    key: '_handleCloseClick',
+		    value: function _handleCloseClick() {
+		      this._removeSelf();
+		    }
+	
+		    /**
+		     * Include the given icon or use the default one
+		     * @return {React.Component}
+		     */
+		  }, {
+		    key: '_showIcon',
+		    value: function _showIcon() {
+		      var icon = '';
+		      if (this.props.icon) {
+		        icon = this.props.icon;
+		      } else {
+		        icon = _react2['default'].createElement('div', { className: this.props.type + '-icon' });
+		      }
+	
+		      return icon;
+		    }
+	
+		    /**
+		     * Remove the alert after the given time
+		     * @return {void} 
+		     */
+		  }, {
+		    key: '_countdown',
+		    value: function _countdown() {
+		      var _this = this;
+	
+		      setTimeout(function () {
+		        _this._removeSelf();
+		      }, this.props.time);
+		    }
+	
+		    /**
+		     * Emit a event to AlertContainer remove this alert from page
+		     * @return {void}
+		     */
+		  }, {
+		    key: '_removeSelf',
+		    value: function _removeSelf() {
+		      reactAlertEvents.emit('ALERT.REMOVE', this);
+		    }
+		  }, {
+		    key: 'componentDidMount',
+		    value: function componentDidMount() {
+		      this.domNode = _reactDom2['default'].findDOMNode(this);
+		      this.setState({
+		        closeButtonStyle: {
+		          height: this.domNode.offsetHeight + 'px',
+		          lineHeight: this.domNode.offsetHeight + 'px',
+		          backgroundColor: this.props.style.closeButton.bg
+		        }
+		      });
+	
+		      if (this.props.time > 0) {
+		        this._countdown();
+		      }
+		    }
+		  }, {
+		    key: 'render',
+		    value: function render() {
+		      return _react2['default'].createElement(
+		        'div',
+		        { style: this.props.style.alert, className: (0, _classnames2['default'])('alert', this.props.type) },
+		        _react2['default'].createElement(
+		          'div',
+		          { className: 'content icon' },
+		          this._showIcon.bind(this)()
+		        ),
+		        _react2['default'].createElement(
+		          'div',
+		          { className: 'content message' },
+		          this.props.message
+		        ),
+		        _react2['default'].createElement(
+		          'div',
+		          { onClick: this._handleCloseClick.bind(this), style: this.state.closeButtonStyle, className: 'content close' },
+		          _react2['default'].createElement('div', { className: this.props.closeIconClass })
+		        )
+		      );
+		    }
+		  }]);
+	
+		  return AlertMessage;
+		})(_react2['default'].Component);
+	
+		AlertMessage.defaultProps = {
+		  icon: '',
+		  message: '',
+		  type: 'info'
+		};
+	
+		AlertMessage.propTypes = {
+		  type: _react2['default'].PropTypes.oneOf(['info', 'success', 'error'])
+		};
+	
+		exports['default'] = AlertMessage;
+		module.exports = exports['default'];
+	
+	/***/ },
+	/* 16 */
+	/***/ function(module, exports) {
+	
+		module.exports = __WEBPACK_EXTERNAL_MODULE_16__;
+	
+	/***/ },
+	/* 17 */
+	/***/ function(module, exports, __webpack_require__) {
+	
+		var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+		  Copyright (c) 2016 Jed Watson.
+		  Licensed under the MIT License (MIT), see
+		  http://jedwatson.github.io/classnames
+		*/
+		/* global define */
+	
+		(function () {
+			'use strict';
+	
+			var hasOwn = {}.hasOwnProperty;
+	
+			function classNames () {
+				var classes = [];
+	
+				for (var i = 0; i < arguments.length; i++) {
+					var arg = arguments[i];
+					if (!arg) continue;
+	
+					var argType = typeof arg;
+	
+					if (argType === 'string' || argType === 'number') {
+						classes.push(arg);
+					} else if (Array.isArray(arg)) {
+						classes.push(classNames.apply(null, arg));
+					} else if (argType === 'object') {
+						for (var key in arg) {
+							if (hasOwn.call(arg, key) && arg[key]) {
+								classes.push(key);
+							}
+						}
+					}
+				}
+	
+				return classes.join(' ');
+			}
+	
+			if (typeof module !== 'undefined' && module.exports) {
+				module.exports = classNames;
+			} else if (true) {
+				// register as 'classnames', consistent with npm package name
+				!(__WEBPACK_AMD_DEFINE_ARRAY__ = [], __WEBPACK_AMD_DEFINE_RESULT__ = function () {
+					return classNames;
+				}.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+			} else {
+				window.classNames = classNames;
+			}
+		}());
+	
+	
+	/***/ }
+	/******/ ])
+	});
+	;
+
+/***/ },
+/* 489 */
+/*!******************************************************!*\
+  !*** ./~/react-addons-css-transition-group/index.js ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__(/*! react/lib/ReactCSSTransitionGroup */ 490);
+
+/***/ },
+/* 490 */
+/*!************************************************!*\
+  !*** ./~/react/lib/ReactCSSTransitionGroup.js ***!
+  \************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactCSSTransitionGroup
+	 */
+	
+	'use strict';
+	
+	var _assign = __webpack_require__(/*! object-assign */ 5);
+	
+	var React = __webpack_require__(/*! ./React */ 3);
+	
+	var ReactTransitionGroup = __webpack_require__(/*! ./ReactTransitionGroup */ 491);
+	var ReactCSSTransitionGroupChild = __webpack_require__(/*! ./ReactCSSTransitionGroupChild */ 493);
+	
+	function createTransitionTimeoutPropValidator(transitionType) {
+	  var timeoutPropName = 'transition' + transitionType + 'Timeout';
+	  var enabledPropName = 'transition' + transitionType;
+	
+	  return function (props) {
+	    // If the transition is enabled
+	    if (props[enabledPropName]) {
+	      // If no timeout duration is provided
+	      if (props[timeoutPropName] == null) {
+	        return new Error(timeoutPropName + ' wasn\'t supplied to ReactCSSTransitionGroup: ' + 'this can cause unreliable animations and won\'t be supported in ' + 'a future version of React. See ' + 'https://fb.me/react-animation-transition-group-timeout for more ' + 'information.');
+	
+	        // If the duration isn't a number
+	      } else if (typeof props[timeoutPropName] !== 'number') {
+	          return new Error(timeoutPropName + ' must be a number (in milliseconds)');
+	        }
+	    }
+	  };
+	}
+	
+	/**
+	 * An easy way to perform CSS transitions and animations when a React component
+	 * enters or leaves the DOM.
+	 * See https://facebook.github.io/react/docs/animation.html#high-level-api-reactcsstransitiongroup
+	 */
+	var ReactCSSTransitionGroup = React.createClass({
+	  displayName: 'ReactCSSTransitionGroup',
+	
+	  propTypes: {
+	    transitionName: ReactCSSTransitionGroupChild.propTypes.name,
+	
+	    transitionAppear: React.PropTypes.bool,
+	    transitionEnter: React.PropTypes.bool,
+	    transitionLeave: React.PropTypes.bool,
+	    transitionAppearTimeout: createTransitionTimeoutPropValidator('Appear'),
+	    transitionEnterTimeout: createTransitionTimeoutPropValidator('Enter'),
+	    transitionLeaveTimeout: createTransitionTimeoutPropValidator('Leave')
+	  },
+	
+	  getDefaultProps: function () {
+	    return {
+	      transitionAppear: false,
+	      transitionEnter: true,
+	      transitionLeave: true
+	    };
+	  },
+	
+	  _wrapChild: function (child) {
+	    // We need to provide this childFactory so that
+	    // ReactCSSTransitionGroupChild can receive updates to name, enter, and
+	    // leave while it is leaving.
+	    return React.createElement(ReactCSSTransitionGroupChild, {
+	      name: this.props.transitionName,
+	      appear: this.props.transitionAppear,
+	      enter: this.props.transitionEnter,
+	      leave: this.props.transitionLeave,
+	      appearTimeout: this.props.transitionAppearTimeout,
+	      enterTimeout: this.props.transitionEnterTimeout,
+	      leaveTimeout: this.props.transitionLeaveTimeout
+	    }, child);
+	  },
+	
+	  render: function () {
+	    return React.createElement(ReactTransitionGroup, _assign({}, this.props, { childFactory: this._wrapChild }));
+	  }
+	});
+	
+	module.exports = ReactCSSTransitionGroup;
+
+/***/ },
+/* 491 */
+/*!*********************************************!*\
+  !*** ./~/react/lib/ReactTransitionGroup.js ***!
+  \*********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactTransitionGroup
+	 */
+	
+	'use strict';
+	
+	var _assign = __webpack_require__(/*! object-assign */ 5);
+	
+	var React = __webpack_require__(/*! ./React */ 3);
+	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 235);
+	var ReactTransitionChildMapping = __webpack_require__(/*! ./ReactTransitionChildMapping */ 492);
+	
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 13);
+	
+	/**
+	 * A basis for animations. When children are declaratively added or removed,
+	 * special lifecycle hooks are called.
+	 * See https://facebook.github.io/react/docs/animation.html#low-level-api-reacttransitiongroup
+	 */
+	var ReactTransitionGroup = React.createClass({
+	  displayName: 'ReactTransitionGroup',
+	
+	  propTypes: {
+	    component: React.PropTypes.any,
+	    childFactory: React.PropTypes.func
+	  },
+	
+	  getDefaultProps: function () {
+	    return {
+	      component: 'span',
+	      childFactory: emptyFunction.thatReturnsArgument
+	    };
+	  },
+	
+	  getInitialState: function () {
+	    return {
+	      // TODO: can we get useful debug information to show at this point?
+	      children: ReactTransitionChildMapping.getChildMapping(this.props.children)
+	    };
+	  },
+	
+	  componentWillMount: function () {
+	    this.currentlyTransitioningKeys = {};
+	    this.keysToEnter = [];
+	    this.keysToLeave = [];
+	  },
+	
+	  componentDidMount: function () {
+	    var initialChildMapping = this.state.children;
+	    for (var key in initialChildMapping) {
+	      if (initialChildMapping[key]) {
+	        this.performAppear(key);
+	      }
+	    }
+	  },
+	
+	  componentWillReceiveProps: function (nextProps) {
+	    var nextChildMapping;
+	    if (process.env.NODE_ENV !== 'production') {
+	      nextChildMapping = ReactTransitionChildMapping.getChildMapping(nextProps.children, ReactInstanceMap.get(this)._debugID);
+	    } else {
+	      nextChildMapping = ReactTransitionChildMapping.getChildMapping(nextProps.children);
+	    }
+	    var prevChildMapping = this.state.children;
+	
+	    this.setState({
+	      children: ReactTransitionChildMapping.mergeChildMappings(prevChildMapping, nextChildMapping)
+	    });
+	
+	    var key;
+	
+	    for (key in nextChildMapping) {
+	      var hasPrev = prevChildMapping && prevChildMapping.hasOwnProperty(key);
+	      if (nextChildMapping[key] && !hasPrev && !this.currentlyTransitioningKeys[key]) {
+	        this.keysToEnter.push(key);
+	      }
+	    }
+	
+	    for (key in prevChildMapping) {
+	      var hasNext = nextChildMapping && nextChildMapping.hasOwnProperty(key);
+	      if (prevChildMapping[key] && !hasNext && !this.currentlyTransitioningKeys[key]) {
+	        this.keysToLeave.push(key);
+	      }
+	    }
+	
+	    // If we want to someday check for reordering, we could do it here.
+	  },
+	
+	  componentDidUpdate: function () {
+	    var keysToEnter = this.keysToEnter;
+	    this.keysToEnter = [];
+	    keysToEnter.forEach(this.performEnter);
+	
+	    var keysToLeave = this.keysToLeave;
+	    this.keysToLeave = [];
+	    keysToLeave.forEach(this.performLeave);
+	  },
+	
+	  performAppear: function (key) {
+	    this.currentlyTransitioningKeys[key] = true;
+	
+	    var component = this.refs[key];
+	
+	    if (component.componentWillAppear) {
+	      component.componentWillAppear(this._handleDoneAppearing.bind(this, key));
+	    } else {
+	      this._handleDoneAppearing(key);
+	    }
+	  },
+	
+	  _handleDoneAppearing: function (key) {
+	    var component = this.refs[key];
+	    if (component.componentDidAppear) {
+	      component.componentDidAppear();
+	    }
+	
+	    delete this.currentlyTransitioningKeys[key];
+	
+	    var currentChildMapping;
+	    if (process.env.NODE_ENV !== 'production') {
+	      currentChildMapping = ReactTransitionChildMapping.getChildMapping(this.props.children, ReactInstanceMap.get(this)._debugID);
+	    } else {
+	      currentChildMapping = ReactTransitionChildMapping.getChildMapping(this.props.children);
+	    }
+	
+	    if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+	      // This was removed before it had fully appeared. Remove it.
+	      this.performLeave(key);
+	    }
+	  },
+	
+	  performEnter: function (key) {
+	    this.currentlyTransitioningKeys[key] = true;
+	
+	    var component = this.refs[key];
+	
+	    if (component.componentWillEnter) {
+	      component.componentWillEnter(this._handleDoneEntering.bind(this, key));
+	    } else {
+	      this._handleDoneEntering(key);
+	    }
+	  },
+	
+	  _handleDoneEntering: function (key) {
+	    var component = this.refs[key];
+	    if (component.componentDidEnter) {
+	      component.componentDidEnter();
+	    }
+	
+	    delete this.currentlyTransitioningKeys[key];
+	
+	    var currentChildMapping;
+	    if (process.env.NODE_ENV !== 'production') {
+	      currentChildMapping = ReactTransitionChildMapping.getChildMapping(this.props.children, ReactInstanceMap.get(this)._debugID);
+	    } else {
+	      currentChildMapping = ReactTransitionChildMapping.getChildMapping(this.props.children);
+	    }
+	
+	    if (!currentChildMapping || !currentChildMapping.hasOwnProperty(key)) {
+	      // This was removed before it had fully entered. Remove it.
+	      this.performLeave(key);
+	    }
+	  },
+	
+	  performLeave: function (key) {
+	    this.currentlyTransitioningKeys[key] = true;
+	
+	    var component = this.refs[key];
+	    if (component.componentWillLeave) {
+	      component.componentWillLeave(this._handleDoneLeaving.bind(this, key));
+	    } else {
+	      // Note that this is somewhat dangerous b/c it calls setState()
+	      // again, effectively mutating the component before all the work
+	      // is done.
+	      this._handleDoneLeaving(key);
+	    }
+	  },
+	
+	  _handleDoneLeaving: function (key) {
+	    var component = this.refs[key];
+	
+	    if (component.componentDidLeave) {
+	      component.componentDidLeave();
+	    }
+	
+	    delete this.currentlyTransitioningKeys[key];
+	
+	    var currentChildMapping;
+	    if (process.env.NODE_ENV !== 'production') {
+	      currentChildMapping = ReactTransitionChildMapping.getChildMapping(this.props.children, ReactInstanceMap.get(this)._debugID);
+	    } else {
+	      currentChildMapping = ReactTransitionChildMapping.getChildMapping(this.props.children);
+	    }
+	
+	    if (currentChildMapping && currentChildMapping.hasOwnProperty(key)) {
+	      // This entered again before it fully left. Add it again.
+	      this.performEnter(key);
+	    } else {
+	      this.setState(function (state) {
+	        var newChildren = _assign({}, state.children);
+	        delete newChildren[key];
+	        return { children: newChildren };
+	      });
+	    }
+	  },
+	
+	  render: function () {
+	    // TODO: we could get rid of the need for the wrapper node
+	    // by cloning a single child
+	    var childrenToRender = [];
+	    for (var key in this.state.children) {
+	      var child = this.state.children[key];
+	      if (child) {
+	        // You may need to apply reactive updates to a child as it is leaving.
+	        // The normal React way to do it won't work since the child will have
+	        // already been removed. In case you need this behavior you can provide
+	        // a childFactory function to wrap every child, even the ones that are
+	        // leaving.
+	        childrenToRender.push(React.cloneElement(this.props.childFactory(child), { ref: key, key: key }));
+	      }
+	    }
+	
+	    // Do not forward ReactTransitionGroup props to primitive DOM nodes
+	    var props = _assign({}, this.props);
+	    delete props.transitionLeave;
+	    delete props.transitionName;
+	    delete props.transitionAppear;
+	    delete props.transitionEnter;
+	    delete props.childFactory;
+	    delete props.transitionLeaveTimeout;
+	    delete props.transitionEnterTimeout;
+	    delete props.transitionAppearTimeout;
+	    delete props.component;
+	
+	    return React.createElement(this.props.component, props, childrenToRender);
+	  }
+	});
+	
+	module.exports = ReactTransitionGroup;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
+
+/***/ },
+/* 492 */
+/*!****************************************************!*\
+  !*** ./~/react/lib/ReactTransitionChildMapping.js ***!
+  \****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactTransitionChildMapping
+	 */
+	
+	'use strict';
+	
+	var flattenChildren = __webpack_require__(/*! ./flattenChildren */ 244);
+	
+	var ReactTransitionChildMapping = {
+	  /**
+	   * Given `this.props.children`, return an object mapping key to child. Just
+	   * simple syntactic sugar around flattenChildren().
+	   *
+	   * @param {*} children `this.props.children`
+	   * @param {number=} selfDebugID Optional debugID of the current internal instance.
+	   * @return {object} Mapping of key to child
+	   */
+	  getChildMapping: function (children, selfDebugID) {
+	    if (!children) {
+	      return children;
+	    }
+	
+	    if (process.env.NODE_ENV !== 'production') {
+	      return flattenChildren(children, selfDebugID);
+	    }
+	
+	    return flattenChildren(children);
+	  },
+	
+	  /**
+	   * When you're adding or removing children some may be added or removed in the
+	   * same render pass. We want to show *both* since we want to simultaneously
+	   * animate elements in and out. This function takes a previous set of keys
+	   * and a new set of keys and merges them with its best guess of the correct
+	   * ordering. In the future we may expose some of the utilities in
+	   * ReactMultiChild to make this easy, but for now React itself does not
+	   * directly have this concept of the union of prevChildren and nextChildren
+	   * so we implement it here.
+	   *
+	   * @param {object} prev prev children as returned from
+	   * `ReactTransitionChildMapping.getChildMapping()`.
+	   * @param {object} next next children as returned from
+	   * `ReactTransitionChildMapping.getChildMapping()`.
+	   * @return {object} a key set that contains all keys in `prev` and all keys
+	   * in `next` in a reasonable order.
+	   */
+	  mergeChildMappings: function (prev, next) {
+	    prev = prev || {};
+	    next = next || {};
+	
+	    function getValueForKey(key) {
+	      if (next.hasOwnProperty(key)) {
+	        return next[key];
+	      } else {
+	        return prev[key];
+	      }
+	    }
+	
+	    // For each key of `next`, the list of keys to insert before that key in
+	    // the combined list
+	    var nextKeysPending = {};
+	
+	    var pendingKeys = [];
+	    for (var prevKey in prev) {
+	      if (next.hasOwnProperty(prevKey)) {
+	        if (pendingKeys.length) {
+	          nextKeysPending[prevKey] = pendingKeys;
+	          pendingKeys = [];
+	        }
+	      } else {
+	        pendingKeys.push(prevKey);
+	      }
+	    }
+	
+	    var i;
+	    var childMapping = {};
+	    for (var nextKey in next) {
+	      if (nextKeysPending.hasOwnProperty(nextKey)) {
+	        for (i = 0; i < nextKeysPending[nextKey].length; i++) {
+	          var pendingNextKey = nextKeysPending[nextKey][i];
+	          childMapping[nextKeysPending[nextKey][i]] = getValueForKey(pendingNextKey);
+	        }
+	      }
+	      childMapping[nextKey] = getValueForKey(nextKey);
+	    }
+	
+	    // Finally, add the keys which didn't appear before any key in `next`
+	    for (i = 0; i < pendingKeys.length; i++) {
+	      childMapping[pendingKeys[i]] = getValueForKey(pendingKeys[i]);
+	    }
+	
+	    return childMapping;
+	  }
+	};
+	
+	module.exports = ReactTransitionChildMapping;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
+
+/***/ },
+/* 493 */
+/*!*****************************************************!*\
+  !*** ./~/react/lib/ReactCSSTransitionGroupChild.js ***!
+  \*****************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactCSSTransitionGroupChild
+	 */
+	
+	'use strict';
+	
+	var React = __webpack_require__(/*! ./React */ 3);
+	var ReactDOM = __webpack_require__(/*! ./ReactDOM */ 151);
+	
+	var CSSCore = __webpack_require__(/*! fbjs/lib/CSSCore */ 494);
+	var ReactTransitionEvents = __webpack_require__(/*! ./ReactTransitionEvents */ 495);
+	
+	var onlyChild = __webpack_require__(/*! ./onlyChild */ 34);
+	
+	var TICK = 17;
+	
+	var ReactCSSTransitionGroupChild = React.createClass({
+	  displayName: 'ReactCSSTransitionGroupChild',
+	
+	  propTypes: {
+	    name: React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.shape({
+	      enter: React.PropTypes.string,
+	      leave: React.PropTypes.string,
+	      active: React.PropTypes.string
+	    }), React.PropTypes.shape({
+	      enter: React.PropTypes.string,
+	      enterActive: React.PropTypes.string,
+	      leave: React.PropTypes.string,
+	      leaveActive: React.PropTypes.string,
+	      appear: React.PropTypes.string,
+	      appearActive: React.PropTypes.string
+	    })]).isRequired,
+	
+	    // Once we require timeouts to be specified, we can remove the
+	    // boolean flags (appear etc.) and just accept a number
+	    // or a bool for the timeout flags (appearTimeout etc.)
+	    appear: React.PropTypes.bool,
+	    enter: React.PropTypes.bool,
+	    leave: React.PropTypes.bool,
+	    appearTimeout: React.PropTypes.number,
+	    enterTimeout: React.PropTypes.number,
+	    leaveTimeout: React.PropTypes.number
+	  },
+	
+	  transition: function (animationType, finishCallback, userSpecifiedDelay) {
+	    var node = ReactDOM.findDOMNode(this);
+	
+	    if (!node) {
+	      if (finishCallback) {
+	        finishCallback();
+	      }
+	      return;
+	    }
+	
+	    var className = this.props.name[animationType] || this.props.name + '-' + animationType;
+	    var activeClassName = this.props.name[animationType + 'Active'] || className + '-active';
+	    var timeout = null;
+	
+	    var endListener = function (e) {
+	      if (e && e.target !== node) {
+	        return;
+	      }
+	
+	      clearTimeout(timeout);
+	
+	      CSSCore.removeClass(node, className);
+	      CSSCore.removeClass(node, activeClassName);
+	
+	      ReactTransitionEvents.removeEndEventListener(node, endListener);
+	
+	      // Usually this optional callback is used for informing an owner of
+	      // a leave animation and telling it to remove the child.
+	      if (finishCallback) {
+	        finishCallback();
+	      }
+	    };
+	
+	    CSSCore.addClass(node, className);
+	
+	    // Need to do this to actually trigger a transition.
+	    this.queueClassAndNode(activeClassName, node);
+	
+	    // If the user specified a timeout delay.
+	    if (userSpecifiedDelay) {
+	      // Clean-up the animation after the specified delay
+	      timeout = setTimeout(endListener, userSpecifiedDelay);
+	      this.transitionTimeouts.push(timeout);
+	    } else {
+	      // DEPRECATED: this listener will be removed in a future version of react
+	      ReactTransitionEvents.addEndEventListener(node, endListener);
+	    }
+	  },
+	
+	  queueClassAndNode: function (className, node) {
+	    this.classNameAndNodeQueue.push({
+	      className: className,
+	      node: node
+	    });
+	
+	    if (!this.timeout) {
+	      this.timeout = setTimeout(this.flushClassNameAndNodeQueue, TICK);
+	    }
+	  },
+	
+	  flushClassNameAndNodeQueue: function () {
+	    if (this.isMounted()) {
+	      this.classNameAndNodeQueue.forEach(function (obj) {
+	        CSSCore.addClass(obj.node, obj.className);
+	      });
+	    }
+	    this.classNameAndNodeQueue.length = 0;
+	    this.timeout = null;
+	  },
+	
+	  componentWillMount: function () {
+	    this.classNameAndNodeQueue = [];
+	    this.transitionTimeouts = [];
+	  },
+	
+	  componentWillUnmount: function () {
+	    if (this.timeout) {
+	      clearTimeout(this.timeout);
+	    }
+	    this.transitionTimeouts.forEach(function (timeout) {
+	      clearTimeout(timeout);
+	    });
+	
+	    this.classNameAndNodeQueue.length = 0;
+	  },
+	
+	  componentWillAppear: function (done) {
+	    if (this.props.appear) {
+	      this.transition('appear', done, this.props.appearTimeout);
+	    } else {
+	      done();
+	    }
+	  },
+	
+	  componentWillEnter: function (done) {
+	    if (this.props.enter) {
+	      this.transition('enter', done, this.props.enterTimeout);
+	    } else {
+	      done();
+	    }
+	  },
+	
+	  componentWillLeave: function (done) {
+	    if (this.props.leave) {
+	      this.transition('leave', done, this.props.leaveTimeout);
+	    } else {
+	      done();
+	    }
+	  },
+	
+	  render: function () {
+	    return onlyChild(this.props.children);
+	  }
+	});
+	
+	module.exports = ReactCSSTransitionGroupChild;
+
+/***/ },
+/* 494 */
+/*!*******************************!*\
+  !*** ./~/fbjs/lib/CSSCore.js ***!
+  \*******************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
+	
+	/**
+	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @typechecks
+	 */
+	
+	var invariant = __webpack_require__(/*! ./invariant */ 9);
+	
+	/**
+	 * The CSSCore module specifies the API (and implements most of the methods)
+	 * that should be used when dealing with the display of elements (via their
+	 * CSS classes and visibility on screen. It is an API focused on mutating the
+	 * display and not reading it as no logical state should be encoded in the
+	 * display of elements.
+	 */
+	
+	/* Slow implementation for browsers that don't natively support .matches() */
+	function matchesSelector_SLOW(element, selector) {
+	  var root = element;
+	  while (root.parentNode) {
+	    root = root.parentNode;
+	  }
+	
+	  var all = root.querySelectorAll(selector);
+	  return Array.prototype.indexOf.call(all, element) !== -1;
+	}
+	
+	var CSSCore = {
+	
+	  /**
+	   * Adds the class passed in to the element if it doesn't already have it.
+	   *
+	   * @param {DOMElement} element the element to set the class on
+	   * @param {string} className the CSS className
+	   * @return {DOMElement} the element passed in
+	   */
+	  addClass: function addClass(element, className) {
+	    !!/\s/.test(className) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'CSSCore.addClass takes only a single class name. "%s" contains ' + 'multiple classes.', className) : invariant(false) : void 0;
+	
+	    if (className) {
+	      if (element.classList) {
+	        element.classList.add(className);
+	      } else if (!CSSCore.hasClass(element, className)) {
+	        element.className = element.className + ' ' + className;
+	      }
+	    }
+	    return element;
+	  },
+	
+	  /**
+	   * Removes the class passed in from the element
+	   *
+	   * @param {DOMElement} element the element to set the class on
+	   * @param {string} className the CSS className
+	   * @return {DOMElement} the element passed in
+	   */
+	  removeClass: function removeClass(element, className) {
+	    !!/\s/.test(className) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'CSSCore.removeClass takes only a single class name. "%s" contains ' + 'multiple classes.', className) : invariant(false) : void 0;
+	
+	    if (className) {
+	      if (element.classList) {
+	        element.classList.remove(className);
+	      } else if (CSSCore.hasClass(element, className)) {
+	        element.className = element.className.replace(new RegExp('(^|\\s)' + className + '(?:\\s|$)', 'g'), '$1').replace(/\s+/g, ' ') // multiple spaces to one
+	        .replace(/^\s*|\s*$/g, ''); // trim the ends
+	      }
+	    }
+	    return element;
+	  },
+	
+	  /**
+	   * Helper to add or remove a class from an element based on a condition.
+	   *
+	   * @param {DOMElement} element the element to set the class on
+	   * @param {string} className the CSS className
+	   * @param {*} bool condition to whether to add or remove the class
+	   * @return {DOMElement} the element passed in
+	   */
+	  conditionClass: function conditionClass(element, className, bool) {
+	    return (bool ? CSSCore.addClass : CSSCore.removeClass)(element, className);
+	  },
+	
+	  /**
+	   * Tests whether the element has the class specified.
+	   *
+	   * @param {DOMNode|DOMWindow} element the element to check the class on
+	   * @param {string} className the CSS className
+	   * @return {boolean} true if the element has the class, false if not
+	   */
+	  hasClass: function hasClass(element, className) {
+	    !!/\s/.test(className) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'CSS.hasClass takes only a single class name.') : invariant(false) : void 0;
+	    if (element.classList) {
+	      return !!className && element.classList.contains(className);
+	    }
+	    return (' ' + element.className + ' ').indexOf(' ' + className + ' ') > -1;
+	  },
+	
+	  /**
+	   * Tests whether the element matches the selector specified
+	   *
+	   * @param {DOMNode|DOMWindow} element the element that we are querying
+	   * @param {string} selector the CSS selector
+	   * @return {boolean} true if the element matches the selector, false if not
+	   */
+	  matchesSelector: function matchesSelector(element, selector) {
+	    var matchesImpl = element.matches || element.webkitMatchesSelector || element.mozMatchesSelector || element.msMatchesSelector || function (s) {
+	      return matchesSelector_SLOW(element, s);
+	    };
+	    return matchesImpl.call(element, selector);
+	  }
+	
+	};
+	
+	module.exports = CSSCore;
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
+
+/***/ },
+/* 495 */
+/*!**********************************************!*\
+  !*** ./~/react/lib/ReactTransitionEvents.js ***!
+  \**********************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+	 * @providesModule ReactTransitionEvents
+	 */
+	
+	'use strict';
+	
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 165);
+	
+	var getVendorPrefixedEventName = __webpack_require__(/*! ./getVendorPrefixedEventName */ 225);
+	
+	var endEvents = [];
+	
+	function detectEvents() {
+	  var animEnd = getVendorPrefixedEventName('animationend');
+	  var transEnd = getVendorPrefixedEventName('transitionend');
+	
+	  if (animEnd) {
+	    endEvents.push(animEnd);
+	  }
+	
+	  if (transEnd) {
+	    endEvents.push(transEnd);
+	  }
+	}
+	
+	if (ExecutionEnvironment.canUseDOM) {
+	  detectEvents();
+	}
+	
+	// We use the raw {add|remove}EventListener() call because EventListener
+	// does not know how to remove event listeners and we really should
+	// clean up. Also, these events are not triggered in older browsers
+	// so we should be A-OK here.
+	
+	function addEventListener(node, eventName, eventListener) {
+	  node.addEventListener(eventName, eventListener, false);
+	}
+	
+	function removeEventListener(node, eventName, eventListener) {
+	  node.removeEventListener(eventName, eventListener, false);
+	}
+	
+	var ReactTransitionEvents = {
+	  addEndEventListener: function (node, eventListener) {
+	    if (endEvents.length === 0) {
+	      // If CSS transitions are not supported, trigger an "end animation"
+	      // event immediately.
+	      window.setTimeout(eventListener, 0);
+	      return;
+	    }
+	    endEvents.forEach(function (endEvent) {
+	      addEventListener(node, endEvent, eventListener);
+	    });
+	  },
+	
+	  removeEndEventListener: function (node, eventListener) {
+	    if (endEvents.length === 0) {
+	      return;
+	    }
+	    endEvents.forEach(function (endEvent) {
+	      removeEventListener(node, endEvent, eventListener);
+	    });
+	  }
+	};
+	
+	module.exports = ReactTransitionEvents;
+
+/***/ },
+/* 496 */
 /*!***************************************************!*\
   !*** ./src/client/app/foodies/foodie_profile.jsx ***!
   \***************************************************/
@@ -48904,7 +51476,7 @@
 	exports.default = FoodieProfile;
 
 /***/ },
-/* 488 */
+/* 497 */
 /*!********************************************************!*\
   !*** ./src/client/app/foodies/edit_foodie_profile.jsx ***!
   \********************************************************/
@@ -49206,7 +51778,7 @@
 	module.exports = EditProfile;
 
 /***/ },
-/* 489 */
+/* 498 */
 /*!**********************************************!*\
   !*** ./src/client/app/polls/pollListing.jsx ***!
   \**********************************************/
@@ -49225,7 +51797,7 @@
 	var Input = ReactBootstrap.Input;
 	var Button = ReactBootstrap.Button;
 	var Router = __webpack_require__(/*! react-router */ 428);
-	var rd3 = __webpack_require__(/*! rd3 */ 490);
+	var rd3 = __webpack_require__(/*! rd3 */ 499);
 	var BarChart = rd3.BarChart;
 	
 	var Chart = React.createClass({
@@ -49603,7 +52175,7 @@
 	exports.default = PollPage;
 
 /***/ },
-/* 490 */
+/* 499 */
 /*!*****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/index.js ***!
   \*****************************************************************************/
@@ -49611,16 +52183,16 @@
 
 	'use strict';
 	
-	exports.BarChart = __webpack_require__(/*! ./barchart */ 491).BarChart;
-	exports.LineChart = __webpack_require__(/*! ./linechart */ 688).LineChart;
-	exports.PieChart = __webpack_require__(/*! ./piechart */ 694).PieChart;
-	exports.AreaChart = __webpack_require__(/*! ./areachart */ 699).AreaChart;
-	exports.Treemap = __webpack_require__(/*! ./treemap */ 704).Treemap;
-	exports.ScatterChart = __webpack_require__(/*! ./scatterchart */ 709).ScatterChart;
-	exports.CandlestickChart = __webpack_require__(/*! ./candlestick */ 714).CandlestickChart;
+	exports.BarChart = __webpack_require__(/*! ./barchart */ 500).BarChart;
+	exports.LineChart = __webpack_require__(/*! ./linechart */ 697).LineChart;
+	exports.PieChart = __webpack_require__(/*! ./piechart */ 703).PieChart;
+	exports.AreaChart = __webpack_require__(/*! ./areachart */ 708).AreaChart;
+	exports.Treemap = __webpack_require__(/*! ./treemap */ 713).Treemap;
+	exports.ScatterChart = __webpack_require__(/*! ./scatterchart */ 718).ScatterChart;
+	exports.CandlestickChart = __webpack_require__(/*! ./candlestick */ 723).CandlestickChart;
 
 /***/ },
-/* 491 */
+/* 500 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/barchart/index.js ***!
   \**************************************************************************************/
@@ -49628,10 +52200,10 @@
 
 	'use strict';
 	
-	exports.BarChart = __webpack_require__(/*! ./BarChart */ 492);
+	exports.BarChart = __webpack_require__(/*! ./BarChart */ 501);
 
 /***/ },
-/* 492 */
+/* 501 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/barchart/BarChart.js ***!
   \*****************************************************************************************/
@@ -49639,18 +52211,18 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var DataSeries = __webpack_require__(/*! ./DataSeries */ 526);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var DataSeries = __webpack_require__(/*! ./DataSeries */ 535);
 	
-	var _require = __webpack_require__(/*! ../common */ 668);
+	var _require = __webpack_require__(/*! ../common */ 677);
 	
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 	var Tooltip = _require.Tooltip;
 	
-	var _require2 = __webpack_require__(/*! ../mixins */ 683);
+	var _require2 = __webpack_require__(/*! ../mixins */ 692);
 	
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
 	var DefaultAccessorsMixin = _require2.DefaultAccessorsMixin;
@@ -49870,7 +52442,7 @@
 	});
 
 /***/ },
-/* 493 */
+/* 502 */
 /*!*********************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/react.js ***!
   \*********************************************************************/
@@ -49878,11 +52450,11 @@
 
 	'use strict';
 	
-	module.exports = __webpack_require__(/*! ./lib/React */ 494);
+	module.exports = __webpack_require__(/*! ./lib/React */ 503);
 
 
 /***/ },
-/* 494 */
+/* 503 */
 /*!*************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/React.js ***!
   \*************************************************************************/
@@ -49901,26 +52473,26 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var ReactChildren = __webpack_require__(/*! ./ReactChildren */ 496);
-	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 508);
-	var ReactPureComponent = __webpack_require__(/*! ./ReactPureComponent */ 511);
-	var ReactClass = __webpack_require__(/*! ./ReactClass */ 512);
-	var ReactDOMFactories = __webpack_require__(/*! ./ReactDOMFactories */ 517);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
-	var ReactPropTypes = __webpack_require__(/*! ./ReactPropTypes */ 522);
-	var ReactVersion = __webpack_require__(/*! ./ReactVersion */ 523);
+	var ReactChildren = __webpack_require__(/*! ./ReactChildren */ 505);
+	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 517);
+	var ReactPureComponent = __webpack_require__(/*! ./ReactPureComponent */ 520);
+	var ReactClass = __webpack_require__(/*! ./ReactClass */ 521);
+	var ReactDOMFactories = __webpack_require__(/*! ./ReactDOMFactories */ 526);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
+	var ReactPropTypes = __webpack_require__(/*! ./ReactPropTypes */ 531);
+	var ReactVersion = __webpack_require__(/*! ./ReactVersion */ 532);
 	
-	var onlyChild = __webpack_require__(/*! ./onlyChild */ 524);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var onlyChild = __webpack_require__(/*! ./onlyChild */ 533);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var createElement = ReactElement.createElement;
 	var createFactory = ReactElement.createFactory;
 	var cloneElement = ReactElement.cloneElement;
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactElementValidator = __webpack_require__(/*! ./ReactElementValidator */ 518);
+	  var ReactElementValidator = __webpack_require__(/*! ./ReactElementValidator */ 527);
 	  createElement = ReactElementValidator.createElement;
 	  createFactory = ReactElementValidator.createFactory;
 	  cloneElement = ReactElementValidator.cloneElement;
@@ -49980,7 +52552,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 495 */
+/* 504 */
 /*!*****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/object-assign/index.js ***!
   \*****************************************************************************/
@@ -50072,7 +52644,7 @@
 
 
 /***/ },
-/* 496 */
+/* 505 */
 /*!*********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactChildren.js ***!
   \*********************************************************************************/
@@ -50091,11 +52663,11 @@
 	
 	'use strict';
 	
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 497);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 506);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
-	var traverseAllChildren = __webpack_require__(/*! ./traverseAllChildren */ 505);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
+	var traverseAllChildren = __webpack_require__(/*! ./traverseAllChildren */ 514);
 	
 	var twoArgumentPooler = PooledClass.twoArgumentPooler;
 	var fourArgumentPooler = PooledClass.fourArgumentPooler;
@@ -50271,7 +52843,7 @@
 	module.exports = ReactChildren;
 
 /***/ },
-/* 497 */
+/* 506 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/PooledClass.js ***!
   \*******************************************************************************/
@@ -50290,9 +52862,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * Static poolers. Several custom versions for each potential number of
@@ -50401,7 +52973,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 498 */
+/* 507 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/reactProdInvariant.js ***!
   \**************************************************************************************/
@@ -50448,7 +53020,7 @@
 	module.exports = reactProdInvariant;
 
 /***/ },
-/* 499 */
+/* 508 */
 /*!****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/invariant.js ***!
   \****************************************************************************/
@@ -50506,7 +53078,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 500 */
+/* 509 */
 /*!********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactElement.js ***!
   \********************************************************************************/
@@ -50525,12 +53097,12 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
-	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 504);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
+	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 513);
 	var hasOwnProperty = Object.prototype.hasOwnProperty;
 	
 	// The Symbol used to tag the ReactElement type. If there is no native Symbol
@@ -50863,7 +53435,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 501 */
+/* 510 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactCurrentOwner.js ***!
   \*************************************************************************************/
@@ -50902,7 +53474,7 @@
 	module.exports = ReactCurrentOwner;
 
 /***/ },
-/* 502 */
+/* 511 */
 /*!**************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/warning.js ***!
   \**************************************************************************/
@@ -50920,7 +53492,7 @@
 	
 	'use strict';
 	
-	var emptyFunction = __webpack_require__(/*! ./emptyFunction */ 503);
+	var emptyFunction = __webpack_require__(/*! ./emptyFunction */ 512);
 	
 	/**
 	 * Similar to invariant but only logs a warning if the condition is not met.
@@ -50977,7 +53549,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 503 */
+/* 512 */
 /*!********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/emptyFunction.js ***!
   \********************************************************************************/
@@ -51023,7 +53595,7 @@
 	module.exports = emptyFunction;
 
 /***/ },
-/* 504 */
+/* 513 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/canDefineProperty.js ***!
   \*************************************************************************************/
@@ -51056,7 +53628,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 505 */
+/* 514 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/traverseAllChildren.js ***!
   \***************************************************************************************/
@@ -51075,15 +53647,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
 	
-	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 506);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var KeyEscapeUtils = __webpack_require__(/*! ./KeyEscapeUtils */ 507);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 515);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var KeyEscapeUtils = __webpack_require__(/*! ./KeyEscapeUtils */ 516);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var SEPARATOR = '.';
 	var SUBSEPARATOR = ':';
@@ -51232,7 +53804,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 506 */
+/* 515 */
 /*!*********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getIteratorFn.js ***!
   \*********************************************************************************/
@@ -51281,7 +53853,7 @@
 	module.exports = getIteratorFn;
 
 /***/ },
-/* 507 */
+/* 516 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/KeyEscapeUtils.js ***!
   \**********************************************************************************/
@@ -51348,7 +53920,7 @@
 	module.exports = KeyEscapeUtils;
 
 /***/ },
-/* 508 */
+/* 517 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactComponent.js ***!
   \**********************************************************************************/
@@ -51367,14 +53939,14 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 509);
+	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 518);
 	
-	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 504);
-	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 510);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 513);
+	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 519);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	/**
 	 * Base class helpers for the updating state of a component.
@@ -51475,7 +54047,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 509 */
+/* 518 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactNoopUpdateQueue.js ***!
   \****************************************************************************************/
@@ -51494,7 +54066,7 @@
 	
 	'use strict';
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	function warnNoop(publicInstance, callerName) {
 	  if (process.env.NODE_ENV !== 'production') {
@@ -51580,7 +54152,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 510 */
+/* 519 */
 /*!******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/emptyObject.js ***!
   \******************************************************************************/
@@ -51608,7 +54180,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 511 */
+/* 520 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactPureComponent.js ***!
   \**************************************************************************************/
@@ -51627,12 +54199,12 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 508);
-	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 509);
+	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 517);
+	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 518);
 	
-	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 510);
+	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 519);
 	
 	/**
 	 * Base class helpers for the updating state of a component.
@@ -51658,7 +54230,7 @@
 	module.exports = ReactPureComponent;
 
 /***/ },
-/* 512 */
+/* 521 */
 /*!******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactClass.js ***!
   \******************************************************************************/
@@ -51677,20 +54249,20 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 508);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
-	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 513);
-	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 515);
-	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 509);
+	var ReactComponent = __webpack_require__(/*! ./ReactComponent */ 517);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
+	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 522);
+	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 524);
+	var ReactNoopUpdateQueue = __webpack_require__(/*! ./ReactNoopUpdateQueue */ 518);
 	
-	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 510);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 514);
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 516);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 519);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 523);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 525);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var MIXINS_KEY = keyOf({ mixins: null });
 	
@@ -52399,7 +54971,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 513 */
+/* 522 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactPropTypeLocations.js ***!
   \******************************************************************************************/
@@ -52418,7 +54990,7 @@
 	
 	'use strict';
 	
-	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 514);
+	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 523);
 	
 	var ReactPropTypeLocations = keyMirror({
 	  prop: null,
@@ -52429,7 +55001,7 @@
 	module.exports = ReactPropTypeLocations;
 
 /***/ },
-/* 514 */
+/* 523 */
 /*!****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/keyMirror.js ***!
   \****************************************************************************/
@@ -52448,7 +55020,7 @@
 	
 	'use strict';
 	
-	var invariant = __webpack_require__(/*! ./invariant */ 499);
+	var invariant = __webpack_require__(/*! ./invariant */ 508);
 	
 	/**
 	 * Constructs an enumeration with keys equal to their value.
@@ -52485,7 +55057,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 515 */
+/* 524 */
 /*!**********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactPropTypeLocationNames.js ***!
   \**********************************************************************************************/
@@ -52518,7 +55090,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 516 */
+/* 525 */
 /*!************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/keyOf.js ***!
   \************************************************************************/
@@ -52560,7 +55132,7 @@
 	module.exports = keyOf;
 
 /***/ },
-/* 517 */
+/* 526 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMFactories.js ***!
   \*************************************************************************************/
@@ -52579,7 +55151,7 @@
 	
 	'use strict';
 	
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
 	
 	/**
 	 * Create a factory that creates HTML tag elements.
@@ -52588,7 +55160,7 @@
 	 */
 	var createDOMFactory = ReactElement.createFactory;
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactElementValidator = __webpack_require__(/*! ./ReactElementValidator */ 518);
+	  var ReactElementValidator = __webpack_require__(/*! ./ReactElementValidator */ 527);
 	  createDOMFactory = ReactElementValidator.createFactory;
 	}
 	
@@ -52739,7 +55311,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 518 */
+/* 527 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactElementValidator.js ***!
   \*****************************************************************************************/
@@ -52765,16 +55337,16 @@
 	
 	'use strict';
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
-	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
-	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 513);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
+	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
+	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 522);
 	
-	var checkReactTypeSpec = __webpack_require__(/*! ./checkReactTypeSpec */ 520);
+	var checkReactTypeSpec = __webpack_require__(/*! ./checkReactTypeSpec */ 529);
 	
-	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 504);
-	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 506);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var canDefineProperty = __webpack_require__(/*! ./canDefineProperty */ 513);
+	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 515);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	function getDeclarationErrorAddendum() {
 	  if (ReactCurrentOwner.current) {
@@ -52976,7 +55548,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 519 */
+/* 528 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactComponentTreeHook.js ***!
   \******************************************************************************************/
@@ -52995,12 +55567,12 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	function isNative(fn) {
 	  // Based on isNative() from Lodash
@@ -53327,7 +55899,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 520 */
+/* 529 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/checkReactTypeSpec.js ***!
   \**************************************************************************************/
@@ -53346,13 +55918,13 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 515);
-	var ReactPropTypesSecret = __webpack_require__(/*! ./ReactPropTypesSecret */ 521);
+	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 524);
+	var ReactPropTypesSecret = __webpack_require__(/*! ./ReactPropTypesSecret */ 530);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var ReactComponentTreeHook;
 	
@@ -53362,7 +55934,7 @@
 	  // https://github.com/facebook/react/issues/7240
 	  // Remove the inline requires when we don't need them anymore:
 	  // https://github.com/facebook/react/pull/7178
-	  ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	  ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	}
 	
 	var loggedTypeFailures = {};
@@ -53404,7 +55976,7 @@
 	
 	        if (process.env.NODE_ENV !== 'production') {
 	          if (!ReactComponentTreeHook) {
-	            ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	            ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	          }
 	          if (debugID !== null) {
 	            componentStackInfo = ReactComponentTreeHook.getStackAddendumByID(debugID);
@@ -53423,7 +55995,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 521 */
+/* 530 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactPropTypesSecret.js ***!
   \****************************************************************************************/
@@ -53447,7 +56019,7 @@
 	module.exports = ReactPropTypesSecret;
 
 /***/ },
-/* 522 */
+/* 531 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactPropTypes.js ***!
   \**********************************************************************************/
@@ -53466,13 +56038,13 @@
 	
 	'use strict';
 	
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
-	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 515);
-	var ReactPropTypesSecret = __webpack_require__(/*! ./ReactPropTypesSecret */ 521);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
+	var ReactPropTypeLocationNames = __webpack_require__(/*! ./ReactPropTypeLocationNames */ 524);
+	var ReactPropTypesSecret = __webpack_require__(/*! ./ReactPropTypesSecret */ 530);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
-	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 506);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
+	var getIteratorFn = __webpack_require__(/*! ./getIteratorFn */ 515);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	/**
 	 * Collection of methods that allow declaration and validation of props that are
@@ -53887,7 +56459,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 523 */
+/* 532 */
 /*!********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactVersion.js ***!
   \********************************************************************************/
@@ -53909,7 +56481,7 @@
 	module.exports = '15.3.2';
 
 /***/ },
-/* 524 */
+/* 533 */
 /*!*****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/onlyChild.js ***!
   \*****************************************************************************/
@@ -53927,11 +56499,11 @@
 	 */
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * Returns the first child in a collection of children and verifies that there
@@ -53956,7 +56528,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 525 */
+/* 534 */
 /*!***************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/d3/d3.js ***!
   \***************************************************************/
@@ -63518,7 +66090,7 @@
 	}();
 
 /***/ },
-/* 526 */
+/* 535 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/barchart/DataSeries.js ***!
   \*******************************************************************************************/
@@ -63526,8 +66098,8 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var BarContainer = __webpack_require__(/*! ./BarContainer */ 527);
+	var React = __webpack_require__(/*! react */ 502);
+	var BarContainer = __webpack_require__(/*! ./BarContainer */ 536);
 	
 	module.exports = React.createClass({
 	
@@ -63604,7 +66176,7 @@
 	});
 
 /***/ },
-/* 527 */
+/* 536 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/barchart/BarContainer.js ***!
   \*********************************************************************************************/
@@ -63614,14 +66186,14 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
-	var _require = __webpack_require__(/*! react-dom */ 528);
+	var _require = __webpack_require__(/*! react-dom */ 537);
 	
 	var findDOMNode = _require.findDOMNode;
 	
-	var Bar = __webpack_require__(/*! ./Bar */ 666);
-	var shade = __webpack_require__(/*! ../utils */ 667).shade;
+	var Bar = __webpack_require__(/*! ./Bar */ 675);
+	var shade = __webpack_require__(/*! ../utils */ 676).shade;
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -63671,7 +66243,7 @@
 	});
 
 /***/ },
-/* 528 */
+/* 537 */
 /*!*************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react-dom/index.js ***!
   \*************************************************************************/
@@ -63679,11 +66251,11 @@
 
 	'use strict';
 	
-	module.exports = __webpack_require__(/*! react/lib/ReactDOM */ 529);
+	module.exports = __webpack_require__(/*! react/lib/ReactDOM */ 538);
 
 
 /***/ },
-/* 529 */
+/* 538 */
 /*!****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOM.js ***!
   \****************************************************************************/
@@ -63704,17 +66276,17 @@
 	
 	'use strict';
 	
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactDefaultInjection = __webpack_require__(/*! ./ReactDefaultInjection */ 533);
-	var ReactMount = __webpack_require__(/*! ./ReactMount */ 656);
-	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 553);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
-	var ReactVersion = __webpack_require__(/*! ./ReactVersion */ 523);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactDefaultInjection = __webpack_require__(/*! ./ReactDefaultInjection */ 542);
+	var ReactMount = __webpack_require__(/*! ./ReactMount */ 665);
+	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 562);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
+	var ReactVersion = __webpack_require__(/*! ./ReactVersion */ 532);
 	
-	var findDOMNode = __webpack_require__(/*! ./findDOMNode */ 661);
-	var getHostComponentFromComposite = __webpack_require__(/*! ./getHostComponentFromComposite */ 662);
-	var renderSubtreeIntoContainer = __webpack_require__(/*! ./renderSubtreeIntoContainer */ 663);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var findDOMNode = __webpack_require__(/*! ./findDOMNode */ 670);
+	var getHostComponentFromComposite = __webpack_require__(/*! ./getHostComponentFromComposite */ 671);
+	var renderSubtreeIntoContainer = __webpack_require__(/*! ./renderSubtreeIntoContainer */ 672);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	ReactDefaultInjection.inject();
 	
@@ -63754,7 +66326,7 @@
 	}
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
+	  var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
 	  if (ExecutionEnvironment.canUseDOM && window.top === window.self) {
 	
 	    // First check if devtools is not installed
@@ -63790,9 +66362,9 @@
 	}
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
-	  var ReactDOMUnknownPropertyHook = __webpack_require__(/*! ./ReactDOMUnknownPropertyHook */ 664);
-	  var ReactDOMNullInputValuePropHook = __webpack_require__(/*! ./ReactDOMNullInputValuePropHook */ 665);
+	  var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
+	  var ReactDOMUnknownPropertyHook = __webpack_require__(/*! ./ReactDOMUnknownPropertyHook */ 673);
+	  var ReactDOMNullInputValuePropHook = __webpack_require__(/*! ./ReactDOMNullInputValuePropHook */ 674);
 	
 	  ReactInstrumentation.debugTool.addHook(ReactDOMUnknownPropertyHook);
 	  ReactInstrumentation.debugTool.addHook(ReactDOMNullInputValuePropHook);
@@ -63802,7 +66374,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 530 */
+/* 539 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMComponentTree.js ***!
   \*****************************************************************************************/
@@ -63821,12 +66393,12 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 531);
-	var ReactDOMComponentFlags = __webpack_require__(/*! ./ReactDOMComponentFlags */ 532);
+	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 540);
+	var ReactDOMComponentFlags = __webpack_require__(/*! ./ReactDOMComponentFlags */ 541);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	var ATTR_NAME = DOMProperty.ID_ATTRIBUTE_NAME;
 	var Flags = ReactDOMComponentFlags;
@@ -63999,7 +66571,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 531 */
+/* 540 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/DOMProperty.js ***!
   \*******************************************************************************/
@@ -64018,9 +66590,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	function checkMask(value, bitmask) {
 	  return (value & bitmask) === bitmask;
@@ -64214,7 +66786,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 532 */
+/* 541 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMComponentFlags.js ***!
   \******************************************************************************************/
@@ -64240,7 +66812,7 @@
 	module.exports = ReactDOMComponentFlags;
 
 /***/ },
-/* 533 */
+/* 542 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDefaultInjection.js ***!
   \*****************************************************************************************/
@@ -64259,24 +66831,24 @@
 	
 	'use strict';
 	
-	var BeforeInputEventPlugin = __webpack_require__(/*! ./BeforeInputEventPlugin */ 534);
-	var ChangeEventPlugin = __webpack_require__(/*! ./ChangeEventPlugin */ 549);
-	var DefaultEventPluginOrder = __webpack_require__(/*! ./DefaultEventPluginOrder */ 567);
-	var EnterLeaveEventPlugin = __webpack_require__(/*! ./EnterLeaveEventPlugin */ 568);
-	var HTMLDOMPropertyConfig = __webpack_require__(/*! ./HTMLDOMPropertyConfig */ 573);
-	var ReactComponentBrowserEnvironment = __webpack_require__(/*! ./ReactComponentBrowserEnvironment */ 574);
-	var ReactDOMComponent = __webpack_require__(/*! ./ReactDOMComponent */ 588);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactDOMEmptyComponent = __webpack_require__(/*! ./ReactDOMEmptyComponent */ 627);
-	var ReactDOMTreeTraversal = __webpack_require__(/*! ./ReactDOMTreeTraversal */ 628);
-	var ReactDOMTextComponent = __webpack_require__(/*! ./ReactDOMTextComponent */ 629);
-	var ReactDefaultBatchingStrategy = __webpack_require__(/*! ./ReactDefaultBatchingStrategy */ 630);
-	var ReactEventListener = __webpack_require__(/*! ./ReactEventListener */ 631);
-	var ReactInjection = __webpack_require__(/*! ./ReactInjection */ 634);
-	var ReactReconcileTransaction = __webpack_require__(/*! ./ReactReconcileTransaction */ 635);
-	var SVGDOMPropertyConfig = __webpack_require__(/*! ./SVGDOMPropertyConfig */ 643);
-	var SelectEventPlugin = __webpack_require__(/*! ./SelectEventPlugin */ 644);
-	var SimpleEventPlugin = __webpack_require__(/*! ./SimpleEventPlugin */ 645);
+	var BeforeInputEventPlugin = __webpack_require__(/*! ./BeforeInputEventPlugin */ 543);
+	var ChangeEventPlugin = __webpack_require__(/*! ./ChangeEventPlugin */ 558);
+	var DefaultEventPluginOrder = __webpack_require__(/*! ./DefaultEventPluginOrder */ 576);
+	var EnterLeaveEventPlugin = __webpack_require__(/*! ./EnterLeaveEventPlugin */ 577);
+	var HTMLDOMPropertyConfig = __webpack_require__(/*! ./HTMLDOMPropertyConfig */ 582);
+	var ReactComponentBrowserEnvironment = __webpack_require__(/*! ./ReactComponentBrowserEnvironment */ 583);
+	var ReactDOMComponent = __webpack_require__(/*! ./ReactDOMComponent */ 597);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactDOMEmptyComponent = __webpack_require__(/*! ./ReactDOMEmptyComponent */ 636);
+	var ReactDOMTreeTraversal = __webpack_require__(/*! ./ReactDOMTreeTraversal */ 637);
+	var ReactDOMTextComponent = __webpack_require__(/*! ./ReactDOMTextComponent */ 638);
+	var ReactDefaultBatchingStrategy = __webpack_require__(/*! ./ReactDefaultBatchingStrategy */ 639);
+	var ReactEventListener = __webpack_require__(/*! ./ReactEventListener */ 640);
+	var ReactInjection = __webpack_require__(/*! ./ReactInjection */ 643);
+	var ReactReconcileTransaction = __webpack_require__(/*! ./ReactReconcileTransaction */ 644);
+	var SVGDOMPropertyConfig = __webpack_require__(/*! ./SVGDOMPropertyConfig */ 652);
+	var SelectEventPlugin = __webpack_require__(/*! ./SelectEventPlugin */ 653);
+	var SimpleEventPlugin = __webpack_require__(/*! ./SimpleEventPlugin */ 654);
 	
 	var alreadyInjected = false;
 	
@@ -64332,7 +66904,7 @@
 	};
 
 /***/ },
-/* 534 */
+/* 543 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/BeforeInputEventPlugin.js ***!
   \******************************************************************************************/
@@ -64351,14 +66923,14 @@
 	
 	'use strict';
 	
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 536);
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
-	var FallbackCompositionState = __webpack_require__(/*! ./FallbackCompositionState */ 544);
-	var SyntheticCompositionEvent = __webpack_require__(/*! ./SyntheticCompositionEvent */ 546);
-	var SyntheticInputEvent = __webpack_require__(/*! ./SyntheticInputEvent */ 548);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 545);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
+	var FallbackCompositionState = __webpack_require__(/*! ./FallbackCompositionState */ 553);
+	var SyntheticCompositionEvent = __webpack_require__(/*! ./SyntheticCompositionEvent */ 555);
+	var SyntheticInputEvent = __webpack_require__(/*! ./SyntheticInputEvent */ 557);
 	
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 516);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 525);
 	
 	var END_KEYCODES = [9, 13, 27, 32]; // Tab, Return, Esc, Space
 	var START_KEYCODE = 229;
@@ -64730,7 +67302,7 @@
 	module.exports = BeforeInputEventPlugin;
 
 /***/ },
-/* 535 */
+/* 544 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/EventConstants.js ***!
   \**********************************************************************************/
@@ -64749,7 +67321,7 @@
 	
 	'use strict';
 	
-	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 514);
+	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 523);
 	
 	var PropagationPhases = keyMirror({ bubbled: null, captured: null });
 	
@@ -64835,7 +67407,7 @@
 	module.exports = EventConstants;
 
 /***/ },
-/* 536 */
+/* 545 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/EventPropagators.js ***!
   \************************************************************************************/
@@ -64854,13 +67426,13 @@
 	
 	'use strict';
 	
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 537);
-	var EventPluginUtils = __webpack_require__(/*! ./EventPluginUtils */ 539);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 546);
+	var EventPluginUtils = __webpack_require__(/*! ./EventPluginUtils */ 548);
 	
-	var accumulateInto = __webpack_require__(/*! ./accumulateInto */ 541);
-	var forEachAccumulated = __webpack_require__(/*! ./forEachAccumulated */ 542);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var accumulateInto = __webpack_require__(/*! ./accumulateInto */ 550);
+	var forEachAccumulated = __webpack_require__(/*! ./forEachAccumulated */ 551);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var PropagationPhases = EventConstants.PropagationPhases;
 	var getListener = EventPluginHub.getListener;
@@ -64981,7 +67553,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 537 */
+/* 546 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/EventPluginHub.js ***!
   \**********************************************************************************/
@@ -65000,15 +67572,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 538);
-	var EventPluginUtils = __webpack_require__(/*! ./EventPluginUtils */ 539);
-	var ReactErrorUtils = __webpack_require__(/*! ./ReactErrorUtils */ 540);
+	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 547);
+	var EventPluginUtils = __webpack_require__(/*! ./EventPluginUtils */ 548);
+	var ReactErrorUtils = __webpack_require__(/*! ./ReactErrorUtils */ 549);
 	
-	var accumulateInto = __webpack_require__(/*! ./accumulateInto */ 541);
-	var forEachAccumulated = __webpack_require__(/*! ./forEachAccumulated */ 542);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var accumulateInto = __webpack_require__(/*! ./accumulateInto */ 550);
+	var forEachAccumulated = __webpack_require__(/*! ./forEachAccumulated */ 551);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * Internal store for event listeners
@@ -65241,7 +67813,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 538 */
+/* 547 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/EventPluginRegistry.js ***!
   \***************************************************************************************/
@@ -65260,9 +67832,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * Injectable ordering of event plugins.
@@ -65497,7 +68069,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 539 */
+/* 548 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/EventPluginUtils.js ***!
   \************************************************************************************/
@@ -65516,13 +68088,13 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var ReactErrorUtils = __webpack_require__(/*! ./ReactErrorUtils */ 540);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var ReactErrorUtils = __webpack_require__(/*! ./ReactErrorUtils */ 549);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	/**
 	 * Injected dependencies:
@@ -65735,7 +68307,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 540 */
+/* 549 */
 /*!***********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactErrorUtils.js ***!
   \***********************************************************************************/
@@ -65820,7 +68392,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 541 */
+/* 550 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/accumulateInto.js ***!
   \**********************************************************************************/
@@ -65840,9 +68412,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * Accumulates items that must not be null or undefined into the first one. This
@@ -65887,7 +68459,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 542 */
+/* 551 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/forEachAccumulated.js ***!
   \**************************************************************************************/
@@ -65926,7 +68498,7 @@
 	module.exports = forEachAccumulated;
 
 /***/ },
-/* 543 */
+/* 552 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/ExecutionEnvironment.js ***!
   \***************************************************************************************/
@@ -65969,7 +68541,7 @@
 	module.exports = ExecutionEnvironment;
 
 /***/ },
-/* 544 */
+/* 553 */
 /*!********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/FallbackCompositionState.js ***!
   \********************************************************************************************/
@@ -65988,11 +68560,11 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 497);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 506);
 	
-	var getTextContentAccessor = __webpack_require__(/*! ./getTextContentAccessor */ 545);
+	var getTextContentAccessor = __webpack_require__(/*! ./getTextContentAccessor */ 554);
 	
 	/**
 	 * This helper class stores information about text content of a target node,
@@ -66072,7 +68644,7 @@
 	module.exports = FallbackCompositionState;
 
 /***/ },
-/* 545 */
+/* 554 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getTextContentAccessor.js ***!
   \******************************************************************************************/
@@ -66091,7 +68663,7 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
 	
 	var contentKey = null;
 	
@@ -66113,7 +68685,7 @@
 	module.exports = getTextContentAccessor;
 
 /***/ },
-/* 546 */
+/* 555 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticCompositionEvent.js ***!
   \*********************************************************************************************/
@@ -66132,7 +68704,7 @@
 	
 	'use strict';
 	
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
 	
 	/**
 	 * @interface Event
@@ -66157,7 +68729,7 @@
 	module.exports = SyntheticCompositionEvent;
 
 /***/ },
-/* 547 */
+/* 556 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticEvent.js ***!
   \**********************************************************************************/
@@ -66176,12 +68748,12 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 497);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 506);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var didWarnForAddedNewProperty = false;
 	var isProxySupported = typeof Proxy === 'function';
@@ -66434,7 +69006,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 548 */
+/* 557 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticInputEvent.js ***!
   \***************************************************************************************/
@@ -66453,7 +69025,7 @@
 	
 	'use strict';
 	
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
 	
 	/**
 	 * @interface Event
@@ -66479,7 +69051,7 @@
 	module.exports = SyntheticInputEvent;
 
 /***/ },
-/* 549 */
+/* 558 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ChangeEventPlugin.js ***!
   \*************************************************************************************/
@@ -66498,18 +69070,18 @@
 	
 	'use strict';
 	
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 537);
-	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 536);
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 546);
+	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 545);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
 	
-	var getEventTarget = __webpack_require__(/*! ./getEventTarget */ 564);
-	var isEventSupported = __webpack_require__(/*! ./isEventSupported */ 565);
-	var isTextInputElement = __webpack_require__(/*! ./isTextInputElement */ 566);
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 516);
+	var getEventTarget = __webpack_require__(/*! ./getEventTarget */ 573);
+	var isEventSupported = __webpack_require__(/*! ./isEventSupported */ 574);
+	var isTextInputElement = __webpack_require__(/*! ./isTextInputElement */ 575);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 525);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -66812,7 +69384,7 @@
 	module.exports = ChangeEventPlugin;
 
 /***/ },
-/* 550 */
+/* 559 */
 /*!********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactUpdates.js ***!
   \********************************************************************************/
@@ -66831,16 +69403,16 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var CallbackQueue = __webpack_require__(/*! ./CallbackQueue */ 551);
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 497);
-	var ReactFeatureFlags = __webpack_require__(/*! ./ReactFeatureFlags */ 552);
-	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 553);
-	var Transaction = __webpack_require__(/*! ./Transaction */ 563);
+	var CallbackQueue = __webpack_require__(/*! ./CallbackQueue */ 560);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 506);
+	var ReactFeatureFlags = __webpack_require__(/*! ./ReactFeatureFlags */ 561);
+	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 562);
+	var Transaction = __webpack_require__(/*! ./Transaction */ 572);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	var dirtyComponents = [];
 	var updateBatchNumber = 0;
@@ -67072,7 +69644,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 551 */
+/* 560 */
 /*!*********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/CallbackQueue.js ***!
   \*********************************************************************************/
@@ -67091,12 +69663,12 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 497);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 506);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * A specialized pseudo-event module to help keep track of components waiting to
@@ -67187,7 +69759,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 552 */
+/* 561 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactFeatureFlags.js ***!
   \*************************************************************************************/
@@ -67217,7 +69789,7 @@
 	module.exports = ReactFeatureFlags;
 
 /***/ },
-/* 553 */
+/* 562 */
 /*!***********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactReconciler.js ***!
   \***********************************************************************************/
@@ -67236,10 +69808,10 @@
 	
 	'use strict';
 	
-	var ReactRef = __webpack_require__(/*! ./ReactRef */ 554);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
+	var ReactRef = __webpack_require__(/*! ./ReactRef */ 563);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	/**
 	 * Helper to call ReactRef.attachRefs with this composite component, split out
@@ -67394,7 +69966,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 554 */
+/* 563 */
 /*!****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactRef.js ***!
   \****************************************************************************/
@@ -67413,7 +69985,7 @@
 	
 	'use strict';
 	
-	var ReactOwner = __webpack_require__(/*! ./ReactOwner */ 555);
+	var ReactOwner = __webpack_require__(/*! ./ReactOwner */ 564);
 	
 	var ReactRef = {};
 	
@@ -67482,7 +70054,7 @@
 	module.exports = ReactRef;
 
 /***/ },
-/* 555 */
+/* 564 */
 /*!******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactOwner.js ***!
   \******************************************************************************/
@@ -67501,9 +70073,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * ReactOwners are capable of storing references to owned components.
@@ -67585,7 +70157,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 556 */
+/* 565 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactInstrumentation.js ***!
   \****************************************************************************************/
@@ -67607,7 +70179,7 @@
 	var debugTool = null;
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  var ReactDebugTool = __webpack_require__(/*! ./ReactDebugTool */ 557);
+	  var ReactDebugTool = __webpack_require__(/*! ./ReactDebugTool */ 566);
 	  debugTool = ReactDebugTool;
 	}
 	
@@ -67615,7 +70187,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 557 */
+/* 566 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDebugTool.js ***!
   \**********************************************************************************/
@@ -67634,14 +70206,14 @@
 	
 	'use strict';
 	
-	var ReactInvalidSetStateWarningHook = __webpack_require__(/*! ./ReactInvalidSetStateWarningHook */ 558);
-	var ReactHostOperationHistoryHook = __webpack_require__(/*! ./ReactHostOperationHistoryHook */ 559);
-	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
-	var ReactChildrenMutationWarningHook = __webpack_require__(/*! ./ReactChildrenMutationWarningHook */ 560);
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
+	var ReactInvalidSetStateWarningHook = __webpack_require__(/*! ./ReactInvalidSetStateWarningHook */ 567);
+	var ReactHostOperationHistoryHook = __webpack_require__(/*! ./ReactHostOperationHistoryHook */ 568);
+	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
+	var ReactChildrenMutationWarningHook = __webpack_require__(/*! ./ReactChildrenMutationWarningHook */ 569);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
 	
-	var performanceNow = __webpack_require__(/*! fbjs/lib/performanceNow */ 561);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var performanceNow = __webpack_require__(/*! fbjs/lib/performanceNow */ 570);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var hooks = [];
 	var didHookThrowForEvent = {};
@@ -67925,7 +70497,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 558 */
+/* 567 */
 /*!***************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactInvalidSetStateWarningHook.js ***!
   \***************************************************************************************************/
@@ -67944,7 +70516,7 @@
 	
 	'use strict';
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	if (process.env.NODE_ENV !== 'production') {
 	  var processingChildContext = false;
@@ -67970,7 +70542,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 559 */
+/* 568 */
 /*!*************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactHostOperationHistoryHook.js ***!
   \*************************************************************************************************/
@@ -68015,7 +70587,7 @@
 	module.exports = ReactHostOperationHistoryHook;
 
 /***/ },
-/* 560 */
+/* 569 */
 /*!****************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactChildrenMutationWarningHook.js ***!
   \****************************************************************************************************/
@@ -68034,9 +70606,9 @@
 	
 	'use strict';
 	
-	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	function handleElement(debugID, element) {
 	  if (element == null) {
@@ -68078,7 +70650,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 561 */
+/* 570 */
 /*!*********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/performanceNow.js ***!
   \*********************************************************************************/
@@ -68097,7 +70669,7 @@
 	 * @typechecks
 	 */
 	
-	var performance = __webpack_require__(/*! ./performance */ 562);
+	var performance = __webpack_require__(/*! ./performance */ 571);
 	
 	var performanceNow;
 	
@@ -68119,7 +70691,7 @@
 	module.exports = performanceNow;
 
 /***/ },
-/* 562 */
+/* 571 */
 /*!******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/performance.js ***!
   \******************************************************************************/
@@ -68138,7 +70710,7 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 543);
+	var ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 552);
 	
 	var performance;
 	
@@ -68149,7 +70721,7 @@
 	module.exports = performance || {};
 
 /***/ },
-/* 563 */
+/* 572 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/Transaction.js ***!
   \*******************************************************************************/
@@ -68168,9 +70740,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * `Transaction` creates a black box that is able to wrap any method such that
@@ -68391,7 +70963,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 564 */
+/* 573 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getEventTarget.js ***!
   \**********************************************************************************/
@@ -68434,7 +71006,7 @@
 	module.exports = getEventTarget;
 
 /***/ },
-/* 565 */
+/* 574 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/isEventSupported.js ***!
   \************************************************************************************/
@@ -68453,7 +71025,7 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
 	
 	var useHasFeature;
 	if (ExecutionEnvironment.canUseDOM) {
@@ -68502,7 +71074,7 @@
 	module.exports = isEventSupported;
 
 /***/ },
-/* 566 */
+/* 575 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/isTextInputElement.js ***!
   \**************************************************************************************/
@@ -68561,7 +71133,7 @@
 	module.exports = isTextInputElement;
 
 /***/ },
-/* 567 */
+/* 576 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/DefaultEventPluginOrder.js ***!
   \*******************************************************************************************/
@@ -68580,7 +71152,7 @@
 	
 	'use strict';
 	
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 516);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 525);
 	
 	/**
 	 * Module that is injectable into `EventPluginHub`, that specifies a
@@ -68596,7 +71168,7 @@
 	module.exports = DefaultEventPluginOrder;
 
 /***/ },
-/* 568 */
+/* 577 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/EnterLeaveEventPlugin.js ***!
   \*****************************************************************************************/
@@ -68615,12 +71187,12 @@
 	
 	'use strict';
 	
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 536);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var SyntheticMouseEvent = __webpack_require__(/*! ./SyntheticMouseEvent */ 569);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 545);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var SyntheticMouseEvent = __webpack_require__(/*! ./SyntheticMouseEvent */ 578);
 	
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 516);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 525);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -68709,7 +71281,7 @@
 	module.exports = EnterLeaveEventPlugin;
 
 /***/ },
-/* 569 */
+/* 578 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticMouseEvent.js ***!
   \***************************************************************************************/
@@ -68728,10 +71300,10 @@
 	
 	'use strict';
 	
-	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 570);
-	var ViewportMetrics = __webpack_require__(/*! ./ViewportMetrics */ 571);
+	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 579);
+	var ViewportMetrics = __webpack_require__(/*! ./ViewportMetrics */ 580);
 	
-	var getEventModifierState = __webpack_require__(/*! ./getEventModifierState */ 572);
+	var getEventModifierState = __webpack_require__(/*! ./getEventModifierState */ 581);
 	
 	/**
 	 * @interface MouseEvent
@@ -68789,7 +71361,7 @@
 	module.exports = SyntheticMouseEvent;
 
 /***/ },
-/* 570 */
+/* 579 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticUIEvent.js ***!
   \************************************************************************************/
@@ -68808,9 +71380,9 @@
 	
 	'use strict';
 	
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
 	
-	var getEventTarget = __webpack_require__(/*! ./getEventTarget */ 564);
+	var getEventTarget = __webpack_require__(/*! ./getEventTarget */ 573);
 	
 	/**
 	 * @interface UIEvent
@@ -68856,7 +71428,7 @@
 	module.exports = SyntheticUIEvent;
 
 /***/ },
-/* 571 */
+/* 580 */
 /*!***********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ViewportMetrics.js ***!
   \***********************************************************************************/
@@ -68891,7 +71463,7 @@
 	module.exports = ViewportMetrics;
 
 /***/ },
-/* 572 */
+/* 581 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getEventModifierState.js ***!
   \*****************************************************************************************/
@@ -68942,7 +71514,7 @@
 	module.exports = getEventModifierState;
 
 /***/ },
-/* 573 */
+/* 582 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/HTMLDOMPropertyConfig.js ***!
   \*****************************************************************************************/
@@ -68961,7 +71533,7 @@
 	
 	'use strict';
 	
-	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 531);
+	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 540);
 	
 	var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 	var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -69162,7 +71734,7 @@
 	module.exports = HTMLDOMPropertyConfig;
 
 /***/ },
-/* 574 */
+/* 583 */
 /*!****************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactComponentBrowserEnvironment.js ***!
   \****************************************************************************************************/
@@ -69181,8 +71753,8 @@
 	
 	'use strict';
 	
-	var DOMChildrenOperations = __webpack_require__(/*! ./DOMChildrenOperations */ 575);
-	var ReactDOMIDOperations = __webpack_require__(/*! ./ReactDOMIDOperations */ 587);
+	var DOMChildrenOperations = __webpack_require__(/*! ./DOMChildrenOperations */ 584);
+	var ReactDOMIDOperations = __webpack_require__(/*! ./ReactDOMIDOperations */ 596);
 	
 	/**
 	 * Abstracts away all functionality of the reconciler that requires knowledge of
@@ -69200,7 +71772,7 @@
 	module.exports = ReactComponentBrowserEnvironment;
 
 /***/ },
-/* 575 */
+/* 584 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/DOMChildrenOperations.js ***!
   \*****************************************************************************************/
@@ -69219,15 +71791,15 @@
 	
 	'use strict';
 	
-	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 576);
-	var Danger = __webpack_require__(/*! ./Danger */ 582);
-	var ReactMultiChildUpdateTypes = __webpack_require__(/*! ./ReactMultiChildUpdateTypes */ 586);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
+	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 585);
+	var Danger = __webpack_require__(/*! ./Danger */ 591);
+	var ReactMultiChildUpdateTypes = __webpack_require__(/*! ./ReactMultiChildUpdateTypes */ 595);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
 	
-	var createMicrosoftUnsafeLocalFunction = __webpack_require__(/*! ./createMicrosoftUnsafeLocalFunction */ 579);
-	var setInnerHTML = __webpack_require__(/*! ./setInnerHTML */ 578);
-	var setTextContent = __webpack_require__(/*! ./setTextContent */ 580);
+	var createMicrosoftUnsafeLocalFunction = __webpack_require__(/*! ./createMicrosoftUnsafeLocalFunction */ 588);
+	var setInnerHTML = __webpack_require__(/*! ./setInnerHTML */ 587);
+	var setTextContent = __webpack_require__(/*! ./setTextContent */ 589);
 	
 	function getNodeAfter(parentNode, node) {
 	  // Special case for text components, which return [open, close] comments
@@ -69403,7 +71975,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 576 */
+/* 585 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/DOMLazyTree.js ***!
   \*******************************************************************************/
@@ -69422,11 +71994,11 @@
 	
 	'use strict';
 	
-	var DOMNamespaces = __webpack_require__(/*! ./DOMNamespaces */ 577);
-	var setInnerHTML = __webpack_require__(/*! ./setInnerHTML */ 578);
+	var DOMNamespaces = __webpack_require__(/*! ./DOMNamespaces */ 586);
+	var setInnerHTML = __webpack_require__(/*! ./setInnerHTML */ 587);
 	
-	var createMicrosoftUnsafeLocalFunction = __webpack_require__(/*! ./createMicrosoftUnsafeLocalFunction */ 579);
-	var setTextContent = __webpack_require__(/*! ./setTextContent */ 580);
+	var createMicrosoftUnsafeLocalFunction = __webpack_require__(/*! ./createMicrosoftUnsafeLocalFunction */ 588);
+	var setTextContent = __webpack_require__(/*! ./setTextContent */ 589);
 	
 	var ELEMENT_NODE_TYPE = 1;
 	var DOCUMENT_FRAGMENT_NODE_TYPE = 11;
@@ -69529,7 +72101,7 @@
 	module.exports = DOMLazyTree;
 
 /***/ },
-/* 577 */
+/* 586 */
 /*!*********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/DOMNamespaces.js ***!
   \*********************************************************************************/
@@ -69557,7 +72129,7 @@
 	module.exports = DOMNamespaces;
 
 /***/ },
-/* 578 */
+/* 587 */
 /*!********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/setInnerHTML.js ***!
   \********************************************************************************/
@@ -69576,13 +72148,13 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
-	var DOMNamespaces = __webpack_require__(/*! ./DOMNamespaces */ 577);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
+	var DOMNamespaces = __webpack_require__(/*! ./DOMNamespaces */ 586);
 	
 	var WHITESPACE_TEST = /^[ \r\n\t\f]/;
 	var NONVISIBLE_TEST = /<(!--|link|noscript|meta|script|style)[ \r\n\t\f\/>]/;
 	
-	var createMicrosoftUnsafeLocalFunction = __webpack_require__(/*! ./createMicrosoftUnsafeLocalFunction */ 579);
+	var createMicrosoftUnsafeLocalFunction = __webpack_require__(/*! ./createMicrosoftUnsafeLocalFunction */ 588);
 	
 	// SVG temp container for IE lacking innerHTML
 	var reusableSVGContainer;
@@ -69663,7 +72235,7 @@
 	module.exports = setInnerHTML;
 
 /***/ },
-/* 579 */
+/* 588 */
 /*!******************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/createMicrosoftUnsafeLocalFunction.js ***!
   \******************************************************************************************************/
@@ -69703,7 +72275,7 @@
 	module.exports = createMicrosoftUnsafeLocalFunction;
 
 /***/ },
-/* 580 */
+/* 589 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/setTextContent.js ***!
   \**********************************************************************************/
@@ -69722,9 +72294,9 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
-	var escapeTextContentForBrowser = __webpack_require__(/*! ./escapeTextContentForBrowser */ 581);
-	var setInnerHTML = __webpack_require__(/*! ./setInnerHTML */ 578);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
+	var escapeTextContentForBrowser = __webpack_require__(/*! ./escapeTextContentForBrowser */ 590);
+	var setInnerHTML = __webpack_require__(/*! ./setInnerHTML */ 587);
 	
 	/**
 	 * Set the textContent property of a node, ensuring that whitespace is preserved
@@ -69759,7 +72331,7 @@
 	module.exports = setTextContent;
 
 /***/ },
-/* 581 */
+/* 590 */
 /*!***********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/escapeTextContentForBrowser.js ***!
   \***********************************************************************************************/
@@ -69890,7 +72462,7 @@
 	module.exports = escapeTextContentForBrowser;
 
 /***/ },
-/* 582 */
+/* 591 */
 /*!**************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/Danger.js ***!
   \**************************************************************************/
@@ -69909,14 +72481,14 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 576);
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
+	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 585);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
 	
-	var createNodesFromMarkup = __webpack_require__(/*! fbjs/lib/createNodesFromMarkup */ 583);
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var createNodesFromMarkup = __webpack_require__(/*! fbjs/lib/createNodesFromMarkup */ 592);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	var Danger = {
 	
@@ -69947,7 +72519,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 583 */
+/* 592 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/createNodesFromMarkup.js ***!
   \****************************************************************************************/
@@ -69968,11 +72540,11 @@
 	
 	/*eslint-disable fb-www/unsafe-html*/
 	
-	var ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 543);
+	var ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 552);
 	
-	var createArrayFromMixed = __webpack_require__(/*! ./createArrayFromMixed */ 584);
-	var getMarkupWrap = __webpack_require__(/*! ./getMarkupWrap */ 585);
-	var invariant = __webpack_require__(/*! ./invariant */ 499);
+	var createArrayFromMixed = __webpack_require__(/*! ./createArrayFromMixed */ 593);
+	var getMarkupWrap = __webpack_require__(/*! ./getMarkupWrap */ 594);
+	var invariant = __webpack_require__(/*! ./invariant */ 508);
 	
 	/**
 	 * Dummy container used to render all markup.
@@ -70039,7 +72611,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 584 */
+/* 593 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/createArrayFromMixed.js ***!
   \***************************************************************************************/
@@ -70058,7 +72630,7 @@
 	 * @typechecks
 	 */
 	
-	var invariant = __webpack_require__(/*! ./invariant */ 499);
+	var invariant = __webpack_require__(/*! ./invariant */ 508);
 	
 	/**
 	 * Convert array-like objects to arrays.
@@ -70174,7 +72746,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 585 */
+/* 594 */
 /*!********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/getMarkupWrap.js ***!
   \********************************************************************************/
@@ -70194,9 +72766,9 @@
 	
 	/*eslint-disable fb-www/unsafe-html */
 	
-	var ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 543);
+	var ExecutionEnvironment = __webpack_require__(/*! ./ExecutionEnvironment */ 552);
 	
-	var invariant = __webpack_require__(/*! ./invariant */ 499);
+	var invariant = __webpack_require__(/*! ./invariant */ 508);
 	
 	/**
 	 * Dummy container used to detect which wraps are necessary.
@@ -70277,7 +72849,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 586 */
+/* 595 */
 /*!**********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactMultiChildUpdateTypes.js ***!
   \**********************************************************************************************/
@@ -70296,7 +72868,7 @@
 	
 	'use strict';
 	
-	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 514);
+	var keyMirror = __webpack_require__(/*! fbjs/lib/keyMirror */ 523);
 	
 	/**
 	 * When a component's children are updated, a series of update configuration
@@ -70317,7 +72889,7 @@
 	module.exports = ReactMultiChildUpdateTypes;
 
 /***/ },
-/* 587 */
+/* 596 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMIDOperations.js ***!
   \****************************************************************************************/
@@ -70336,8 +72908,8 @@
 	
 	'use strict';
 	
-	var DOMChildrenOperations = __webpack_require__(/*! ./DOMChildrenOperations */ 575);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
+	var DOMChildrenOperations = __webpack_require__(/*! ./DOMChildrenOperations */ 584);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
 	
 	/**
 	 * Operations used to process updates to DOM nodes.
@@ -70359,7 +72931,7 @@
 	module.exports = ReactDOMIDOperations;
 
 /***/ },
-/* 588 */
+/* 597 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMComponent.js ***!
   \*************************************************************************************/
@@ -70380,38 +72952,38 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var AutoFocusUtils = __webpack_require__(/*! ./AutoFocusUtils */ 589);
-	var CSSPropertyOperations = __webpack_require__(/*! ./CSSPropertyOperations */ 591);
-	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 576);
-	var DOMNamespaces = __webpack_require__(/*! ./DOMNamespaces */ 577);
-	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 531);
-	var DOMPropertyOperations = __webpack_require__(/*! ./DOMPropertyOperations */ 599);
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 537);
-	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 538);
-	var ReactBrowserEventEmitter = __webpack_require__(/*! ./ReactBrowserEventEmitter */ 601);
-	var ReactDOMButton = __webpack_require__(/*! ./ReactDOMButton */ 604);
-	var ReactDOMComponentFlags = __webpack_require__(/*! ./ReactDOMComponentFlags */ 532);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactDOMInput = __webpack_require__(/*! ./ReactDOMInput */ 606);
-	var ReactDOMOption = __webpack_require__(/*! ./ReactDOMOption */ 608);
-	var ReactDOMSelect = __webpack_require__(/*! ./ReactDOMSelect */ 609);
-	var ReactDOMTextarea = __webpack_require__(/*! ./ReactDOMTextarea */ 610);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
-	var ReactMultiChild = __webpack_require__(/*! ./ReactMultiChild */ 611);
-	var ReactServerRenderingTransaction = __webpack_require__(/*! ./ReactServerRenderingTransaction */ 623);
+	var AutoFocusUtils = __webpack_require__(/*! ./AutoFocusUtils */ 598);
+	var CSSPropertyOperations = __webpack_require__(/*! ./CSSPropertyOperations */ 600);
+	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 585);
+	var DOMNamespaces = __webpack_require__(/*! ./DOMNamespaces */ 586);
+	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 540);
+	var DOMPropertyOperations = __webpack_require__(/*! ./DOMPropertyOperations */ 608);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 546);
+	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 547);
+	var ReactBrowserEventEmitter = __webpack_require__(/*! ./ReactBrowserEventEmitter */ 610);
+	var ReactDOMButton = __webpack_require__(/*! ./ReactDOMButton */ 613);
+	var ReactDOMComponentFlags = __webpack_require__(/*! ./ReactDOMComponentFlags */ 541);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactDOMInput = __webpack_require__(/*! ./ReactDOMInput */ 615);
+	var ReactDOMOption = __webpack_require__(/*! ./ReactDOMOption */ 617);
+	var ReactDOMSelect = __webpack_require__(/*! ./ReactDOMSelect */ 618);
+	var ReactDOMTextarea = __webpack_require__(/*! ./ReactDOMTextarea */ 619);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
+	var ReactMultiChild = __webpack_require__(/*! ./ReactMultiChild */ 620);
+	var ReactServerRenderingTransaction = __webpack_require__(/*! ./ReactServerRenderingTransaction */ 632);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
-	var escapeTextContentForBrowser = __webpack_require__(/*! ./escapeTextContentForBrowser */ 581);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var isEventSupported = __webpack_require__(/*! ./isEventSupported */ 565);
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 516);
-	var shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ 618);
-	var validateDOMNesting = __webpack_require__(/*! ./validateDOMNesting */ 626);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
+	var escapeTextContentForBrowser = __webpack_require__(/*! ./escapeTextContentForBrowser */ 590);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var isEventSupported = __webpack_require__(/*! ./isEventSupported */ 574);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 525);
+	var shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ 627);
+	var validateDOMNesting = __webpack_require__(/*! ./validateDOMNesting */ 635);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var Flags = ReactDOMComponentFlags;
 	var deleteListener = EventPluginHub.deleteListener;
@@ -71374,7 +73946,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 589 */
+/* 598 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/AutoFocusUtils.js ***!
   \**********************************************************************************/
@@ -71393,9 +73965,9 @@
 	
 	'use strict';
 	
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
 	
-	var focusNode = __webpack_require__(/*! fbjs/lib/focusNode */ 590);
+	var focusNode = __webpack_require__(/*! fbjs/lib/focusNode */ 599);
 	
 	var AutoFocusUtils = {
 	  focusDOMComponent: function () {
@@ -71406,7 +73978,7 @@
 	module.exports = AutoFocusUtils;
 
 /***/ },
-/* 590 */
+/* 599 */
 /*!****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/focusNode.js ***!
   \****************************************************************************/
@@ -71440,7 +74012,7 @@
 	module.exports = focusNode;
 
 /***/ },
-/* 591 */
+/* 600 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/CSSPropertyOperations.js ***!
   \*****************************************************************************************/
@@ -71459,15 +74031,15 @@
 	
 	'use strict';
 	
-	var CSSProperty = __webpack_require__(/*! ./CSSProperty */ 592);
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
+	var CSSProperty = __webpack_require__(/*! ./CSSProperty */ 601);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
 	
-	var camelizeStyleName = __webpack_require__(/*! fbjs/lib/camelizeStyleName */ 593);
-	var dangerousStyleValue = __webpack_require__(/*! ./dangerousStyleValue */ 595);
-	var hyphenateStyleName = __webpack_require__(/*! fbjs/lib/hyphenateStyleName */ 596);
-	var memoizeStringOnly = __webpack_require__(/*! fbjs/lib/memoizeStringOnly */ 598);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var camelizeStyleName = __webpack_require__(/*! fbjs/lib/camelizeStyleName */ 602);
+	var dangerousStyleValue = __webpack_require__(/*! ./dangerousStyleValue */ 604);
+	var hyphenateStyleName = __webpack_require__(/*! fbjs/lib/hyphenateStyleName */ 605);
+	var memoizeStringOnly = __webpack_require__(/*! fbjs/lib/memoizeStringOnly */ 607);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var processStyleName = memoizeStringOnly(function (styleName) {
 	  return hyphenateStyleName(styleName);
@@ -71654,7 +74226,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 592 */
+/* 601 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/CSSProperty.js ***!
   \*******************************************************************************/
@@ -71810,7 +74382,7 @@
 	module.exports = CSSProperty;
 
 /***/ },
-/* 593 */
+/* 602 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/camelizeStyleName.js ***!
   \************************************************************************************/
@@ -71829,7 +74401,7 @@
 	
 	'use strict';
 	
-	var camelize = __webpack_require__(/*! ./camelize */ 594);
+	var camelize = __webpack_require__(/*! ./camelize */ 603);
 	
 	var msPattern = /^-ms-/;
 	
@@ -71857,7 +74429,7 @@
 	module.exports = camelizeStyleName;
 
 /***/ },
-/* 594 */
+/* 603 */
 /*!***************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/camelize.js ***!
   \***************************************************************************/
@@ -71896,7 +74468,7 @@
 	module.exports = camelize;
 
 /***/ },
-/* 595 */
+/* 604 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/dangerousStyleValue.js ***!
   \***************************************************************************************/
@@ -71915,8 +74487,8 @@
 	
 	'use strict';
 	
-	var CSSProperty = __webpack_require__(/*! ./CSSProperty */ 592);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var CSSProperty = __webpack_require__(/*! ./CSSProperty */ 601);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var isUnitlessNumber = CSSProperty.isUnitlessNumber;
 	var styleWarnings = {};
@@ -71984,7 +74556,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 596 */
+/* 605 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/hyphenateStyleName.js ***!
   \*************************************************************************************/
@@ -72003,7 +74575,7 @@
 	
 	'use strict';
 	
-	var hyphenate = __webpack_require__(/*! ./hyphenate */ 597);
+	var hyphenate = __webpack_require__(/*! ./hyphenate */ 606);
 	
 	var msPattern = /^ms-/;
 	
@@ -72030,7 +74602,7 @@
 	module.exports = hyphenateStyleName;
 
 /***/ },
-/* 597 */
+/* 606 */
 /*!****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/hyphenate.js ***!
   \****************************************************************************/
@@ -72070,7 +74642,7 @@
 	module.exports = hyphenate;
 
 /***/ },
-/* 598 */
+/* 607 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/memoizeStringOnly.js ***!
   \************************************************************************************/
@@ -72107,7 +74679,7 @@
 	module.exports = memoizeStringOnly;
 
 /***/ },
-/* 599 */
+/* 608 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/DOMPropertyOperations.js ***!
   \*****************************************************************************************/
@@ -72126,12 +74698,12 @@
 	
 	'use strict';
 	
-	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 531);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
+	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 540);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
 	
-	var quoteAttributeValueForBrowser = __webpack_require__(/*! ./quoteAttributeValueForBrowser */ 600);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var quoteAttributeValueForBrowser = __webpack_require__(/*! ./quoteAttributeValueForBrowser */ 609);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var VALID_ATTRIBUTE_NAME_REGEX = new RegExp('^[' + DOMProperty.ATTRIBUTE_NAME_START_CHAR + '][' + DOMProperty.ATTRIBUTE_NAME_CHAR + ']*$');
 	var illegalAttributeNameCache = {};
@@ -72337,7 +74909,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 600 */
+/* 609 */
 /*!*************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/quoteAttributeValueForBrowser.js ***!
   \*************************************************************************************************/
@@ -72356,7 +74928,7 @@
 	
 	'use strict';
 	
-	var escapeTextContentForBrowser = __webpack_require__(/*! ./escapeTextContentForBrowser */ 581);
+	var escapeTextContentForBrowser = __webpack_require__(/*! ./escapeTextContentForBrowser */ 590);
 	
 	/**
 	 * Escapes attribute value to prevent scripting attacks.
@@ -72371,7 +74943,7 @@
 	module.exports = quoteAttributeValueForBrowser;
 
 /***/ },
-/* 601 */
+/* 610 */
 /*!********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactBrowserEventEmitter.js ***!
   \********************************************************************************************/
@@ -72390,15 +74962,15 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 538);
-	var ReactEventEmitterMixin = __webpack_require__(/*! ./ReactEventEmitterMixin */ 602);
-	var ViewportMetrics = __webpack_require__(/*! ./ViewportMetrics */ 571);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 547);
+	var ReactEventEmitterMixin = __webpack_require__(/*! ./ReactEventEmitterMixin */ 611);
+	var ViewportMetrics = __webpack_require__(/*! ./ViewportMetrics */ 580);
 	
-	var getVendorPrefixedEventName = __webpack_require__(/*! ./getVendorPrefixedEventName */ 603);
-	var isEventSupported = __webpack_require__(/*! ./isEventSupported */ 565);
+	var getVendorPrefixedEventName = __webpack_require__(/*! ./getVendorPrefixedEventName */ 612);
+	var isEventSupported = __webpack_require__(/*! ./isEventSupported */ 574);
 	
 	/**
 	 * Summary of `ReactBrowserEventEmitter` event handling:
@@ -72709,7 +75281,7 @@
 	module.exports = ReactBrowserEventEmitter;
 
 /***/ },
-/* 602 */
+/* 611 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactEventEmitterMixin.js ***!
   \******************************************************************************************/
@@ -72728,7 +75300,7 @@
 	
 	'use strict';
 	
-	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 537);
+	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 546);
 	
 	function runEventQueueInBatch(events) {
 	  EventPluginHub.enqueueEvents(events);
@@ -72750,7 +75322,7 @@
 	module.exports = ReactEventEmitterMixin;
 
 /***/ },
-/* 603 */
+/* 612 */
 /*!**********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getVendorPrefixedEventName.js ***!
   \**********************************************************************************************/
@@ -72769,7 +75341,7 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
 	
 	/**
 	 * Generate a mapping of standard vendor prefixes using the defined style property and event name.
@@ -72859,7 +75431,7 @@
 	module.exports = getVendorPrefixedEventName;
 
 /***/ },
-/* 604 */
+/* 613 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMButton.js ***!
   \**********************************************************************************/
@@ -72878,7 +75450,7 @@
 	
 	'use strict';
 	
-	var DisabledInputUtils = __webpack_require__(/*! ./DisabledInputUtils */ 605);
+	var DisabledInputUtils = __webpack_require__(/*! ./DisabledInputUtils */ 614);
 	
 	/**
 	 * Implements a <button> host component that does not receive mouse events
@@ -72891,7 +75463,7 @@
 	module.exports = ReactDOMButton;
 
 /***/ },
-/* 605 */
+/* 614 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/DisabledInputUtils.js ***!
   \**************************************************************************************/
@@ -72949,7 +75521,7 @@
 	module.exports = DisabledInputUtils;
 
 /***/ },
-/* 606 */
+/* 615 */
 /*!*********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMInput.js ***!
   \*********************************************************************************/
@@ -72968,17 +75540,17 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var DisabledInputUtils = __webpack_require__(/*! ./DisabledInputUtils */ 605);
-	var DOMPropertyOperations = __webpack_require__(/*! ./DOMPropertyOperations */ 599);
-	var LinkedValueUtils = __webpack_require__(/*! ./LinkedValueUtils */ 607);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
+	var DisabledInputUtils = __webpack_require__(/*! ./DisabledInputUtils */ 614);
+	var DOMPropertyOperations = __webpack_require__(/*! ./DOMPropertyOperations */ 608);
+	var LinkedValueUtils = __webpack_require__(/*! ./LinkedValueUtils */ 616);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var didWarnValueLink = false;
 	var didWarnCheckedLink = false;
@@ -73227,7 +75799,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 607 */
+/* 616 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/LinkedValueUtils.js ***!
   \************************************************************************************/
@@ -73246,14 +75818,14 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactPropTypes = __webpack_require__(/*! ./ReactPropTypes */ 522);
-	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 513);
-	var ReactPropTypesSecret = __webpack_require__(/*! ./ReactPropTypesSecret */ 521);
+	var ReactPropTypes = __webpack_require__(/*! ./ReactPropTypes */ 531);
+	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 522);
+	var ReactPropTypesSecret = __webpack_require__(/*! ./ReactPropTypesSecret */ 530);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var hasReadOnlyValue = {
 	  'button': true,
@@ -73372,7 +75944,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 608 */
+/* 617 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMOption.js ***!
   \**********************************************************************************/
@@ -73391,13 +75963,13 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var ReactChildren = __webpack_require__(/*! ./ReactChildren */ 496);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactDOMSelect = __webpack_require__(/*! ./ReactDOMSelect */ 609);
+	var ReactChildren = __webpack_require__(/*! ./ReactChildren */ 505);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactDOMSelect = __webpack_require__(/*! ./ReactDOMSelect */ 618);
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	var didWarnInvalidOptionChildren = false;
 	
 	function flattenChildren(children) {
@@ -73504,7 +76076,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 609 */
+/* 618 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMSelect.js ***!
   \**********************************************************************************/
@@ -73523,14 +76095,14 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var DisabledInputUtils = __webpack_require__(/*! ./DisabledInputUtils */ 605);
-	var LinkedValueUtils = __webpack_require__(/*! ./LinkedValueUtils */ 607);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
+	var DisabledInputUtils = __webpack_require__(/*! ./DisabledInputUtils */ 614);
+	var LinkedValueUtils = __webpack_require__(/*! ./LinkedValueUtils */ 616);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var didWarnValueLink = false;
 	var didWarnValueDefaultValue = false;
@@ -73714,7 +76286,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 610 */
+/* 619 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMTextarea.js ***!
   \************************************************************************************/
@@ -73733,16 +76305,16 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var DisabledInputUtils = __webpack_require__(/*! ./DisabledInputUtils */ 605);
-	var LinkedValueUtils = __webpack_require__(/*! ./LinkedValueUtils */ 607);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
+	var DisabledInputUtils = __webpack_require__(/*! ./DisabledInputUtils */ 614);
+	var LinkedValueUtils = __webpack_require__(/*! ./LinkedValueUtils */ 616);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var didWarnValueLink = false;
 	var didWarnValDefaultVal = false;
@@ -73878,7 +76450,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 611 */
+/* 620 */
 /*!***********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactMultiChild.js ***!
   \***********************************************************************************/
@@ -73897,20 +76469,20 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactComponentEnvironment = __webpack_require__(/*! ./ReactComponentEnvironment */ 612);
-	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 613);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
-	var ReactMultiChildUpdateTypes = __webpack_require__(/*! ./ReactMultiChildUpdateTypes */ 586);
+	var ReactComponentEnvironment = __webpack_require__(/*! ./ReactComponentEnvironment */ 621);
+	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 622);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
+	var ReactMultiChildUpdateTypes = __webpack_require__(/*! ./ReactMultiChildUpdateTypes */ 595);
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
-	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 553);
-	var ReactChildReconciler = __webpack_require__(/*! ./ReactChildReconciler */ 614);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
+	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 562);
+	var ReactChildReconciler = __webpack_require__(/*! ./ReactChildReconciler */ 623);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
-	var flattenChildren = __webpack_require__(/*! ./flattenChildren */ 622);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
+	var flattenChildren = __webpack_require__(/*! ./flattenChildren */ 631);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * Make an update for markup to be rendered and inserted at a supplied index.
@@ -74338,7 +76910,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 612 */
+/* 621 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactComponentEnvironment.js ***!
   \*********************************************************************************************/
@@ -74357,9 +76929,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	var injected = false;
 	
@@ -74392,7 +76964,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 613 */
+/* 622 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactInstanceMap.js ***!
   \************************************************************************************/
@@ -74448,7 +77020,7 @@
 	module.exports = ReactInstanceMap;
 
 /***/ },
-/* 614 */
+/* 623 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactChildReconciler.js ***!
   \****************************************************************************************/
@@ -74467,13 +77039,13 @@
 	
 	'use strict';
 	
-	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 553);
+	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 562);
 	
-	var instantiateReactComponent = __webpack_require__(/*! ./instantiateReactComponent */ 615);
-	var KeyEscapeUtils = __webpack_require__(/*! ./KeyEscapeUtils */ 507);
-	var shouldUpdateReactComponent = __webpack_require__(/*! ./shouldUpdateReactComponent */ 619);
-	var traverseAllChildren = __webpack_require__(/*! ./traverseAllChildren */ 505);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var instantiateReactComponent = __webpack_require__(/*! ./instantiateReactComponent */ 624);
+	var KeyEscapeUtils = __webpack_require__(/*! ./KeyEscapeUtils */ 516);
+	var shouldUpdateReactComponent = __webpack_require__(/*! ./shouldUpdateReactComponent */ 628);
+	var traverseAllChildren = __webpack_require__(/*! ./traverseAllChildren */ 514);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var ReactComponentTreeHook;
 	
@@ -74483,7 +77055,7 @@
 	  // https://github.com/facebook/react/issues/7240
 	  // Remove the inline requires when we don't need them anymore:
 	  // https://github.com/facebook/react/pull/7178
-	  ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	  ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	}
 	
 	function instantiateChild(childInstances, child, name, selfDebugID) {
@@ -74491,7 +77063,7 @@
 	  var keyUnique = childInstances[name] === undefined;
 	  if (process.env.NODE_ENV !== 'production') {
 	    if (!ReactComponentTreeHook) {
-	      ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	      ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	    }
 	    if (!keyUnique) {
 	      process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -74611,7 +77183,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 615 */
+/* 624 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/instantiateReactComponent.js ***!
   \*********************************************************************************************/
@@ -74630,15 +77202,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var ReactCompositeComponent = __webpack_require__(/*! ./ReactCompositeComponent */ 616);
-	var ReactEmptyComponent = __webpack_require__(/*! ./ReactEmptyComponent */ 620);
-	var ReactHostComponent = __webpack_require__(/*! ./ReactHostComponent */ 621);
+	var ReactCompositeComponent = __webpack_require__(/*! ./ReactCompositeComponent */ 625);
+	var ReactEmptyComponent = __webpack_require__(/*! ./ReactEmptyComponent */ 629);
+	var ReactHostComponent = __webpack_require__(/*! ./ReactHostComponent */ 630);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	// To avoid a cyclic dependency, we create the final class in this module
 	var ReactCompositeComponentWrapper = function (element) {
@@ -74739,7 +77311,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 616 */
+/* 625 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactCompositeComponent.js ***!
   \*******************************************************************************************/
@@ -74758,25 +77330,25 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var ReactComponentEnvironment = __webpack_require__(/*! ./ReactComponentEnvironment */ 612);
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
-	var ReactErrorUtils = __webpack_require__(/*! ./ReactErrorUtils */ 540);
-	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 613);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
-	var ReactNodeTypes = __webpack_require__(/*! ./ReactNodeTypes */ 617);
-	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 513);
-	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 553);
+	var ReactComponentEnvironment = __webpack_require__(/*! ./ReactComponentEnvironment */ 621);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
+	var ReactErrorUtils = __webpack_require__(/*! ./ReactErrorUtils */ 549);
+	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 622);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
+	var ReactNodeTypes = __webpack_require__(/*! ./ReactNodeTypes */ 626);
+	var ReactPropTypeLocations = __webpack_require__(/*! ./ReactPropTypeLocations */ 522);
+	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 562);
 	
-	var checkReactTypeSpec = __webpack_require__(/*! ./checkReactTypeSpec */ 520);
-	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 510);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ 618);
-	var shouldUpdateReactComponent = __webpack_require__(/*! ./shouldUpdateReactComponent */ 619);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var checkReactTypeSpec = __webpack_require__(/*! ./checkReactTypeSpec */ 529);
+	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 519);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ 627);
+	var shouldUpdateReactComponent = __webpack_require__(/*! ./shouldUpdateReactComponent */ 628);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var CompositeTypes = {
 	  ImpureClass: 0,
@@ -75652,7 +78224,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 617 */
+/* 626 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactNodeTypes.js ***!
   \**********************************************************************************/
@@ -75672,11 +78244,11 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	var ReactNodeTypes = {
 	  HOST: 0,
@@ -75701,7 +78273,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 618 */
+/* 627 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/shallowEqual.js ***!
   \*******************************************************************************/
@@ -75776,7 +78348,7 @@
 	module.exports = shallowEqual;
 
 /***/ },
-/* 619 */
+/* 628 */
 /*!**********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/shouldUpdateReactComponent.js ***!
   \**********************************************************************************************/
@@ -75826,7 +78398,7 @@
 	module.exports = shouldUpdateReactComponent;
 
 /***/ },
-/* 620 */
+/* 629 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactEmptyComponent.js ***!
   \***************************************************************************************/
@@ -75864,7 +78436,7 @@
 	module.exports = ReactEmptyComponent;
 
 /***/ },
-/* 621 */
+/* 630 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactHostComponent.js ***!
   \**************************************************************************************/
@@ -75883,10 +78455,10 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	var genericComponentClass = null;
 	// This registry keeps track of wrapper classes around host tags.
@@ -75949,7 +78521,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 622 */
+/* 631 */
 /*!***********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/flattenChildren.js ***!
   \***********************************************************************************/
@@ -75969,9 +78541,9 @@
 	
 	'use strict';
 	
-	var KeyEscapeUtils = __webpack_require__(/*! ./KeyEscapeUtils */ 507);
-	var traverseAllChildren = __webpack_require__(/*! ./traverseAllChildren */ 505);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var KeyEscapeUtils = __webpack_require__(/*! ./KeyEscapeUtils */ 516);
+	var traverseAllChildren = __webpack_require__(/*! ./traverseAllChildren */ 514);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var ReactComponentTreeHook;
 	
@@ -75981,7 +78553,7 @@
 	  // https://github.com/facebook/react/issues/7240
 	  // Remove the inline requires when we don't need them anymore:
 	  // https://github.com/facebook/react/pull/7178
-	  ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	  ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	}
 	
 	/**
@@ -75997,7 +78569,7 @@
 	    var keyUnique = result[name] === undefined;
 	    if (process.env.NODE_ENV !== 'production') {
 	      if (!ReactComponentTreeHook) {
-	        ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	        ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	      }
 	      if (!keyUnique) {
 	        process.env.NODE_ENV !== 'production' ? warning(false, 'flattenChildren(...): Encountered two children with the same key, ' + '`%s`. Child keys must be unique; when two children share a key, only ' + 'the first child will be used.%s', KeyEscapeUtils.unescape(name), ReactComponentTreeHook.getStackAddendumByID(selfDebugID)) : void 0;
@@ -76034,7 +78606,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 623 */
+/* 632 */
 /*!***************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactServerRenderingTransaction.js ***!
   \***************************************************************************************************/
@@ -76053,12 +78625,12 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 497);
-	var Transaction = __webpack_require__(/*! ./Transaction */ 563);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
-	var ReactServerUpdateQueue = __webpack_require__(/*! ./ReactServerUpdateQueue */ 624);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 506);
+	var Transaction = __webpack_require__(/*! ./Transaction */ 572);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
+	var ReactServerUpdateQueue = __webpack_require__(/*! ./ReactServerUpdateQueue */ 633);
 	
 	/**
 	 * Executed within the scope of the `Transaction` instance. Consider these as
@@ -76133,7 +78705,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 624 */
+/* 633 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactServerUpdateQueue.js ***!
   \******************************************************************************************/
@@ -76155,9 +78727,9 @@
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var ReactUpdateQueue = __webpack_require__(/*! ./ReactUpdateQueue */ 625);
-	var Transaction = __webpack_require__(/*! ./Transaction */ 563);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var ReactUpdateQueue = __webpack_require__(/*! ./ReactUpdateQueue */ 634);
+	var Transaction = __webpack_require__(/*! ./Transaction */ 572);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	function warnNoop(publicInstance, callerName) {
 	  if (process.env.NODE_ENV !== 'production') {
@@ -76283,7 +78855,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 625 */
+/* 634 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactUpdateQueue.js ***!
   \************************************************************************************/
@@ -76302,15 +78874,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
-	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 613);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
+	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 622);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	function enqueueUpdate(internalInstance) {
 	  ReactUpdates.enqueueUpdate(internalInstance);
@@ -76518,7 +79090,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 626 */
+/* 635 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/validateDOMNesting.js ***!
   \**************************************************************************************/
@@ -76537,10 +79109,10 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var validateDOMNesting = emptyFunction;
 	
@@ -76909,7 +79481,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 627 */
+/* 636 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMEmptyComponent.js ***!
   \******************************************************************************************/
@@ -76928,10 +79500,10 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 576);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
+	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 585);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
 	
 	var ReactDOMEmptyComponent = function (instantiate) {
 	  // ReactCompositeComponent uses this:
@@ -76977,7 +79549,7 @@
 	module.exports = ReactDOMEmptyComponent;
 
 /***/ },
-/* 628 */
+/* 637 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMTreeTraversal.js ***!
   \*****************************************************************************************/
@@ -76996,9 +79568,9 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
 	
 	/**
 	 * Return the lowest common ancestor of A and B, or null if they are in
@@ -77122,7 +79694,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 629 */
+/* 638 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMTextComponent.js ***!
   \*****************************************************************************************/
@@ -77141,16 +79713,16 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498),
-	    _assign = __webpack_require__(/*! object-assign */ 495);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507),
+	    _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var DOMChildrenOperations = __webpack_require__(/*! ./DOMChildrenOperations */ 575);
-	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 576);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
+	var DOMChildrenOperations = __webpack_require__(/*! ./DOMChildrenOperations */ 584);
+	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 585);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
 	
-	var escapeTextContentForBrowser = __webpack_require__(/*! ./escapeTextContentForBrowser */ 581);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var validateDOMNesting = __webpack_require__(/*! ./validateDOMNesting */ 626);
+	var escapeTextContentForBrowser = __webpack_require__(/*! ./escapeTextContentForBrowser */ 590);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var validateDOMNesting = __webpack_require__(/*! ./validateDOMNesting */ 635);
 	
 	/**
 	 * Text nodes violate a couple assumptions that React makes about components:
@@ -77295,7 +79867,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 630 */
+/* 639 */
 /*!************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDefaultBatchingStrategy.js ***!
   \************************************************************************************************/
@@ -77314,12 +79886,12 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
-	var Transaction = __webpack_require__(/*! ./Transaction */ 563);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
+	var Transaction = __webpack_require__(/*! ./Transaction */ 572);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
 	
 	var RESET_BATCHED_UPDATES = {
 	  initialize: emptyFunction,
@@ -77371,7 +79943,7 @@
 	module.exports = ReactDefaultBatchingStrategy;
 
 /***/ },
-/* 631 */
+/* 640 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactEventListener.js ***!
   \**************************************************************************************/
@@ -77390,16 +79962,16 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var EventListener = __webpack_require__(/*! fbjs/lib/EventListener */ 632);
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 497);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
+	var EventListener = __webpack_require__(/*! fbjs/lib/EventListener */ 641);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 506);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
 	
-	var getEventTarget = __webpack_require__(/*! ./getEventTarget */ 564);
-	var getUnboundedScrollPosition = __webpack_require__(/*! fbjs/lib/getUnboundedScrollPosition */ 633);
+	var getEventTarget = __webpack_require__(/*! ./getEventTarget */ 573);
+	var getUnboundedScrollPosition = __webpack_require__(/*! fbjs/lib/getUnboundedScrollPosition */ 642);
 	
 	/**
 	 * Find the deepest React component completely containing the root of the
@@ -77536,7 +80108,7 @@
 	module.exports = ReactEventListener;
 
 /***/ },
-/* 632 */
+/* 641 */
 /*!********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/EventListener.js ***!
   \********************************************************************************/
@@ -77562,7 +80134,7 @@
 	 * @typechecks
 	 */
 	
-	var emptyFunction = __webpack_require__(/*! ./emptyFunction */ 503);
+	var emptyFunction = __webpack_require__(/*! ./emptyFunction */ 512);
 	
 	/**
 	 * Upstream version of event listener. Does not take into account specific
@@ -77628,7 +80200,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 633 */
+/* 642 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/getUnboundedScrollPosition.js ***!
   \*********************************************************************************************/
@@ -77674,7 +80246,7 @@
 	module.exports = getUnboundedScrollPosition;
 
 /***/ },
-/* 634 */
+/* 643 */
 /*!**********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactInjection.js ***!
   \**********************************************************************************/
@@ -77693,15 +80265,15 @@
 	
 	'use strict';
 	
-	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 531);
-	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 537);
-	var EventPluginUtils = __webpack_require__(/*! ./EventPluginUtils */ 539);
-	var ReactComponentEnvironment = __webpack_require__(/*! ./ReactComponentEnvironment */ 612);
-	var ReactClass = __webpack_require__(/*! ./ReactClass */ 512);
-	var ReactEmptyComponent = __webpack_require__(/*! ./ReactEmptyComponent */ 620);
-	var ReactBrowserEventEmitter = __webpack_require__(/*! ./ReactBrowserEventEmitter */ 601);
-	var ReactHostComponent = __webpack_require__(/*! ./ReactHostComponent */ 621);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
+	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 540);
+	var EventPluginHub = __webpack_require__(/*! ./EventPluginHub */ 546);
+	var EventPluginUtils = __webpack_require__(/*! ./EventPluginUtils */ 548);
+	var ReactComponentEnvironment = __webpack_require__(/*! ./ReactComponentEnvironment */ 621);
+	var ReactClass = __webpack_require__(/*! ./ReactClass */ 521);
+	var ReactEmptyComponent = __webpack_require__(/*! ./ReactEmptyComponent */ 629);
+	var ReactBrowserEventEmitter = __webpack_require__(/*! ./ReactBrowserEventEmitter */ 610);
+	var ReactHostComponent = __webpack_require__(/*! ./ReactHostComponent */ 630);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
 	
 	var ReactInjection = {
 	  Component: ReactComponentEnvironment.injection,
@@ -77718,7 +80290,7 @@
 	module.exports = ReactInjection;
 
 /***/ },
-/* 635 */
+/* 644 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactReconcileTransaction.js ***!
   \*********************************************************************************************/
@@ -77737,15 +80309,15 @@
 	
 	'use strict';
 	
-	var _assign = __webpack_require__(/*! object-assign */ 495);
+	var _assign = __webpack_require__(/*! object-assign */ 504);
 	
-	var CallbackQueue = __webpack_require__(/*! ./CallbackQueue */ 551);
-	var PooledClass = __webpack_require__(/*! ./PooledClass */ 497);
-	var ReactBrowserEventEmitter = __webpack_require__(/*! ./ReactBrowserEventEmitter */ 601);
-	var ReactInputSelection = __webpack_require__(/*! ./ReactInputSelection */ 636);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
-	var Transaction = __webpack_require__(/*! ./Transaction */ 563);
-	var ReactUpdateQueue = __webpack_require__(/*! ./ReactUpdateQueue */ 625);
+	var CallbackQueue = __webpack_require__(/*! ./CallbackQueue */ 560);
+	var PooledClass = __webpack_require__(/*! ./PooledClass */ 506);
+	var ReactBrowserEventEmitter = __webpack_require__(/*! ./ReactBrowserEventEmitter */ 610);
+	var ReactInputSelection = __webpack_require__(/*! ./ReactInputSelection */ 645);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
+	var Transaction = __webpack_require__(/*! ./Transaction */ 572);
+	var ReactUpdateQueue = __webpack_require__(/*! ./ReactUpdateQueue */ 634);
 	
 	/**
 	 * Ensures that, when possible, the selection range (currently selected text
@@ -77905,7 +80477,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 636 */
+/* 645 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactInputSelection.js ***!
   \***************************************************************************************/
@@ -77924,11 +80496,11 @@
 	
 	'use strict';
 	
-	var ReactDOMSelection = __webpack_require__(/*! ./ReactDOMSelection */ 637);
+	var ReactDOMSelection = __webpack_require__(/*! ./ReactDOMSelection */ 646);
 	
-	var containsNode = __webpack_require__(/*! fbjs/lib/containsNode */ 639);
-	var focusNode = __webpack_require__(/*! fbjs/lib/focusNode */ 590);
-	var getActiveElement = __webpack_require__(/*! fbjs/lib/getActiveElement */ 642);
+	var containsNode = __webpack_require__(/*! fbjs/lib/containsNode */ 648);
+	var focusNode = __webpack_require__(/*! fbjs/lib/focusNode */ 599);
+	var getActiveElement = __webpack_require__(/*! fbjs/lib/getActiveElement */ 651);
 	
 	function isInDocument(node) {
 	  return containsNode(document.documentElement, node);
@@ -78037,7 +80609,7 @@
 	module.exports = ReactInputSelection;
 
 /***/ },
-/* 637 */
+/* 646 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMSelection.js ***!
   \*************************************************************************************/
@@ -78056,10 +80628,10 @@
 	
 	'use strict';
 	
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
 	
-	var getNodeForCharacterOffset = __webpack_require__(/*! ./getNodeForCharacterOffset */ 638);
-	var getTextContentAccessor = __webpack_require__(/*! ./getTextContentAccessor */ 545);
+	var getNodeForCharacterOffset = __webpack_require__(/*! ./getNodeForCharacterOffset */ 647);
+	var getTextContentAccessor = __webpack_require__(/*! ./getTextContentAccessor */ 554);
 	
 	/**
 	 * While `isCollapsed` is available on the Selection object and `collapsed`
@@ -78257,7 +80829,7 @@
 	module.exports = ReactDOMSelection;
 
 /***/ },
-/* 638 */
+/* 647 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getNodeForCharacterOffset.js ***!
   \*********************************************************************************************/
@@ -78339,7 +80911,7 @@
 	module.exports = getNodeForCharacterOffset;
 
 /***/ },
-/* 639 */
+/* 648 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/containsNode.js ***!
   \*******************************************************************************/
@@ -78358,7 +80930,7 @@
 	 * 
 	 */
 	
-	var isTextNode = __webpack_require__(/*! ./isTextNode */ 640);
+	var isTextNode = __webpack_require__(/*! ./isTextNode */ 649);
 	
 	/*eslint-disable no-bitwise */
 	
@@ -78386,7 +80958,7 @@
 	module.exports = containsNode;
 
 /***/ },
-/* 640 */
+/* 649 */
 /*!*****************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/isTextNode.js ***!
   \*****************************************************************************/
@@ -78405,7 +80977,7 @@
 	 * @typechecks
 	 */
 	
-	var isNode = __webpack_require__(/*! ./isNode */ 641);
+	var isNode = __webpack_require__(/*! ./isNode */ 650);
 	
 	/**
 	 * @param {*} object The object to check.
@@ -78418,7 +80990,7 @@
 	module.exports = isTextNode;
 
 /***/ },
-/* 641 */
+/* 650 */
 /*!*************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/isNode.js ***!
   \*************************************************************************/
@@ -78448,7 +81020,7 @@
 	module.exports = isNode;
 
 /***/ },
-/* 642 */
+/* 651 */
 /*!***********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/fbjs/lib/getActiveElement.js ***!
   \***********************************************************************************/
@@ -78490,7 +81062,7 @@
 	module.exports = getActiveElement;
 
 /***/ },
-/* 643 */
+/* 652 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SVGDOMPropertyConfig.js ***!
   \****************************************************************************************/
@@ -78800,7 +81372,7 @@
 	module.exports = SVGDOMPropertyConfig;
 
 /***/ },
-/* 644 */
+/* 653 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SelectEventPlugin.js ***!
   \*************************************************************************************/
@@ -78819,17 +81391,17 @@
 	
 	'use strict';
 	
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 536);
-	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 543);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactInputSelection = __webpack_require__(/*! ./ReactInputSelection */ 636);
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 545);
+	var ExecutionEnvironment = __webpack_require__(/*! fbjs/lib/ExecutionEnvironment */ 552);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactInputSelection = __webpack_require__(/*! ./ReactInputSelection */ 645);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
 	
-	var getActiveElement = __webpack_require__(/*! fbjs/lib/getActiveElement */ 642);
-	var isTextInputElement = __webpack_require__(/*! ./isTextInputElement */ 566);
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 516);
-	var shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ 618);
+	var getActiveElement = __webpack_require__(/*! fbjs/lib/getActiveElement */ 651);
+	var isTextInputElement = __webpack_require__(/*! ./isTextInputElement */ 575);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 525);
+	var shallowEqual = __webpack_require__(/*! fbjs/lib/shallowEqual */ 627);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -79004,7 +81576,7 @@
 	module.exports = SelectEventPlugin;
 
 /***/ },
-/* 645 */
+/* 654 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SimpleEventPlugin.js ***!
   \*************************************************************************************/
@@ -79023,28 +81595,28 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var EventConstants = __webpack_require__(/*! ./EventConstants */ 535);
-	var EventListener = __webpack_require__(/*! fbjs/lib/EventListener */ 632);
-	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 536);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var SyntheticAnimationEvent = __webpack_require__(/*! ./SyntheticAnimationEvent */ 646);
-	var SyntheticClipboardEvent = __webpack_require__(/*! ./SyntheticClipboardEvent */ 647);
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
-	var SyntheticFocusEvent = __webpack_require__(/*! ./SyntheticFocusEvent */ 648);
-	var SyntheticKeyboardEvent = __webpack_require__(/*! ./SyntheticKeyboardEvent */ 649);
-	var SyntheticMouseEvent = __webpack_require__(/*! ./SyntheticMouseEvent */ 569);
-	var SyntheticDragEvent = __webpack_require__(/*! ./SyntheticDragEvent */ 652);
-	var SyntheticTouchEvent = __webpack_require__(/*! ./SyntheticTouchEvent */ 653);
-	var SyntheticTransitionEvent = __webpack_require__(/*! ./SyntheticTransitionEvent */ 654);
-	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 570);
-	var SyntheticWheelEvent = __webpack_require__(/*! ./SyntheticWheelEvent */ 655);
+	var EventConstants = __webpack_require__(/*! ./EventConstants */ 544);
+	var EventListener = __webpack_require__(/*! fbjs/lib/EventListener */ 641);
+	var EventPropagators = __webpack_require__(/*! ./EventPropagators */ 545);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var SyntheticAnimationEvent = __webpack_require__(/*! ./SyntheticAnimationEvent */ 655);
+	var SyntheticClipboardEvent = __webpack_require__(/*! ./SyntheticClipboardEvent */ 656);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
+	var SyntheticFocusEvent = __webpack_require__(/*! ./SyntheticFocusEvent */ 657);
+	var SyntheticKeyboardEvent = __webpack_require__(/*! ./SyntheticKeyboardEvent */ 658);
+	var SyntheticMouseEvent = __webpack_require__(/*! ./SyntheticMouseEvent */ 578);
+	var SyntheticDragEvent = __webpack_require__(/*! ./SyntheticDragEvent */ 661);
+	var SyntheticTouchEvent = __webpack_require__(/*! ./SyntheticTouchEvent */ 662);
+	var SyntheticTransitionEvent = __webpack_require__(/*! ./SyntheticTransitionEvent */ 663);
+	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 579);
+	var SyntheticWheelEvent = __webpack_require__(/*! ./SyntheticWheelEvent */ 664);
 	
-	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 503);
-	var getEventCharCode = __webpack_require__(/*! ./getEventCharCode */ 650);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 516);
+	var emptyFunction = __webpack_require__(/*! fbjs/lib/emptyFunction */ 512);
+	var getEventCharCode = __webpack_require__(/*! ./getEventCharCode */ 659);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var keyOf = __webpack_require__(/*! fbjs/lib/keyOf */ 525);
 	
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
@@ -79648,7 +82220,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 646 */
+/* 655 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticAnimationEvent.js ***!
   \*******************************************************************************************/
@@ -79667,7 +82239,7 @@
 	
 	'use strict';
 	
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
 	
 	/**
 	 * @interface Event
@@ -79695,7 +82267,7 @@
 	module.exports = SyntheticAnimationEvent;
 
 /***/ },
-/* 647 */
+/* 656 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticClipboardEvent.js ***!
   \*******************************************************************************************/
@@ -79714,7 +82286,7 @@
 	
 	'use strict';
 	
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
 	
 	/**
 	 * @interface Event
@@ -79741,7 +82313,7 @@
 	module.exports = SyntheticClipboardEvent;
 
 /***/ },
-/* 648 */
+/* 657 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticFocusEvent.js ***!
   \***************************************************************************************/
@@ -79760,7 +82332,7 @@
 	
 	'use strict';
 	
-	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 570);
+	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 579);
 	
 	/**
 	 * @interface FocusEvent
@@ -79785,7 +82357,7 @@
 	module.exports = SyntheticFocusEvent;
 
 /***/ },
-/* 649 */
+/* 658 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticKeyboardEvent.js ***!
   \******************************************************************************************/
@@ -79804,11 +82376,11 @@
 	
 	'use strict';
 	
-	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 570);
+	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 579);
 	
-	var getEventCharCode = __webpack_require__(/*! ./getEventCharCode */ 650);
-	var getEventKey = __webpack_require__(/*! ./getEventKey */ 651);
-	var getEventModifierState = __webpack_require__(/*! ./getEventModifierState */ 572);
+	var getEventCharCode = __webpack_require__(/*! ./getEventCharCode */ 659);
+	var getEventKey = __webpack_require__(/*! ./getEventKey */ 660);
+	var getEventModifierState = __webpack_require__(/*! ./getEventModifierState */ 581);
 	
 	/**
 	 * @interface KeyboardEvent
@@ -79877,7 +82449,7 @@
 	module.exports = SyntheticKeyboardEvent;
 
 /***/ },
-/* 650 */
+/* 659 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getEventCharCode.js ***!
   \************************************************************************************/
@@ -79935,7 +82507,7 @@
 	module.exports = getEventCharCode;
 
 /***/ },
-/* 651 */
+/* 660 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getEventKey.js ***!
   \*******************************************************************************/
@@ -79954,7 +82526,7 @@
 	
 	'use strict';
 	
-	var getEventCharCode = __webpack_require__(/*! ./getEventCharCode */ 650);
+	var getEventCharCode = __webpack_require__(/*! ./getEventCharCode */ 659);
 	
 	/**
 	 * Normalization of deprecated HTML5 `key` values
@@ -80045,7 +82617,7 @@
 	module.exports = getEventKey;
 
 /***/ },
-/* 652 */
+/* 661 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticDragEvent.js ***!
   \**************************************************************************************/
@@ -80064,7 +82636,7 @@
 	
 	'use strict';
 	
-	var SyntheticMouseEvent = __webpack_require__(/*! ./SyntheticMouseEvent */ 569);
+	var SyntheticMouseEvent = __webpack_require__(/*! ./SyntheticMouseEvent */ 578);
 	
 	/**
 	 * @interface DragEvent
@@ -80089,7 +82661,7 @@
 	module.exports = SyntheticDragEvent;
 
 /***/ },
-/* 653 */
+/* 662 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticTouchEvent.js ***!
   \***************************************************************************************/
@@ -80108,9 +82680,9 @@
 	
 	'use strict';
 	
-	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 570);
+	var SyntheticUIEvent = __webpack_require__(/*! ./SyntheticUIEvent */ 579);
 	
-	var getEventModifierState = __webpack_require__(/*! ./getEventModifierState */ 572);
+	var getEventModifierState = __webpack_require__(/*! ./getEventModifierState */ 581);
 	
 	/**
 	 * @interface TouchEvent
@@ -80142,7 +82714,7 @@
 	module.exports = SyntheticTouchEvent;
 
 /***/ },
-/* 654 */
+/* 663 */
 /*!********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticTransitionEvent.js ***!
   \********************************************************************************************/
@@ -80161,7 +82733,7 @@
 	
 	'use strict';
 	
-	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 547);
+	var SyntheticEvent = __webpack_require__(/*! ./SyntheticEvent */ 556);
 	
 	/**
 	 * @interface Event
@@ -80189,7 +82761,7 @@
 	module.exports = SyntheticTransitionEvent;
 
 /***/ },
-/* 655 */
+/* 664 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/SyntheticWheelEvent.js ***!
   \***************************************************************************************/
@@ -80208,7 +82780,7 @@
 	
 	'use strict';
 	
-	var SyntheticMouseEvent = __webpack_require__(/*! ./SyntheticMouseEvent */ 569);
+	var SyntheticMouseEvent = __webpack_require__(/*! ./SyntheticMouseEvent */ 578);
 	
 	/**
 	 * @interface WheelEvent
@@ -80251,7 +82823,7 @@
 	module.exports = SyntheticWheelEvent;
 
 /***/ },
-/* 656 */
+/* 665 */
 /*!******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactMount.js ***!
   \******************************************************************************/
@@ -80270,30 +82842,30 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 576);
-	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 531);
-	var ReactBrowserEventEmitter = __webpack_require__(/*! ./ReactBrowserEventEmitter */ 601);
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactDOMContainerInfo = __webpack_require__(/*! ./ReactDOMContainerInfo */ 657);
-	var ReactDOMFeatureFlags = __webpack_require__(/*! ./ReactDOMFeatureFlags */ 658);
-	var ReactElement = __webpack_require__(/*! ./ReactElement */ 500);
-	var ReactFeatureFlags = __webpack_require__(/*! ./ReactFeatureFlags */ 552);
-	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 613);
-	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 556);
-	var ReactMarkupChecksum = __webpack_require__(/*! ./ReactMarkupChecksum */ 659);
-	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 553);
-	var ReactUpdateQueue = __webpack_require__(/*! ./ReactUpdateQueue */ 625);
-	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 550);
+	var DOMLazyTree = __webpack_require__(/*! ./DOMLazyTree */ 585);
+	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 540);
+	var ReactBrowserEventEmitter = __webpack_require__(/*! ./ReactBrowserEventEmitter */ 610);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactDOMContainerInfo = __webpack_require__(/*! ./ReactDOMContainerInfo */ 666);
+	var ReactDOMFeatureFlags = __webpack_require__(/*! ./ReactDOMFeatureFlags */ 667);
+	var ReactElement = __webpack_require__(/*! ./ReactElement */ 509);
+	var ReactFeatureFlags = __webpack_require__(/*! ./ReactFeatureFlags */ 561);
+	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 622);
+	var ReactInstrumentation = __webpack_require__(/*! ./ReactInstrumentation */ 565);
+	var ReactMarkupChecksum = __webpack_require__(/*! ./ReactMarkupChecksum */ 668);
+	var ReactReconciler = __webpack_require__(/*! ./ReactReconciler */ 562);
+	var ReactUpdateQueue = __webpack_require__(/*! ./ReactUpdateQueue */ 634);
+	var ReactUpdates = __webpack_require__(/*! ./ReactUpdates */ 559);
 	
-	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 510);
-	var instantiateReactComponent = __webpack_require__(/*! ./instantiateReactComponent */ 615);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var setInnerHTML = __webpack_require__(/*! ./setInnerHTML */ 578);
-	var shouldUpdateReactComponent = __webpack_require__(/*! ./shouldUpdateReactComponent */ 619);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var emptyObject = __webpack_require__(/*! fbjs/lib/emptyObject */ 519);
+	var instantiateReactComponent = __webpack_require__(/*! ./instantiateReactComponent */ 624);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var setInnerHTML = __webpack_require__(/*! ./setInnerHTML */ 587);
+	var shouldUpdateReactComponent = __webpack_require__(/*! ./shouldUpdateReactComponent */ 628);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var ATTR_NAME = DOMProperty.ID_ATTRIBUTE_NAME;
 	var ROOT_ATTR_NAME = DOMProperty.ROOT_ATTRIBUTE_NAME;
@@ -80794,7 +83366,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 657 */
+/* 666 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMContainerInfo.js ***!
   \*****************************************************************************************/
@@ -80813,7 +83385,7 @@
 	
 	'use strict';
 	
-	var validateDOMNesting = __webpack_require__(/*! ./validateDOMNesting */ 626);
+	var validateDOMNesting = __webpack_require__(/*! ./validateDOMNesting */ 635);
 	
 	var DOC_NODE_TYPE = 9;
 	
@@ -80836,7 +83408,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 658 */
+/* 667 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMFeatureFlags.js ***!
   \****************************************************************************************/
@@ -80862,7 +83434,7 @@
 	module.exports = ReactDOMFeatureFlags;
 
 /***/ },
-/* 659 */
+/* 668 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactMarkupChecksum.js ***!
   \***************************************************************************************/
@@ -80881,7 +83453,7 @@
 	
 	'use strict';
 	
-	var adler32 = __webpack_require__(/*! ./adler32 */ 660);
+	var adler32 = __webpack_require__(/*! ./adler32 */ 669);
 	
 	var TAG_END = /\/?>/;
 	var COMMENT_START = /^<\!\-\-/;
@@ -80920,7 +83492,7 @@
 	module.exports = ReactMarkupChecksum;
 
 /***/ },
-/* 660 */
+/* 669 */
 /*!***************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/adler32.js ***!
   \***************************************************************************/
@@ -80972,7 +83544,7 @@
 	module.exports = adler32;
 
 /***/ },
-/* 661 */
+/* 670 */
 /*!*******************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/findDOMNode.js ***!
   \*******************************************************************************/
@@ -80991,15 +83563,15 @@
 	
 	'use strict';
 	
-	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 498);
+	var _prodInvariant = __webpack_require__(/*! ./reactProdInvariant */ 507);
 	
-	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 501);
-	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 530);
-	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 613);
+	var ReactCurrentOwner = __webpack_require__(/*! ./ReactCurrentOwner */ 510);
+	var ReactDOMComponentTree = __webpack_require__(/*! ./ReactDOMComponentTree */ 539);
+	var ReactInstanceMap = __webpack_require__(/*! ./ReactInstanceMap */ 622);
 	
-	var getHostComponentFromComposite = __webpack_require__(/*! ./getHostComponentFromComposite */ 662);
-	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 499);
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var getHostComponentFromComposite = __webpack_require__(/*! ./getHostComponentFromComposite */ 671);
+	var invariant = __webpack_require__(/*! fbjs/lib/invariant */ 508);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	/**
 	 * Returns the DOM node rendered by this element.
@@ -81041,7 +83613,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 662 */
+/* 671 */
 /*!*************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/getHostComponentFromComposite.js ***!
   \*************************************************************************************************/
@@ -81060,7 +83632,7 @@
 	
 	'use strict';
 	
-	var ReactNodeTypes = __webpack_require__(/*! ./ReactNodeTypes */ 617);
+	var ReactNodeTypes = __webpack_require__(/*! ./ReactNodeTypes */ 626);
 	
 	function getHostComponentFromComposite(inst) {
 	  var type;
@@ -81079,7 +83651,7 @@
 	module.exports = getHostComponentFromComposite;
 
 /***/ },
-/* 663 */
+/* 672 */
 /*!**********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/renderSubtreeIntoContainer.js ***!
   \**********************************************************************************************/
@@ -81098,12 +83670,12 @@
 	
 	'use strict';
 	
-	var ReactMount = __webpack_require__(/*! ./ReactMount */ 656);
+	var ReactMount = __webpack_require__(/*! ./ReactMount */ 665);
 	
 	module.exports = ReactMount.renderSubtreeIntoContainer;
 
 /***/ },
-/* 664 */
+/* 673 */
 /*!***********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMUnknownPropertyHook.js ***!
   \***********************************************************************************************/
@@ -81122,11 +83694,11 @@
 	
 	'use strict';
 	
-	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 531);
-	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 538);
-	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	var DOMProperty = __webpack_require__(/*! ./DOMProperty */ 540);
+	var EventPluginRegistry = __webpack_require__(/*! ./EventPluginRegistry */ 547);
+	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	if (process.env.NODE_ENV !== 'production') {
 	  var reactProps = {
@@ -81224,7 +83796,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 665 */
+/* 674 */
 /*!**************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/react/lib/ReactDOMNullInputValuePropHook.js ***!
   \**************************************************************************************************/
@@ -81243,9 +83815,9 @@
 	
 	'use strict';
 	
-	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 519);
+	var ReactComponentTreeHook = __webpack_require__(/*! ./ReactComponentTreeHook */ 528);
 	
-	var warning = __webpack_require__(/*! fbjs/lib/warning */ 502);
+	var warning = __webpack_require__(/*! fbjs/lib/warning */ 511);
 	
 	var didWarnValueNull = false;
 	
@@ -81276,7 +83848,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(/*! ./~/process/browser.js */ 4)))
 
 /***/ },
-/* 666 */
+/* 675 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/barchart/Bar.js ***!
   \************************************************************************************/
@@ -81286,7 +83858,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -81321,7 +83893,7 @@
 	});
 
 /***/ },
-/* 667 */
+/* 676 */
 /*!***********************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/utils/index.js ***!
   \***********************************************************************************/
@@ -81331,7 +83903,7 @@
 	
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 	
-	var d3 = __webpack_require__(/*! d3 */ 525);
+	var d3 = __webpack_require__(/*! d3 */ 534);
 	
 	exports.calculateScales = function (width, height, xValues, yValues) {
 	  var xDomain = arguments.length <= 4 || arguments[4] === undefined ? [] : arguments[4];
@@ -81487,7 +84059,7 @@
 	};
 
 /***/ },
-/* 668 */
+/* 677 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/index.js ***!
   \************************************************************************************/
@@ -81495,16 +84067,16 @@
 
 	'use strict';
 	
-	exports.XAxis = __webpack_require__(/*! ./axes */ 669).XAxis;
-	exports.YAxis = __webpack_require__(/*! ./axes */ 669).YAxis;
-	exports.Chart = __webpack_require__(/*! ./charts */ 675).Chart;
-	exports.LegendChart = __webpack_require__(/*! ./charts */ 675).LegendChart;
-	exports.Legend = __webpack_require__(/*! ./Legend */ 679);
-	exports.Tooltip = __webpack_require__(/*! ./Tooltip */ 680);
-	exports.Voronoi = __webpack_require__(/*! ./Voronoi */ 681);
+	exports.XAxis = __webpack_require__(/*! ./axes */ 678).XAxis;
+	exports.YAxis = __webpack_require__(/*! ./axes */ 678).YAxis;
+	exports.Chart = __webpack_require__(/*! ./charts */ 684).Chart;
+	exports.LegendChart = __webpack_require__(/*! ./charts */ 684).LegendChart;
+	exports.Legend = __webpack_require__(/*! ./Legend */ 688);
+	exports.Tooltip = __webpack_require__(/*! ./Tooltip */ 689);
+	exports.Voronoi = __webpack_require__(/*! ./Voronoi */ 690);
 
 /***/ },
-/* 669 */
+/* 678 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/axes/index.js ***!
   \*****************************************************************************************/
@@ -81512,11 +84084,11 @@
 
 	'use strict';
 	
-	exports.XAxis = __webpack_require__(/*! ./XAxis */ 670);
-	exports.YAxis = __webpack_require__(/*! ./YAxis */ 674);
+	exports.XAxis = __webpack_require__(/*! ./XAxis */ 679);
+	exports.YAxis = __webpack_require__(/*! ./YAxis */ 683);
 
 /***/ },
-/* 670 */
+/* 679 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/axes/XAxis.js ***!
   \*****************************************************************************************/
@@ -81526,11 +84098,11 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var AxisTicks = __webpack_require__(/*! ./AxisTicks */ 671);
-	var AxisLine = __webpack_require__(/*! ./AxisLine */ 672);
-	var Label = __webpack_require__(/*! ./Label */ 673);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var AxisTicks = __webpack_require__(/*! ./AxisTicks */ 680);
+	var AxisLine = __webpack_require__(/*! ./AxisLine */ 681);
+	var Label = __webpack_require__(/*! ./Label */ 682);
 	
 	module.exports = React.createClass({
 	
@@ -81629,7 +84201,7 @@
 	});
 
 /***/ },
-/* 671 */
+/* 680 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/axes/AxisTicks.js ***!
   \*********************************************************************************************/
@@ -81639,7 +84211,7 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -81880,7 +84452,7 @@
 	});
 
 /***/ },
-/* 672 */
+/* 681 */
 /*!********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/axes/AxisLine.js ***!
   \********************************************************************************************/
@@ -81888,7 +84460,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -81948,7 +84520,7 @@
 	});
 
 /***/ },
-/* 673 */
+/* 682 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/axes/Label.js ***!
   \*****************************************************************************************/
@@ -81956,7 +84528,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -82025,7 +84597,7 @@
 	});
 
 /***/ },
-/* 674 */
+/* 683 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/axes/YAxis.js ***!
   \*****************************************************************************************/
@@ -82035,11 +84607,11 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var AxisTicks = __webpack_require__(/*! ./AxisTicks */ 671);
-	var AxisLine = __webpack_require__(/*! ./AxisLine */ 672);
-	var Label = __webpack_require__(/*! ./Label */ 673);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var AxisTicks = __webpack_require__(/*! ./AxisTicks */ 680);
+	var AxisLine = __webpack_require__(/*! ./AxisLine */ 681);
+	var Label = __webpack_require__(/*! ./Label */ 682);
 	
 	module.exports = React.createClass({
 	
@@ -82142,7 +84714,7 @@
 	});
 
 /***/ },
-/* 675 */
+/* 684 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/charts/index.js ***!
   \*******************************************************************************************/
@@ -82150,12 +84722,12 @@
 
 	'use strict';
 	
-	exports.BasicChart = __webpack_require__(/*! ./BasicChart */ 676);
-	exports.Chart = __webpack_require__(/*! ./Chart */ 677);
-	exports.LegendChart = __webpack_require__(/*! ./LegendChart */ 678);
+	exports.BasicChart = __webpack_require__(/*! ./BasicChart */ 685);
+	exports.Chart = __webpack_require__(/*! ./Chart */ 686);
+	exports.LegendChart = __webpack_require__(/*! ./LegendChart */ 687);
 
 /***/ },
-/* 676 */
+/* 685 */
 /*!************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/charts/BasicChart.js ***!
   \************************************************************************************************/
@@ -82163,7 +84735,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -82230,7 +84802,7 @@
 	});
 
 /***/ },
-/* 677 */
+/* 686 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/charts/Chart.js ***!
   \*******************************************************************************************/
@@ -82240,9 +84812,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var LegendChart = __webpack_require__(/*! ./LegendChart */ 678);
-	var BasicChart = __webpack_require__(/*! ./BasicChart */ 676);
+	var React = __webpack_require__(/*! react */ 502);
+	var LegendChart = __webpack_require__(/*! ./LegendChart */ 687);
+	var BasicChart = __webpack_require__(/*! ./BasicChart */ 685);
 	
 	module.exports = React.createClass({
 	
@@ -82283,7 +84855,7 @@
 	});
 
 /***/ },
-/* 678 */
+/* 687 */
 /*!*************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/charts/LegendChart.js ***!
   \*************************************************************************************************/
@@ -82291,9 +84863,9 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var Legend = __webpack_require__(/*! ../Legend */ 679);
-	var d3 = __webpack_require__(/*! d3 */ 525);
+	var React = __webpack_require__(/*! react */ 502);
+	var Legend = __webpack_require__(/*! ../Legend */ 688);
+	var d3 = __webpack_require__(/*! d3 */ 534);
 	
 	module.exports = React.createClass({
 	
@@ -82406,7 +84978,7 @@
 	});
 
 /***/ },
-/* 679 */
+/* 688 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/Legend.js ***!
   \*************************************************************************************/
@@ -82414,8 +84986,8 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
 	
 	module.exports = React.createClass({
 	
@@ -82501,7 +85073,7 @@
 	});
 
 /***/ },
-/* 680 */
+/* 689 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/Tooltip.js ***!
   \**************************************************************************************/
@@ -82509,7 +85081,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -82558,7 +85130,7 @@
 	});
 
 /***/ },
-/* 681 */
+/* 690 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/Voronoi.js ***!
   \**************************************************************************************/
@@ -82566,9 +85138,9 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var Polygon = __webpack_require__(/*! ./Polygon */ 682);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var Polygon = __webpack_require__(/*! ./Polygon */ 691);
 	
 	module.exports = React.createClass({
 	
@@ -82609,7 +85181,7 @@
 	});
 
 /***/ },
-/* 682 */
+/* 691 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/common/Polygon.js ***!
   \**************************************************************************************/
@@ -82617,7 +85189,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	  displayName: 'exports',
@@ -82660,7 +85232,7 @@
 	});
 
 /***/ },
-/* 683 */
+/* 692 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/mixins/index.js ***!
   \************************************************************************************/
@@ -82668,13 +85240,13 @@
 
 	'use strict';
 	
-	exports.CartesianChartPropsMixin = __webpack_require__(/*! ./CartesianChartPropsMixin */ 684);
-	exports.DefaultAccessorsMixin = __webpack_require__(/*! ./DefaultAccessorsMixin */ 685);
-	exports.ViewBoxMixin = __webpack_require__(/*! ./ViewBoxMixin */ 686);
-	exports.TooltipMixin = __webpack_require__(/*! ./TooltipMixin */ 687);
+	exports.CartesianChartPropsMixin = __webpack_require__(/*! ./CartesianChartPropsMixin */ 693);
+	exports.DefaultAccessorsMixin = __webpack_require__(/*! ./DefaultAccessorsMixin */ 694);
+	exports.ViewBoxMixin = __webpack_require__(/*! ./ViewBoxMixin */ 695);
+	exports.TooltipMixin = __webpack_require__(/*! ./TooltipMixin */ 696);
 
 /***/ },
-/* 684 */
+/* 693 */
 /*!*******************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/mixins/CartesianChartPropsMixin.js ***!
   \*******************************************************************************************************/
@@ -82682,8 +85254,8 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
 	
 	module.exports = {
 	
@@ -82773,7 +85345,7 @@
 	};
 
 /***/ },
-/* 685 */
+/* 694 */
 /*!****************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/mixins/DefaultAccessorsMixin.js ***!
   \****************************************************************************************************/
@@ -82781,7 +85353,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = {
 	  propTypes: {
@@ -82802,7 +85374,7 @@
 	};
 
 /***/ },
-/* 686 */
+/* 695 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/mixins/ViewBoxMixin.js ***!
   \*******************************************************************************************/
@@ -82811,7 +85383,7 @@
 	
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = {
 	
@@ -82887,7 +85459,7 @@
 	};
 
 /***/ },
-/* 687 */
+/* 696 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/mixins/TooltipMixin.js ***!
   \*******************************************************************************************/
@@ -82895,7 +85467,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = {
 	
@@ -82959,7 +85531,7 @@
 	};
 
 /***/ },
-/* 688 */
+/* 697 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/linechart/index.js ***!
   \***************************************************************************************/
@@ -82967,10 +85539,10 @@
 
 	'use strict';
 	
-	exports.LineChart = __webpack_require__(/*! ./LineChart */ 689);
+	exports.LineChart = __webpack_require__(/*! ./LineChart */ 698);
 
 /***/ },
-/* 689 */
+/* 698 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/linechart/LineChart.js ***!
   \*******************************************************************************************/
@@ -82978,19 +85550,19 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
-	var _require = __webpack_require__(/*! ../common */ 668);
+	var _require = __webpack_require__(/*! ../common */ 677);
 	
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 	var Tooltip = _require.Tooltip;
 	
-	var DataSeries = __webpack_require__(/*! ./DataSeries */ 690);
-	var utils = __webpack_require__(/*! ../utils */ 667);
+	var DataSeries = __webpack_require__(/*! ./DataSeries */ 699);
+	var utils = __webpack_require__(/*! ../utils */ 676);
 	
-	var _require2 = __webpack_require__(/*! ../mixins */ 683);
+	var _require2 = __webpack_require__(/*! ../mixins */ 692);
 	
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
 	var DefaultAccessorsMixin = _require2.DefaultAccessorsMixin;
@@ -83150,7 +85722,7 @@
 	});
 
 /***/ },
-/* 690 */
+/* 699 */
 /*!********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/linechart/DataSeries.js ***!
   \********************************************************************************************/
@@ -83158,10 +85730,10 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var VoronoiCircleContainer = __webpack_require__(/*! ./VoronoiCircleContainer */ 691);
-	var Line = __webpack_require__(/*! ./Line */ 693);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var VoronoiCircleContainer = __webpack_require__(/*! ./VoronoiCircleContainer */ 700);
+	var Line = __webpack_require__(/*! ./Line */ 702);
 	
 	module.exports = React.createClass({
 	
@@ -83275,7 +85847,7 @@
 	});
 
 /***/ },
-/* 691 */
+/* 700 */
 /*!********************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/linechart/VoronoiCircleContainer.js ***!
   \********************************************************************************************************/
@@ -83283,14 +85855,14 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
-	var _require = __webpack_require__(/*! react-dom */ 528);
+	var _require = __webpack_require__(/*! react-dom */ 537);
 	
 	var findDOMNode = _require.findDOMNode;
 	
-	var shade = __webpack_require__(/*! ../utils */ 667).shade;
-	var VoronoiCircle = __webpack_require__(/*! ./VoronoiCircle */ 692);
+	var shade = __webpack_require__(/*! ../utils */ 676).shade;
+	var VoronoiCircle = __webpack_require__(/*! ./VoronoiCircle */ 701);
 	
 	module.exports = React.createClass({
 	
@@ -83366,7 +85938,7 @@
 	});
 
 /***/ },
-/* 692 */
+/* 701 */
 /*!***********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/linechart/VoronoiCircle.js ***!
   \***********************************************************************************************/
@@ -83374,7 +85946,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -83421,7 +85993,7 @@
 	});
 
 /***/ },
-/* 693 */
+/* 702 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/linechart/Line.js ***!
   \**************************************************************************************/
@@ -83429,7 +86001,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -83465,7 +86037,7 @@
 	});
 
 /***/ },
-/* 694 */
+/* 703 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/piechart/index.js ***!
   \**************************************************************************************/
@@ -83473,10 +86045,10 @@
 
 	'use strict';
 	
-	exports.PieChart = __webpack_require__(/*! ./PieChart */ 695);
+	exports.PieChart = __webpack_require__(/*! ./PieChart */ 704);
 
 /***/ },
-/* 695 */
+/* 704 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/piechart/PieChart.js ***!
   \*****************************************************************************************/
@@ -83484,16 +86056,16 @@
 
 	'use strict';
 	
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var React = __webpack_require__(/*! react */ 493);
-	var DataSeries = __webpack_require__(/*! ./DataSeries */ 696);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var React = __webpack_require__(/*! react */ 502);
+	var DataSeries = __webpack_require__(/*! ./DataSeries */ 705);
 	
-	var _require = __webpack_require__(/*! ../common */ 668);
+	var _require = __webpack_require__(/*! ../common */ 677);
 	
 	var Chart = _require.Chart;
 	var Tooltip = _require.Tooltip;
 	
-	var TooltipMixin = __webpack_require__(/*! ../mixins */ 683).TooltipMixin;
+	var TooltipMixin = __webpack_require__(/*! ../mixins */ 692).TooltipMixin;
 	
 	module.exports = React.createClass({
 	
@@ -83590,7 +86162,7 @@
 	});
 
 /***/ },
-/* 696 */
+/* 705 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/piechart/DataSeries.js ***!
   \*******************************************************************************************/
@@ -83598,9 +86170,9 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var ArcContainer = __webpack_require__(/*! ./ArcContainer */ 697);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var ArcContainer = __webpack_require__(/*! ./ArcContainer */ 706);
 	
 	module.exports = React.createClass({
 	
@@ -83669,7 +86241,7 @@
 	});
 
 /***/ },
-/* 697 */
+/* 706 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/piechart/ArcContainer.js ***!
   \*********************************************************************************************/
@@ -83679,14 +86251,14 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
-	var _require = __webpack_require__(/*! react-dom */ 528);
+	var _require = __webpack_require__(/*! react-dom */ 537);
 	
 	var findDOMNode = _require.findDOMNode;
 	
-	var shade = __webpack_require__(/*! ../utils */ 667).shade;
-	var Arc = __webpack_require__(/*! ./Arc */ 698);
+	var shade = __webpack_require__(/*! ../utils */ 676).shade;
+	var Arc = __webpack_require__(/*! ./Arc */ 707);
 	
 	module.exports = React.createClass({
 	
@@ -83731,7 +86303,7 @@
 	});
 
 /***/ },
-/* 698 */
+/* 707 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/piechart/Arc.js ***!
   \************************************************************************************/
@@ -83739,8 +86311,8 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
 	
 	module.exports = React.createClass({
 	
@@ -83848,7 +86420,7 @@
 	});
 
 /***/ },
-/* 699 */
+/* 708 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/areachart/index.js ***!
   \***************************************************************************************/
@@ -83856,10 +86428,10 @@
 
 	'use strict';
 	
-	exports.AreaChart = __webpack_require__(/*! ./AreaChart */ 700);
+	exports.AreaChart = __webpack_require__(/*! ./AreaChart */ 709);
 
 /***/ },
-/* 700 */
+/* 709 */
 /*!*******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/areachart/AreaChart.js ***!
   \*******************************************************************************************/
@@ -83867,17 +86439,17 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var DataSeries = __webpack_require__(/*! ./DataSeries */ 701);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var DataSeries = __webpack_require__(/*! ./DataSeries */ 710);
 	
-	var _require = __webpack_require__(/*! ../common */ 668);
+	var _require = __webpack_require__(/*! ../common */ 677);
 	
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 	
-	var _require2 = __webpack_require__(/*! ../mixins */ 683);
+	var _require2 = __webpack_require__(/*! ../mixins */ 692);
 	
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
 	var DefaultAccessorsMixin = _require2.DefaultAccessorsMixin;
@@ -84057,7 +86629,7 @@
 	});
 
 /***/ },
-/* 701 */
+/* 710 */
 /*!********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/areachart/DataSeries.js ***!
   \********************************************************************************************/
@@ -84065,9 +86637,9 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var AreaContainer = __webpack_require__(/*! ./AreaContainer */ 702);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var AreaContainer = __webpack_require__(/*! ./AreaContainer */ 711);
 	
 	module.exports = React.createClass({
 	
@@ -84105,7 +86677,7 @@
 	});
 
 /***/ },
-/* 702 */
+/* 711 */
 /*!***********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/areachart/AreaContainer.js ***!
   \***********************************************************************************************/
@@ -84115,9 +86687,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var shade = __webpack_require__(/*! ../utils */ 667).shade;
-	var Area = __webpack_require__(/*! ./Area */ 703);
+	var React = __webpack_require__(/*! react */ 502);
+	var shade = __webpack_require__(/*! ../utils */ 676).shade;
+	var Area = __webpack_require__(/*! ./Area */ 712);
 	
 	module.exports = React.createClass({
 	
@@ -84170,7 +86742,7 @@
 	});
 
 /***/ },
-/* 703 */
+/* 712 */
 /*!**************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/areachart/Area.js ***!
   \**************************************************************************************/
@@ -84178,7 +86750,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -84208,7 +86780,7 @@
 	});
 
 /***/ },
-/* 704 */
+/* 713 */
 /*!*************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/treemap/index.js ***!
   \*************************************************************************************/
@@ -84216,10 +86788,10 @@
 
 	'use strict';
 	
-	exports.Treemap = __webpack_require__(/*! ./Treemap */ 705);
+	exports.Treemap = __webpack_require__(/*! ./Treemap */ 714);
 
 /***/ },
-/* 705 */
+/* 714 */
 /*!***************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/treemap/Treemap.js ***!
   \***************************************************************************************/
@@ -84227,10 +86799,10 @@
 
 	'use strict';
 	
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var React = __webpack_require__(/*! react */ 493);
-	var Chart = __webpack_require__(/*! ../common */ 668).Chart;
-	var DataSeries = __webpack_require__(/*! ./DataSeries */ 706);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var React = __webpack_require__(/*! react */ 502);
+	var Chart = __webpack_require__(/*! ../common */ 677).Chart;
+	var DataSeries = __webpack_require__(/*! ./DataSeries */ 715);
 	
 	module.exports = React.createClass({
 	
@@ -84296,7 +86868,7 @@
 	});
 
 /***/ },
-/* 706 */
+/* 715 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/treemap/DataSeries.js ***!
   \******************************************************************************************/
@@ -84304,9 +86876,9 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var CellContainer = __webpack_require__(/*! ./CellContainer */ 707);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var CellContainer = __webpack_require__(/*! ./CellContainer */ 716);
 	
 	module.exports = React.createClass({
 	
@@ -84366,7 +86938,7 @@
 	});
 
 /***/ },
-/* 707 */
+/* 716 */
 /*!*********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/treemap/CellContainer.js ***!
   \*********************************************************************************************/
@@ -84376,9 +86948,9 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var shade = __webpack_require__(/*! ../utils */ 667).shade;
-	var Cell = __webpack_require__(/*! ./Cell */ 708);
+	var React = __webpack_require__(/*! react */ 502);
+	var shade = __webpack_require__(/*! ../utils */ 676).shade;
+	var Cell = __webpack_require__(/*! ./Cell */ 717);
 	
 	module.exports = React.createClass({
 	
@@ -84417,7 +86989,7 @@
 	});
 
 /***/ },
-/* 708 */
+/* 717 */
 /*!************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/treemap/Cell.js ***!
   \************************************************************************************/
@@ -84425,7 +86997,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -84476,7 +87048,7 @@
 	});
 
 /***/ },
-/* 709 */
+/* 718 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/scatterchart/index.js ***!
   \******************************************************************************************/
@@ -84484,10 +87056,10 @@
 
 	'use strict';
 	
-	exports.ScatterChart = __webpack_require__(/*! ./ScatterChart */ 710);
+	exports.ScatterChart = __webpack_require__(/*! ./ScatterChart */ 719);
 
 /***/ },
-/* 710 */
+/* 719 */
 /*!*************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/scatterchart/ScatterChart.js ***!
   \*************************************************************************************************/
@@ -84495,19 +87067,19 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
-	var _require = __webpack_require__(/*! ../common */ 668);
+	var _require = __webpack_require__(/*! ../common */ 677);
 	
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 	var Tooltip = _require.Tooltip;
 	
-	var DataSeries = __webpack_require__(/*! ./DataSeries */ 711);
-	var utils = __webpack_require__(/*! ../utils */ 667);
+	var DataSeries = __webpack_require__(/*! ./DataSeries */ 720);
+	var utils = __webpack_require__(/*! ../utils */ 676);
 	
-	var _require2 = __webpack_require__(/*! ../mixins */ 683);
+	var _require2 = __webpack_require__(/*! ../mixins */ 692);
 	
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
 	var DefaultAccessorsMixin = _require2.DefaultAccessorsMixin;
@@ -84677,7 +87249,7 @@
 	});
 
 /***/ },
-/* 711 */
+/* 720 */
 /*!***********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/scatterchart/DataSeries.js ***!
   \***********************************************************************************************/
@@ -84685,9 +87257,9 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var VoronoiCircleContainer = __webpack_require__(/*! ./VoronoiCircleContainer */ 712);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var VoronoiCircleContainer = __webpack_require__(/*! ./VoronoiCircleContainer */ 721);
 	
 	module.exports = React.createClass({
 	
@@ -84770,7 +87342,7 @@
 	});
 
 /***/ },
-/* 712 */
+/* 721 */
 /*!***********************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/scatterchart/VoronoiCircleContainer.js ***!
   \***********************************************************************************************************/
@@ -84778,14 +87350,14 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
-	var _require = __webpack_require__(/*! react-dom */ 528);
+	var _require = __webpack_require__(/*! react-dom */ 537);
 	
 	var findDOMNode = _require.findDOMNode;
 	
-	var shade = __webpack_require__(/*! ../utils */ 667).shade;
-	var VoronoiCircle = __webpack_require__(/*! ./VoronoiCircle */ 713);
+	var shade = __webpack_require__(/*! ../utils */ 676).shade;
+	var VoronoiCircle = __webpack_require__(/*! ./VoronoiCircle */ 722);
 	
 	module.exports = React.createClass({
 	
@@ -84869,7 +87441,7 @@
 	});
 
 /***/ },
-/* 713 */
+/* 722 */
 /*!**************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/scatterchart/VoronoiCircle.js ***!
   \**************************************************************************************************/
@@ -84877,7 +87449,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -84927,7 +87499,7 @@
 	});
 
 /***/ },
-/* 714 */
+/* 723 */
 /*!*****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/candlestick/index.js ***!
   \*****************************************************************************************/
@@ -84935,10 +87507,10 @@
 
 	'use strict';
 	
-	exports.CandlestickChart = __webpack_require__(/*! ./CandlestickChart */ 715);
+	exports.CandlestickChart = __webpack_require__(/*! ./CandlestickChart */ 724);
 
 /***/ },
-/* 715 */
+/* 724 */
 /*!****************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/candlestick/CandlestickChart.js ***!
   \****************************************************************************************************/
@@ -84946,18 +87518,18 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var d3 = __webpack_require__(/*! d3 */ 525);
-	var utils = __webpack_require__(/*! ../utils */ 667);
-	var DataSeries = __webpack_require__(/*! ./DataSeries */ 716);
+	var React = __webpack_require__(/*! react */ 502);
+	var d3 = __webpack_require__(/*! d3 */ 534);
+	var utils = __webpack_require__(/*! ../utils */ 676);
+	var DataSeries = __webpack_require__(/*! ./DataSeries */ 725);
 	
-	var _require = __webpack_require__(/*! ../common */ 668);
+	var _require = __webpack_require__(/*! ../common */ 677);
 	
 	var Chart = _require.Chart;
 	var XAxis = _require.XAxis;
 	var YAxis = _require.YAxis;
 	
-	var _require2 = __webpack_require__(/*! ../mixins */ 683);
+	var _require2 = __webpack_require__(/*! ../mixins */ 692);
 	
 	var ViewBoxMixin = _require2.ViewBoxMixin;
 	var CartesianChartPropsMixin = _require2.CartesianChartPropsMixin;
@@ -85114,7 +87686,7 @@
 	});
 
 /***/ },
-/* 716 */
+/* 725 */
 /*!**********************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/candlestick/DataSeries.js ***!
   \**********************************************************************************************/
@@ -85122,8 +87694,8 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var CandlestickContainer = __webpack_require__(/*! ./CandlestickContainer */ 717);
+	var React = __webpack_require__(/*! react */ 502);
+	var CandlestickContainer = __webpack_require__(/*! ./CandlestickContainer */ 726);
 	
 	module.exports = React.createClass({
 	
@@ -85179,7 +87751,7 @@
 	});
 
 /***/ },
-/* 717 */
+/* 726 */
 /*!********************************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/candlestick/CandlestickContainer.js ***!
   \********************************************************************************************************/
@@ -85187,10 +87759,10 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
-	var utils = __webpack_require__(/*! ../utils */ 667);
-	var Candle = __webpack_require__(/*! ./Candle */ 718);
-	var Wick = __webpack_require__(/*! ./Wick */ 719);
+	var React = __webpack_require__(/*! react */ 502);
+	var utils = __webpack_require__(/*! ../utils */ 676);
+	var Candle = __webpack_require__(/*! ./Candle */ 727);
+	var Wick = __webpack_require__(/*! ./Wick */ 728);
 	
 	module.exports = React.createClass({
 	
@@ -85270,7 +87842,7 @@
 	});
 
 /***/ },
-/* 718 */
+/* 727 */
 /*!******************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/candlestick/Candle.js ***!
   \******************************************************************************************/
@@ -85278,7 +87850,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -85319,7 +87891,7 @@
 	});
 
 /***/ },
-/* 719 */
+/* 728 */
 /*!****************************************************************************************!*\
   !*** /Users/Wtchang/Documents/food_app/tastigator/~/rd3/build/cjs/candlestick/Wick.js ***!
   \****************************************************************************************/
@@ -85327,7 +87899,7 @@
 
 	'use strict';
 	
-	var React = __webpack_require__(/*! react */ 493);
+	var React = __webpack_require__(/*! react */ 502);
 	
 	module.exports = React.createClass({
 	
@@ -85364,7 +87936,7 @@
 	});
 
 /***/ },
-/* 720 */
+/* 729 */
 /*!*******************************************!*\
   !*** ./src/client/app/polls/add_poll.jsx ***!
   \*******************************************/
@@ -85661,6 +88233,7 @@
 	        this.goToPoll(data.id);
 	      }.bind(this),
 	      error: function (xhr, status, err) {
+	        alert(xhr.responseText);
 	        console.error(this.props.url, status, err.toString());
 	      }.bind(this)
 	    });
@@ -85765,7 +88338,7 @@
 	exports.default = PollForm;
 
 /***/ },
-/* 721 */
+/* 730 */
 /*!***************************************!*\
   !*** ./src/client/app/polls/poll.jsx ***!
   \***************************************/
@@ -85784,7 +88357,7 @@
 	var Input = ReactBootstrap.Input;
 	var Button = ReactBootstrap.Button;
 	var Router = __webpack_require__(/*! react-router */ 428);
-	var rd3 = __webpack_require__(/*! rd3 */ 490);
+	var rd3 = __webpack_require__(/*! rd3 */ 499);
 	var BarChart = rd3.BarChart;
 	
 	var Chart = React.createClass({
@@ -86148,425 +88721,6 @@
 	});
 	
 	exports.default = PollPage;
-
-/***/ },
-/* 722 */
-/*!*********************************************!*\
-  !*** ./src/client/app/polls/poll_modal.jsx ***!
-  \*********************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(/*! react */ 2);
-	var ReactBootstrap = __webpack_require__(/*! react-bootstrap */ 36);
-	var Grid = ReactBootstrap.Grid;
-	var Row = ReactBootstrap.Row;
-	var Col = ReactBootstrap.Col;
-	var Input = ReactBootstrap.Input;
-	var Button = ReactBootstrap.Button;
-	var Navbar = ReactBootstrap.Navbar;
-	var Nav = ReactBootstrap.Nav;
-	var NavItem = ReactBootstrap.NavItem;
-	var NavDropdown = ReactBootstrap.NavDropdown;
-	var MenuItem = ReactBootstrap.MenuItem;
-	var Modal = ReactBootstrap.Modal;
-	var Tooltip = ReactBootstrap.Tooltip;
-	var Popover = ReactBootstrap.Popover;
-	var OverlayTrigger = ReactBootstrap.OverlayTrigger;
-	
-	var PollPage = React.createClass({
-	  displayName: 'PollPage',
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	  goAddPoll: function goAddPoll() {
-	    this.context.router.push('/app/add_poll/');
-	  },
-	  componentDidMount: function componentDidMount() {
-	    console.log("loading recent polls");
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        'div',
-	        { className: 'component' },
-	        React.createElement(
-	          Row,
-	          null,
-	          React.createElement(
-	            Col,
-	            { xs: 12, md: 12 },
-	            React.createElement(PollList, { data: this.props.polls })
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var Poll = React.createClass({
-	  displayName: 'Poll',
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	  goToPoll: function goToPoll() {
-	    this.context.router.push('/app/poll/' + String(this.props.poll_id));
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'recent_poll' },
-	      React.createElement(
-	        Row,
-	        null,
-	        React.createElement(
-	          'a',
-	          { onClick: this.goToPoll },
-	          React.createElement(
-	            'h2',
-	            null,
-	            this.props.title
-	          )
-	        ),
-	        React.createElement(
-	          'span',
-	          null,
-	          'Created by: ',
-	          this.props.creator.username
-	        ),
-	        React.createElement('br', null),
-	        React.createElement(
-	          'span',
-	          null,
-	          'Added on: ',
-	          this.props.added
-	        ),
-	        React.createElement(
-	          'p',
-	          null,
-	          'Description: ',
-	          this.props.children
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var PollList = React.createClass({
-	  displayName: 'PollList',
-	
-	  render: function render() {
-	    var PollNodes = this.props.data.map(function (poll) {
-	      return React.createElement(
-	        Poll,
-	        { poll_id: poll.id, creator: poll.creator.user, title: poll.title, added: poll.added },
-	        poll.description
-	      );
-	    }, this);
-	    return React.createElement(
-	      'div',
-	      { className: 'PollList' },
-	      PollNodes
-	    );
-	  }
-	});
-	
-	var PollsModal = React.createClass({
-	  displayName: 'PollsModal',
-	  getInitialState: function getInitialState() {
-	    return { showModal: false };
-	  },
-	  close: function close() {
-	    this.setState({ showModal: false });
-	  },
-	  open: function open() {
-	    this.setState({ showModal: true });
-	  },
-	  render: function render() {
-	    var popover = React.createElement(
-	      Popover,
-	      { id: 'modal-popover', title: 'popover' },
-	      'very popover. such engagement'
-	    );
-	    var tooltip = React.createElement(
-	      Tooltip,
-	      { id: 'modal-tooltip' },
-	      'wow.'
-	    );
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        Button,
-	        {
-	
-	          onClick: this.open
-	        },
-	        'Recent Polls'
-	      ),
-	      React.createElement(
-	        Modal,
-	        { show: this.state.showModal, onHide: this.close },
-	        React.createElement(
-	          Modal.Header,
-	          { closeButton: true },
-	          React.createElement(
-	            Modal.Title,
-	            null,
-	            'Recent Polls'
-	          )
-	        ),
-	        React.createElement(
-	          Modal.Body,
-	          null,
-	          React.createElement(PollPage, { polls: this.props.polls, close: this.close })
-	        ),
-	        React.createElement(
-	          Modal.Footer,
-	          null,
-	          React.createElement(
-	            Button,
-	            { onClick: this.close },
-	            'Close'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = PollsModal;
-
-/***/ },
-/* 723 */
-/*!*********************************************************!*\
-  !*** ./src/client/app/restaurants/restaurant_modal.jsx ***!
-  \*********************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(/*! react */ 2);
-	var ReactBootstrap = __webpack_require__(/*! react-bootstrap */ 36);
-	var Grid = ReactBootstrap.Grid;
-	var Row = ReactBootstrap.Row;
-	var Col = ReactBootstrap.Col;
-	var Input = ReactBootstrap.Input;
-	var Button = ReactBootstrap.Button;
-	var Navbar = ReactBootstrap.Navbar;
-	var Nav = ReactBootstrap.Nav;
-	var NavItem = ReactBootstrap.NavItem;
-	var NavDropdown = ReactBootstrap.NavDropdown;
-	var MenuItem = ReactBootstrap.MenuItem;
-	var Modal = ReactBootstrap.Modal;
-	var Tooltip = ReactBootstrap.Tooltip;
-	var Popover = ReactBootstrap.Popover;
-	var OverlayTrigger = ReactBootstrap.OverlayTrigger;
-	var FontAwesome = __webpack_require__(/*! react-fontawesome */ 484);
-	var Router = __webpack_require__(/*! react-router */ 428);
-	
-	var Restaurant = React.createClass({
-	  displayName: 'Restaurant',
-	
-	  MoveToProfile: function MoveToProfile(event) {
-	    this.props.handleMoveToProfile(String(this.props.url));
-	  },
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'restaurant' },
-	      React.createElement(
-	        Row,
-	        { className: 'text-align-center' },
-	        React.createElement(
-	          Col,
-	          { xs: 12, md: 12 },
-	          React.createElement(
-	            'a',
-	            null,
-	            React.createElement(
-	              'h2',
-	              { className: 'restaurantName', onClick: this.MoveToProfile, value: this.props.url },
-	              this.props.name
-	            )
-	          ),
-	          React.createElement(
-	            'h4',
-	            null,
-	            'Status: ',
-	            this.props.status
-	          ),
-	          React.createElement(
-	            'span',
-	            null,
-	            React.createElement(FontAwesome, { name: 'thumbs-o-down' }),
-	            ': ',
-	            this.props.thumb_downs
-	          ),
-	          React.createElement('br', null),
-	          React.createElement(
-	            'span',
-	            null,
-	            'added: ',
-	            this.props.added
-	          ),
-	          React.createElement(
-	            'p',
-	            null,
-	            'Review average: ',
-	            this.props.avg_score,
-	            '/10',
-	            React.createElement('br', null),
-	            this.props.children
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var RestaurantPage = React.createClass({
-	  displayName: 'RestaurantPage',
-	
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	  goAddRestaurant: function goAddRestaurant() {
-	    this.context.router.push('/app/add_restaurant/');
-	  },
-	  getInitialState: function getInitialState() {
-	    return { data: []
-	    };
-	  },
-	
-	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'component' },
-	      React.createElement(
-	        Row,
-	        { className: 'text-align-center' },
-	        React.createElement(
-	          Col,
-	          { xs: 12, md: 12 },
-	          React.createElement(
-	            Row,
-	            null,
-	            React.createElement(
-	              'h1',
-	              null,
-	              'Restaurants'
-	            ),
-	            React.createElement('br', null)
-	          ),
-	          React.createElement(
-	            Row,
-	            null,
-	            React.createElement(RestaurantList, { data: this.props.restaurants })
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	var RestaurantList = React.createClass({
-	  displayName: 'RestaurantList',
-	
-	  goToRestaurantProfile: function goToRestaurantProfile(restaurantKey) {
-	    this.context.router.push('/app/restaurant/' + String(restaurantKey));
-	  },
-	  contextTypes: {
-	    router: React.PropTypes.object.isRequired
-	  },
-	  render: function render() {
-	    var restaurantNodes = this.props.data.map(function (restaurant) {
-	      return React.createElement(
-	        Restaurant,
-	        { name: restaurant.name, added: restaurant.added, thumb_downs: restaurant.thumb_downs, status: restaurant.status, avg_score: restaurant.avg_review, key: restaurant.id, url: restaurant.id, handleMoveToProfile: this.goToRestaurantProfile },
-	        restaurant.description
-	      );
-	    }, this);
-	    return React.createElement(
-	      'div',
-	      { className: 'restaurantList' },
-	      restaurantNodes
-	    );
-	  }
-	});
-	
-	var RestaurantsModal = React.createClass({
-	  displayName: 'RestaurantsModal',
-	  getInitialState: function getInitialState() {
-	    return { showModal: false };
-	  },
-	  close: function close() {
-	    this.setState({ showModal: false });
-	  },
-	  open: function open() {
-	    this.setState({ showModal: true });
-	  },
-	  render: function render() {
-	    var popover = React.createElement(
-	      Popover,
-	      { id: 'modal-popover', title: 'popover' },
-	      'very popover. such engagement'
-	    );
-	    var tooltip = React.createElement(
-	      Tooltip,
-	      { id: 'modal-tooltip' },
-	      'wow.'
-	    );
-	
-	    return React.createElement(
-	      'div',
-	      null,
-	      React.createElement(
-	        Button,
-	        {
-	
-	          onClick: this.open
-	        },
-	        'Recent Restaurants'
-	      ),
-	      React.createElement(
-	        Modal,
-	        { show: this.state.showModal, onHide: this.close },
-	        React.createElement(
-	          Modal.Header,
-	          { closeButton: true },
-	          React.createElement(
-	            Modal.Title,
-	            null,
-	            'Recent Polls'
-	          )
-	        ),
-	        React.createElement(
-	          Modal.Body,
-	          null,
-	          React.createElement(RestaurantPage, { restaurants: this.props.restaurants, close: this.close })
-	        ),
-	        React.createElement(
-	          Modal.Footer,
-	          null,
-	          React.createElement(
-	            Button,
-	            { onClick: this.close },
-	            'Close'
-	          )
-	        )
-	      )
-	    );
-	  }
-	});
-	
-	module.exports = RestaurantsModal;
 
 /***/ }
 /******/ ]);

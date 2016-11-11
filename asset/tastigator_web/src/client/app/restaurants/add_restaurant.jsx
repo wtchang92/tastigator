@@ -7,6 +7,9 @@ var Input = ReactBootstrap.Input;
 var Button = ReactBootstrap.Button;
 var FormGroup = ReactBootstrap.FormGroup;
 var FormControl = ReactBootstrap.FormControl;
+import AlertContainer from 'react-alert';
+var AlertError = AlertContainer.error;
+
 
 var RestaurantForm = React.createClass({
   contextTypes: {
@@ -26,8 +29,7 @@ var RestaurantForm = React.createClass({
             this.context.router.replace('/app/restaurant/'+String(data.id));
       }.bind(this),
       error: function(xhr, status, err) {
-        this.setState({data: comments});
-        console.error(this.props.url, status, err.toString());
+        alert(String(xhr.responseText));
       }.bind(this)
     });
   },
@@ -57,6 +59,7 @@ var RestaurantForm = React.createClass({
     var city = this.state.city.trim();
     var state = this.state.state.trim();
     if (!name || !description || !street || !city || !state) {
+      alert('Missing required fields');
       return;
     }
     this.handleRestaurantSubmit({name: name, description: description, street:street, city:city, state:state});

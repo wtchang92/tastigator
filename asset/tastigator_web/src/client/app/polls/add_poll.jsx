@@ -230,6 +230,7 @@ var PollForm = React.createClass({
 
       }.bind(this),
       error: function(xhr, status, err) {
+        alert(xhr.responseText);
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });

@@ -2,13 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08cb3505-6093-4250-8121-06b80d1aeeda" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/polls/permissions.py" afterPath="$PROJECT_DIR$/polls/permissions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/restaurants/permissions.py" afterPath="$PROJECT_DIR$/restaurants/permissions.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/restaurants/serializers.py" afterPath="$PROJECT_DIR$/restaurants/serializers.py" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/AlertContainer.jsx" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tastigator/custom_storages.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/add_poll.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/add_poll.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/add_restaurant.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/add_restaurant.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/authentication/authentication.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/authentication/authentication.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js.map" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/package.json" afterPath="$PROJECT_DIR$/asset/tastigator_web/package.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastigator/settings.py" afterPath="$PROJECT_DIR$/tastigator/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/polls/views.py" afterPath="$PROJECT_DIR$/polls/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/restaurants/views.py" afterPath="$PROJECT_DIR$/restaurants/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tastigator.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -29,11 +32,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.259259">
-              <caret line="138" column="5" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.42218798">
+              <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="custom_storages.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tastigator/custom_storages.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -51,16 +64,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.0">
-              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/polls/views.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -71,21 +74,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="permissions.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="permissions.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/polls/permissions.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.24408284">
-              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+              <folding>
+                <marker date="1478834285000" expanded="true" signature="264:773" placeholder="..." />
+                <marker date="1478834285000" expanded="true" signature="486:773" placeholder="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/polls/models.py">
+      <file leaf-file-name="AlertContainer.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/asset/tastigator_web/src/client/app/AlertContainer.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="91" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="91" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -185,12 +191,13 @@
         <option value="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/poll_modal.jsx" />
         <option value="$PROJECT_DIR$/tastigator/urls.py" />
         <option value="$PROJECT_DIR$/templates/registration/login.html" />
-        <option value="$PROJECT_DIR$/tastigator/settings.py" />
         <option value="$PROJECT_DIR$/polls/views.py" />
         <option value="$PROJECT_DIR$/restaurants/views.py" />
         <option value="$PROJECT_DIR$/restaurants/serializers.py" />
         <option value="$PROJECT_DIR$/restaurants/permissions.py" />
         <option value="$PROJECT_DIR$/polls/permissions.py" />
+        <option value="$PROJECT_DIR$/asset/tastigator_web/src/client/app/AlertContainer.jsx" />
+        <option value="$PROJECT_DIR$/tastigator/settings.py" />
       </list>
     </option>
   </component>
@@ -490,6 +497,54 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="tastigator_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tastigator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tastigator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="asset" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tastigator_web" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node_modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="react-alert" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tastigator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tastigator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="asset" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -508,11 +563,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tastigator" />
       <recent name="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls" />
       <recent name="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants" />
       <recent name="$PROJECT_DIR$/asset/tastigator_web/src/client/app" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/polls" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/asset/tastigator_web/src/client/app/Foodies" />
@@ -1006,7 +1061,7 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
           <folding>
-            <element signature="e#0#41#0" expanded="true" />
+            <element signature="e#0#41#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1015,14 +1070,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-10.0">
           <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.259259">
-          <caret line="138" column="5" selection-start-line="138" selection-start-column="5" selection-end-line="138" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1091,8 +1138,35 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/polls/permissions.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24408284">
-          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <marker date="1478834285000" expanded="true" signature="264:773" placeholder="..." />
+            <marker date="1478834285000" expanded="true" signature="486:773" placeholder="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/asset/tastigator_web/src/client/app/AlertContainer.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastigator/custom_storages.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.42218798">
+          <caret line="149" column="0" selection-start-line="149" selection-start-column="0" selection-end-line="149" selection-end-column="0" />
           <folding />
         </state>
       </provider>
