@@ -38,12 +38,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #my apps
     'foodies',
     'restaurants',
     'polls',
 
+    #third party apps
     'rest_framework',
     'rest_framework.authtoken',
+    'rest_framework_swagger'
 ]
 
 MIDDLEWARE = [
@@ -58,21 +61,6 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'tastigator.urls'
 
-# TEMPLATES = [
-#     {
-#         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-#         'DIRS': [],
-#         'APP_DIRS': True,
-#         'OPTIONS': {
-#             'context_processors': [
-#                 'django.template.context_processors.debug',
-#                 'django.template.context_processors.request',
-#                 'django.contrib.auth.context_processors.auth',
-#                 'django.contrib.messages.context_processors.messages',
-#             ],
-#         },
-#     },
-# ]
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -142,9 +130,18 @@ USE_TZ = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        # 'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+
     )
+}
+
+LOGIN_URL = 'rest_framework:login'
+
+SWAGGER_SETTINGS = {
+    'is_authenticated': True,
+    'is_superuser': True,
+    'permission_denied_handler': 'django.contrib.auth.views.login',
 }
 
 

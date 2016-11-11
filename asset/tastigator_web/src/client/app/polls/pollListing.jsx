@@ -92,14 +92,16 @@ var PollPage= React.createClass({
     render: function() {
         return (
             <div>
+              <div className='text-align-center'>
+                <Button onClick={this.goAddPoll}>Add Poll</Button>
+              </div>
               <div className='component'>
-        
                   <Row className="text-align-center">
                       <Col xs={12} md={12}>
                           <PollList data={this.state.data} user={this.state.user}/>       
                       </Col>
                   </Row>
-                  </div>
+                </div>
            
             </div>
         )

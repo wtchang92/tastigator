@@ -101,7 +101,6 @@ class ThumbSerializer(serializers.ModelSerializer):
         return super(ThumbSerializer, self).create(validated_data)
 
 class FeedbackSerializer(serializers.ModelSerializer):
-    restaurant_name = serializers.ReadOnlyField(source="restaurant.name")
     class Meta:
         model = Feedback
         fields = ('id','url','added', 'review','foodie','message')

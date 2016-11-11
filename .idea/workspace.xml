@@ -2,30 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08cb3505-6093-4250-8121-06b80d1aeeda" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/add_poll.jsx" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/poll_modal.jsx" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/poll_detail.jsx" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/polls.jsx" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/templates/registration/login.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/db.sqlite3" afterPath="$PROJECT_DIR$/db.sqlite3" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/css/app.css" afterPath="$PROJECT_DIR$/asset/css/app.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/app.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/app.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/add_poll.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/add_poll.jsx" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/add_restaurant.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/add_restaurant.jsx" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js.map" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/public/bundle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/dashboard.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/dashboard.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/foodies/edit_foodie_profile.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/foodies/edit_foodie_profile.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/foodies/foodie_profile.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/foodies/foodie_profile.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/index.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/index.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/restaurants/models.py" afterPath="$PROJECT_DIR$/restaurants/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/navbar.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/navbar.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/foodies/permissions.py" afterPath="$PROJECT_DIR$/foodies/permissions.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/pollListing.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/pollListing.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/restaurant_profile.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/restaurant_profile.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/restaurants.jsx" afterPath="$PROJECT_DIR$/asset/tastigator_web/src/client/app/restaurants/restaurants.jsx" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/polls/serializers.py" afterPath="$PROJECT_DIR$/polls/serializers.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/restaurants/serializers.py" afterPath="$PROJECT_DIR$/restaurants/serializers.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/foodies/views.py" afterPath="$PROJECT_DIR$/foodies/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/polls/views.py" afterPath="$PROJECT_DIR$/polls/views.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/restaurants/views.py" afterPath="$PROJECT_DIR$/restaurants/views.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastigator/settings.py" afterPath="$PROJECT_DIR$/tastigator/settings.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tastigator/urls.py" afterPath="$PROJECT_DIR$/tastigator/urls.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="tastigator.iws" />
@@ -47,17 +33,17 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-14.037037">
-              <caret line="146" column="5" selection-start-line="146" selection-start-column="5" selection-end-line="146" selection-end-column="5" />
+            <state vertical-scroll-proportion="0.5146379">
+              <caret line="138" column="34" selection-start-line="138" selection-start-column="34" selection-end-line="138" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="poll_modal.jsx" pinned="false" current-in-tab="true">
+      <file leaf-file-name="poll_modal.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/poll_modal.jsx">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
@@ -92,21 +78,11 @@
       <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/restaurants/serializers.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-13.888889">
-              <caret line="25" column="119" selection-start-line="25" selection-start-column="119" selection-end-line="25" selection-end-column="119" />
+            <state vertical-scroll-proportion="-18.481482">
+              <caret line="106" column="55" selection-start-line="106" selection-start-column="55" selection-end-line="106" selection-end-column="55" />
               <folding>
                 <element signature="e#0#46#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="serializers.py" pinned="false" current-in-tab="false">
-        <entry file="file:///Library/Python/2.7/site-packages/rest_framework/serializers.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="499" column="16" selection-start-line="499" selection-start-column="4" selection-end-line="499" selection-end-column="16" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -125,7 +101,19 @@
         <entry file="file://$PROJECT_DIR$/tastigator/urls.py">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
+              <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+              <folding>
+                <element signature="e#0#41#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.0">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -161,6 +149,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="Html5" />
       </list>
     </option>
   </component>
@@ -194,7 +183,6 @@
         <option value="$PROJECT_DIR$/foodies/serializers.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/restaurants/admin.py" />
-        <option value="$PROJECT_DIR$/tastigator/urls.py" />
         <option value="$PROJECT_DIR$/restaurants/permissions.py" />
         <option value="$PROJECT_DIR$/templates/index.html" />
         <option value="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/pollListing.jsx" />
@@ -205,10 +193,12 @@
         <option value="$PROJECT_DIR$/polls/serializers.py" />
         <option value="$PROJECT_DIR$/polls/views.py" />
         <option value="$PROJECT_DIR$/asset/css/app.css" />
-        <option value="$PROJECT_DIR$/restaurants/serializers.py" />
         <option value="$PROJECT_DIR$/restaurants/views.py" />
-        <option value="$PROJECT_DIR$/tastigator/settings.py" />
         <option value="$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/poll_modal.jsx" />
+        <option value="$PROJECT_DIR$/tastigator/urls.py" />
+        <option value="$PROJECT_DIR$/templates/registration/login.html" />
+        <option value="$PROJECT_DIR$/restaurants/serializers.py" />
+        <option value="$PROJECT_DIR$/tastigator/settings.py" />
       </list>
     </option>
   </component>
@@ -273,6 +263,24 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tastigator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tastigator" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="templates" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="registration" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -522,6 +530,7 @@
     <property name="settings.editor.selected.configurable" value="terminal" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="last_opened_file_path" value="$USER_HOME$/djangoTutorial" />
+    <property name="DefaultHtmlFileTemplate" value="Html5" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -677,7 +686,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="85" y="23" width="1195" height="773" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1021,14 +1030,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tastigator/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Python/2.7/site-packages/rest_framework/serializers.py">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1042,16 +1043,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="23" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/restaurants/serializers.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-13.888889">
-          <caret line="25" column="119" selection-start-line="25" selection-start-column="119" selection-end-line="25" selection-end-column="119" />
-          <folding>
-            <element signature="e#0#46#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1093,18 +1084,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-14.037037">
-          <caret line="146" column="5" selection-start-line="146" selection-start-column="5" selection-end-line="146" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/asset/tastigator_web/src/client/app/polls/poll_modal.jsx">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastigator/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="40" selection-end-line="48" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/registration/login.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.0">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/restaurants/serializers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-18.481482">
+          <caret line="106" column="55" selection-start-line="106" selection-start-column="55" selection-end-line="106" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tastigator/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5146379">
+          <caret line="138" column="34" selection-start-line="138" selection-start-column="34" selection-end-line="138" selection-end-column="34" />
           <folding />
         </state>
       </provider>

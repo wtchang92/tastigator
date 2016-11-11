@@ -48473,7 +48473,7 @@
 	  render: function render() {
 	    return React.createElement(
 	      'div',
-	      { className: 'component' },
+	      { className: 'app_container' },
 	      React.createElement(
 	        Row,
 	        { className: 'sign-up-label text-align-center' },
@@ -49315,6 +49315,15 @@
 	    return React.createElement(
 	      'div',
 	      null,
+	      React.createElement(
+	        'div',
+	        { className: 'text-align-center' },
+	        React.createElement(
+	          Button,
+	          { onClick: this.goAddPoll },
+	          'Add Poll'
+	        )
+	      ),
 	      React.createElement(
 	        'div',
 	        { className: 'component' },
@@ -85691,7 +85700,7 @@
 	    }, this);
 	    return React.createElement(
 	      'div',
-	      null,
+	      { className: 'app_container' },
 	      React.createElement(
 	        Row,
 	        { className: 'sign-up-label text-align-center' },

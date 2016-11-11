@@ -11,6 +11,12 @@ from foodies.views import UserViewSet,FoodieViewSet, ProfileImageViewSet
 from restaurants.views import RestaurantViewSet,ReviewViewSet, ThumbViewSet, FeedbackViewSet
 from polls.views import PollViewSet, VoteViewSet
 
+from django.conf.urls import url
+from rest_framework_swagger.views import get_swagger_view
+from django .contrib.auth import views as auth_views
+
+schema_view = get_swagger_view(title='Tastigator API')
+
 router = DefaultRouter()
 
 # foodies api
@@ -40,6 +46,8 @@ urlpatterns = [
     url(r'^app/', csrf_exempt(TemplateView.as_view(template_name='index.html'))),
     url(r'^api/', include(api_urlpatterns)),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^login/$', auth_views.login,),
+    url(r'^docs/', schema_view),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
