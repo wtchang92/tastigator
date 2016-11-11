@@ -47,6 +47,10 @@ Use cases -
 
 The API is very "permission" driven. Permissions can be viewed in each app's permission.py file. All delete requests have been disabled. Deletions can only be carried out from the admin page or from a python shell. 
 
+## App structure
+	There are 3 django applications - foodies, restaurants, and polls
+	The client application resides in asset/tastigator_web
+
 ## Tests
 
 Tests can be run using the command, python manage.py test. Tests have been written for the restaurants and foodies apps. Due to time contrainst, tests will be written for the poll test in the future.
