@@ -101,10 +101,11 @@ class ThumbSerializer(serializers.ModelSerializer):
         return super(ThumbSerializer, self).create(validated_data)
 
 class FeedbackSerializer(serializers.ModelSerializer):
+    foodie_name = serializers.ReadOnlyField(source='foodie.user.username')
     class Meta:
         model = Feedback
-        fields = ('id','url','added', 'review','foodie','message')
-        read_only_fields = ('id','url','added','foodie')
+        fields = ('id','url','added', 'review','foodie','message','foodie_name')
+        read_only_fields = ('id','url','added','foodie','foodie_name')
 
     def create(self, validated_data):
         validated_data['foodie'] = self.context['request'].user.foodie

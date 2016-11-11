@@ -4,7 +4,7 @@ from .models import Poll, Vote
 from rest_framework import viewsets, response, permissions
 from .serializers import PollSerializer, VoteSerializer
 
-from .permissions import IsOwnerOrStaffElseReadonly_Vote, IsPollOwnerOrStaffElseReadonly_Vote
+from .permissions import IsOwnerOrStaffElseReadonly
 
 from rest_framework import filters
 
@@ -27,10 +27,7 @@ class PollViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend,)
     # filter_fields = ('circle',)
     filter_class = PollFilter
-    permission_classes = (permissions.IsAuthenticated,)
-    def get_permissions(self):
-        return (IsPollOwnerOrStaffElseReadonly_Vote() if self.request.method not in permissions.SAFE_METHODS
-                else permissions.IsAuthenticated()),
+    permission_classes = (IsOwnerOrStaffElseReadonly,)
 
     def retrieve(self, request, pk=None):
          query = Poll.objects.filter(id=pk)
@@ -74,8 +71,4 @@ class VoteViewSet(viewsets.ModelViewSet):
     serializer_class = VoteSerializer
     filter_backends = (filters.DjangoFilterBackend,)
     filter_fields = ('foodie','poll','choice',)
-    permission_classes = (permissions.IsAuthenticated,)
-
-    def get_permissions(self):
-        return (IsOwnerOrStaffElseReadonly_Vote() if self.request.method not in permissions.SAFE_METHODS
-                else permissions.IsAuthenticated()),
+    permission_classes = (IsOwnerOrStaffElseReadonly,)
